@@ -1,0 +1,21 @@
+{
+  "devDependencies": {
+    "node": "^16.6.1"
+  },
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "@discordjs/voice": "^0.6.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.2.0-dev.1632571378.839974c",
+    "express": "^4.17.1",
+    "figlet": "^1.5.2",
+    "fs": "^0.0.1-security",
+    "libsodium-wrappers": "^0.7.9",
+    "moment": "^2.29.1",
+    "mongoose": "^6.0.7",
+    "node-fetch": "^3.0.0",
+    "util": "^0.12.4",
+    "ytdl-core": "^4.9.1"
+  }
+}
