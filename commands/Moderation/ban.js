@@ -1,4 +1,4 @@
-const { Permissions, MessageEmbed } = require('discord.js');
+const { Permissions, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -22,30 +22,68 @@ module.exports = {
     if(!member.bannable || member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return await interaction.reply({ content: 'I can\'t ban this member!', ephemeral: true })
     if(days < 0 || days > 7) return await interaction.reply({ content: 'Invalid day number, this should be between 0 and 7.', ephemeral: true })
 
-    member.ban({ days: days, reason: reason })
-    const embed = new MessageEmbed()
-      .setColor("RED")
-      .setTitle("Member Banned")
-      .setDescription("Successfully banned that member.")
-      .addFields([
-        {
-          name: 'Member',
-          value: `<@${user.id}>`
-        },
-        {
-          name: 'Days of Messages Deleted',
-          value: `${days}`
-        },
-        {
-          name: 'Reason',
-          value: `${reason}`
-        }
-      ])
-    await interaction.reply({
-      embeds: [
-        embed
-      ],
-      ephemeral: true
+    const row = new MessageActionRow()
+      .addComponents(
+        new MessageButton()
+          .setStyle("SUCCESS")
+          .setLabel("YES")
+          .setCustomId("ban-yes")
+          .setEmoji("✅"),
+        new MessageButton()
+          .setStyle("DANGER")
+          .setLabel("NO")
+          .setCustomId("ban-no")
+          .setEmoji("❌")
+      )
+    await interaction.reply({ content: 'Are you sure you want to ban this member?\nYou have 30 seconds to confirm your action.', components: [row], ephemeral: true })
+
+    const filter = (btnInt) => {
+      return interaction.user.id == btnInt.user.id
+    }
+    const collector = interaction.channel.createMessageComponentCollector({
+      filter,
+      max: 1,
+      time: 1000 * 30
+    })
+
+    collector.on('end', async (collection) => {
+      collection.forEach((click) => {
+        console.log(click.user.id, click.customId)
+      })
+
+      if(collection.first()?.customId == 'ban-yes') {
+        member.ban({ days: days, reason: reason })
+        const embed = new MessageEmbed()
+          .setColor("RED")
+          .setTitle("Member Banned")
+          .setDescription("Successfully banned that member.")
+          .addFields([
+            {
+              name: 'Member',
+              value: `<@${user.id}>`
+            },
+            {
+              name: 'Days of Messages Deleted',
+              value: `${days}`
+            },
+            {
+              name: 'Reason',
+              value: `${reason}`
+            }
+          ])
+        await interaction.editReply({
+          content: 'Successfully banned that member!',
+          embeds: [
+            embed
+          ],
+          ephemeral: true,
+          components: []
+        })
+      } else if(collection.first()?.customId == 'ban-no') {
+        return await interaction.editReply({ content: 'The ban hammer swing has been cancelled.', ephemeral: true, components: [] })
+      } else {
+        return await interaction.editReply({ content: 'You didn\'t respond in time.', ephemeral: true, components: [] })
+      }
     })
   }
 }

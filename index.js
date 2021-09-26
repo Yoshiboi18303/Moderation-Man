@@ -20,13 +20,7 @@ const commandFolder = fs.readdirSync('./commands/');
   }
 
   await mongo(process.env.MONGO_CS)
-  .then(async (mongoose) => {
-    try {
-      console.log("MM >>> Connected to MongoDB!")
-    } finally {
-      await mongoose.connection.close()
-    }
-  })
+  .then(console.log("MM >>> Connected to MongoDB!"))
   .catch(e => console.error(e))
 
   client.handleEvents(eventFiles, "./events");
