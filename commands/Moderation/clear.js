@@ -6,6 +6,9 @@ module.exports = {
     .setName("clear")
     .setDescription("Purge a certain number of messages from the current channel!")
     .addIntegerOption(option => option.setName('messages').setDescription("Type in a number of messages to purge").setRequired(true)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return await interaction.reply({ content: "You don't have the `MANAGE_MESSAGES` permission, so you can't run this command!", ephemeral: true })
     const number_to_delete = interaction.options.getInteger('messages')

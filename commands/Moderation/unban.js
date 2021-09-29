@@ -6,6 +6,9 @@ module.exports = {
     .setName('unban')
     .setDescription('Unbans a member from the current server!')
     .addStringOption(option => option.setName('userid').setDescription("Type in the ID of the user to unban").setRequired(true)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     if(!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return await interaction.reply({ content: 'You don\'t have the `BAN_MEMBERS` permission, so you can\'t run this command!', ephemeral: true })
     const id = interaction.options.getString('userid')

@@ -6,6 +6,9 @@ module.exports = {
     .setName("chat")
     .setDescription("Chat with a chatbot!")
     .addStringOption(option => option.setName("message").setDescription("Type in a message to send to the chatbot!").setRequired(true)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     await interaction.deferReply()
     const message = interaction.options.getString("message")

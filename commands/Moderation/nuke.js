@@ -5,6 +5,9 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("nuke")
     .setDescription("Nukes the current channel (which deletes it) and rebuilds it fresh!"),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return await interaction.reply({ content: 'You don\'t have the `MANAGE_CHANNELS` permission, so you can\'t run this command!', ephemeral: true })
     const channel = interaction.channel

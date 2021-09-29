@@ -5,10 +5,18 @@ const warningSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  warnings: {
-    type: Number,
-    default: 0
+  guild: {
+    type: String,
+    default: ""
   },
+  channel: {
+    type: String,
+    default: ""
+  },
+  context: {
+    type: Array,
+    default: []
+  }
 })
 
-module.exports = mongoose.Model("user-warnings", warningSchema)
+module.exports = mongoose.model("user-warnings", warningSchema)

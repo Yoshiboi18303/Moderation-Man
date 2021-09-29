@@ -1,7 +1,12 @@
 console.clear();
 const { Client, Collection } = require('discord.js');
 const fs = require('fs');
-const client = new Client({ intents: 32767 });
+const client = new Client({ 
+  intents: 32767,
+  allowedMentions: {
+    parse: ['users','roles']
+  }
+});
 const token = process.env.TOKEN;
 const mongo = require('./mongo');
 

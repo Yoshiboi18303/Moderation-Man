@@ -8,6 +8,9 @@ module.exports = {
     .addUserOption(option => option.setName('user').setDescription("The user to ban.").setRequired(true))
     .addIntegerOption(option => option.setName('days').setDescription("How many days of messages to delete").setRequired(false))
     .addStringOption(option => option.setName('reason').setDescription("The reason for the ban.").setRequired(false)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     var user = interaction.options.getUser('user')
     var member = interaction.options.getMember('user')
@@ -71,6 +74,24 @@ module.exports = {
               value: `${reason}`
             }
           ])
+        const log_embed = new MessageEmbed()
+          .setColor("RED")
+          .setTitle("Member Banned")
+          .setDescription("A member was banned.")
+          .addFields([
+            {
+              name: 'Member',
+              value: `<@${user.id}>`
+            },
+            {
+              name: 'Days of Messages Deleted',
+              value: `${days}`
+            },
+            {
+              name: 'Reason',
+              value: `${reason}`
+            }
+          ])
         await interaction.editReply({
           content: 'Successfully banned that member!',
           embeds: [
@@ -79,6 +100,11 @@ module.exports = {
           ephemeral: true,
           components: []
         })
+        // log.send({
+        //   embeds: [
+        //     log_embed
+        //   ]
+        // })
       } else if(collection.first()?.customId == 'ban-no') {
         return await interaction.editReply({ content: 'The ban hammer swing has been cancelled.', ephemeral: true, components: [] })
       } else {

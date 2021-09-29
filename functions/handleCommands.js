@@ -20,7 +20,7 @@ module.exports = (client) => {
   (async () => {
 	   try {
        const clientID = "891070722074611742"
-       const guildID = "879563241532051476"
+       const guildIDs = ["879563241532051476"]
 	    	console.log('Started refreshing application (/) commands.');
 
 	    	await rest.put(

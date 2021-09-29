@@ -7,6 +7,9 @@ module.exports = {
     .setDescription("Kick a member from your server for breaking your rules!")
     .addUserOption(option => option.setName('user').setDescription("The user to kick.").setRequired(true))
     .addStringOption(option => option.setName('reason').setDescription("The reason for the kick.").setRequired(false)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     var user = interaction.options.getUser('user')
     var member = interaction.options.getMember('user')

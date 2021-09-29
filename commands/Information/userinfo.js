@@ -22,6 +22,9 @@ module.exports = {
     .setName("userinfo")
     .setDescription("Shows info of a user (or yourself)!")
     .addUserOption(option => option.setName('user').setDescription("Choose a user to look for").setRequired(false)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     await interaction.deferReply()
     const user = interaction.options.getUser('user') || interaction.user

@@ -6,6 +6,9 @@ module.exports = {
     .setName("bugreport")
     .setDescription(`Report a bug on the client to the owner!`)
     .addStringOption(option => option.setName("bug").setDescription("Type in the bug to report").setRequired(true)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     const owner = client.users.cache.get('697414293712273408')
     const bug = interaction.options.getString("bug")
@@ -30,7 +33,7 @@ module.exports = {
     setTimeout(async function() {
       await owner.send({
         embeds: [
-        new_bug_reported_embed
+          new_bug_reported_embed
         ]
       })
       await interaction.editReply(`Your bug has been reported to **${owner.tag}**!`)

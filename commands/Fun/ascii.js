@@ -9,6 +9,9 @@ module.exports = {
     .setName('ascii')
     .setDescription("Shows your text in Ascii!")
     .addStringOption(option => option.setName('text').setDescription("Type in the text you want to be turned into Ascii (max characters: 20)!").setRequired(true)),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     const text = interaction.options.getString('text')
 
@@ -16,7 +19,7 @@ module.exports = {
 
     const embed = new MessageEmbed()
       .setColor("RANDOM")
-      .setTitle("Ascii Text")
+      .setTitle("Ascii Result")
       .setDescription("```" + result + "```")
       .setTimestamp();
 

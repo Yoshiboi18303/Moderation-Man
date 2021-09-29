@@ -5,6 +5,9 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("meme")
     .setDescription("Gets a random meme and sends it in an embed!"),
+  options: {
+    guildOnly: false
+  },
   async execute(interaction) {
     await interaction.deferReply()
     const fetch = await import('node-fetch');
