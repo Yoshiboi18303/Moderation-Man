@@ -10,7 +10,7 @@ module.exports = {
     .addSubcommand(subcommand => subcommand.setName("all").setDescription("Remove all of the warnings from a user!").addUserOption(option => option.setName("user").setDescription("Select a user to remove all of the warnings from").setRequired(true))),
   async execute(interaction) {
     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return await interaction.reply({ content: "You don't have the `MANAGE_MESSAGES` permission, so you can't run this command!", ephemeral: true })
-    if(interaction.options.getSubCommand() === "one") {
+    if(interaction.options.getSubcommand() === "one") {
       await interaction.deferReply()
       const user = interaction.options.getUser('user')
       let wn = interaction.options.getInteger("warning_number")
@@ -28,7 +28,7 @@ module.exports = {
           return await interaction.editReply({ content: "This user does not have any warnings!", ephemeral: true })
         }
       })
-    } else if(interaction.options.getSubCommand() === "all") {
+    } else if(interaction.options.getSubcommand() === "all") {
       await interaction.deferReply()
       const user = interaction.options.getUser('user')
       Warnings.findOne({
