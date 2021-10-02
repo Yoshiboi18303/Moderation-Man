@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageAttachment } = require('discord.js');
 const util = require('util');
 const Warnings = require('../../schemas/warningSchema');
+const Channels = require('../../schemas/channelSchema');
 
 module.exports = {
   data: new SlashCommandBuilder()

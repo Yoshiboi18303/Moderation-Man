@@ -8,10 +8,11 @@ const client = new Client({
   }
 });
 const token = process.env.TOKEN;
-const mongo = require('./mongo');
 
-global.client = client
-global.moment = require('moment')
+global.Discord = require('discord.js');
+global.client = client;
+global.moment = require('moment');
+global.ms = require('ms');
 
 client.commands = new Collection();
 
@@ -23,10 +24,6 @@ const commandFolder = fs.readdirSync('./commands/');
   for(const file of functions) {
     require(`./functions/${file}`)(client)
   }
-
-  await mongo(process.env.MONGO_CS)
-  .then(console.log("MM >>> Connected to MongoDB!"))
-  .catch(e => console.error(e))
 
   client.handleEvents(eventFiles, "./events");
   client.handleCommands(commandFolder, "./commands")

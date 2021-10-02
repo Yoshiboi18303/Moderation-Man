@@ -50,10 +50,6 @@ module.exports = {
     })
 
     collector.on('end', async (collection) => {
-      collection.forEach((click) => {
-        console.log(click.user.id, click.customId)
-      })
-
       if(collection.first()?.customId == 'ban-yes') {
         member.ban({ days: days, reason: reason })
         const embed = new MessageEmbed()

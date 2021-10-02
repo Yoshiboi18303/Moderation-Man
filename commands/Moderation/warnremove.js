@@ -22,7 +22,7 @@ module.exports = {
         if(err) throw err;
         if(data) {
           data.context.splice(wn, 1)
-          await interaction.editReply({ content: `Warn ${wn + 1} deleted!` })
+          await interaction.editReply({ content: `Warn #${wn + 1} deleted!` })
           data.save()
         } else {
           return await interaction.editReply({ content: "This user does not have any warnings!", ephemeral: true })
@@ -41,6 +41,7 @@ module.exports = {
             user: user.id,
             guild: interaction.guild.id
           })
+          await interaction.editReply({ content: `Successfully removed all warnings from **${user.username}**!` })
         } else {
           return await interaction.editReply({ content: "This user does not have any warnings!", ephemeral: true })
         }
