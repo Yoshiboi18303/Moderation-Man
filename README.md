@@ -22,7 +22,7 @@ The command prefix right now is `/`
 ## Worried about your data?
 Well then check out the [Privacy Policy](https://github.com/Yoshiboi18303/Moderation-Man/blob/main/PRIVACY.md) to see what the developer collects!
 
-You can also join the [Support Server]() if you want to contact `Yoshiboi18303#4045` and tell him any concerns you have!
+You can also join the [Support Server](https://discord.gg/nv4pyCXBnr) if you want to contact `Yoshiboi18303#4045` and tell him any concerns you have!
 
 ---
 
