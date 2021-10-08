@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+	<%- include('includes/head', { title: "Commands" }) %>
+</head>
+<body>
+  <a href="/"><img src="/static/img/icon.png" alt="Bot Avatar" class="avatar"></a>
+  <section class="main-content">
+    <p>To see all the commands in Discord, run <code>/help</code>!</p>
+
+    <% commands.forEach(({ name, value }) => { %>
+      <table class="command-table">
+        <h1 style="text-align: center;">
+          <%= name %>
+        </h1>
+        <tr>
+          <th>Command Name</th>
+          <th>Description</th>
+          <th>Options</th>
+        </tr>
+        <% value.forEach(({ name, description, options }) => { %>
+          <tr>
+            <td><%= name %></td>
+            <td><%= description %></td>
+            <td>
+              <% typeof options == 'string' ? options : options.join(', ') %>
+            </td>
+          </tr>
+        <% })%>
+      </table>
+    <%}) %>
+  </section>
+</body>
+</html>

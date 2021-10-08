@@ -13,6 +13,7 @@ global.Discord = require('discord.js');
 global.client = client;
 global.moment = require('moment');
 global.ms = require('ms');
+global.emojis = require('./emojis.json');
 
 client.commands = new Collection();
 

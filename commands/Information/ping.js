@@ -9,8 +9,8 @@ module.exports = {
     guildOnly: false
   },
   async execute(interaction) {
-    await interaction.reply("Pinging...")
+    await interaction.reply(`Pinging... ${emojis.wait}`)
     await wait(5000)
-    await interaction.followUp(`Pong! **${client.ws.ping}ms**`)
+    await interaction.editReply(`${emojis.yes} | Pong! **${client.ws.ping}ms**`)
   }
 }

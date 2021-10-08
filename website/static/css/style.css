@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+
+.btn {
+  background-color: #2C2F33;
+  color: #1AA415;
+  font-size: 15px;
+  transition-duration: 0.5s;
+  border: 2px solid #4CAF25;
+  border-radius: 8px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #4CAF25;
+  color: white;
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 145%;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #7289DA;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Fredoka One';
+  text-align: center;
+  font-size: 300%;
+  color: #00AEFF;
+}
+
+.description {
+  color: rgb(180, 180, 255);
+  text-align: center;
+  font-family: 'Fredoka One'
+}
+
+.avatar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid #4CAF50;
+  border-radius: 100%;
+  width: 200px;
+	height: 200px;
+  -webkit-transform: -webkit-transform .8s ease-in-out;
+  transition: transform .8s ease-in-out;
+}
+
+.avatar:hover {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+p,
+span {
+  color: #4CAF25;
+}
+
+body {
+  background-color: #2C2F33;
+}
+
+h3 {
+  color: #7289DA;
+  font-family: 'Knewave';
+  text-align: center;
+  font-size: 150%;
+}
+
+hr {
+  border-color: #4CAF35;
+}
+
+.command-table {
+  width: 100%;
+  background-color: #2C2F33;
+}

@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+	<%- include('includes/head', { title: "Home" }) %>
+</head>
+<div>
+  <header>
+    <h1>Moderation Man</h1>
+    <img src="/static/img/icon.png" alt="Bot Avatar" class="avatar">
+    <h3>The only bot you'll need!</h3>
+    <p class="description">This is Moderation Man, the only Discord Bot you'll need in your Discord Server!</p>
+  </header>
+  <body>
+    <br>
+    <h2>Click on any of these buttons to be redirected.</h2>
+    <div class="buttons">
+      <button class="btn" onclick="location.href='/cmds'">Commands</button>
+      <button class="btn" onclick="location.href='https://discord.com/api/oauth2/authorize?client_id=891070722074611742&permissions=141733915895&scope=bot%20applications.commands'">Invite</button>
+      <button class="btn" onclick="location.href='https://discord.gg/nv4pyCXBnr'">Support</button>
+			<!-- <br> -->
+			<!-- <button class="btn" onclick="location.href='/info'">
+				More Info
+			</button> -->
+    </div>
+  </body>
+</div>
+</html>
