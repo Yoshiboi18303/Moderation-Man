@@ -8,6 +8,11 @@ A bot suggested by Burn
 
 ---
 
+# Invite
+Click [this](https://discord.com/api/oauth2/authorize?client_id=891070722074611742&permissions=8&scope=bot%20applications.commands) to invite Moderation Man!
+
+---
+
 # Commands
 Here are the commands supported for Moderation Man!
 
