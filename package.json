@@ -20,7 +20,6 @@
     "figlet": "^1.5.2",
     "fs": "^0.0.1-security",
     "libsodium-wrappers": "^0.7.9",
-    "man-db": "^1.0.3",
     "moment": "^2.29.1",
     "mongoose": "^6.0.7",
     "ms": "^2.1.3",
