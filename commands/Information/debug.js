@@ -38,7 +38,6 @@ module.exports = {
       switch(permission_choice) {
         case "c":
           var permissions_c = interaction.guild.me.permissions.toArray()
-          // console.log(permissions_c)
           function check_c_permissions(p_array) {
             var pa = []
             for(var p in p_array) {
