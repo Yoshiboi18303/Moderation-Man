@@ -33,6 +33,16 @@ That's the end of the Privacy Policy, but please remember number 6 if you have a
 
 # Links
 
+## H1 Links
 [Chapters](#chapters)
 
 [Privacy Policy](#privacy-policy)
+
+---
+
+## Other Links
+[Top.gg Bot](https://top.gg/bot/891070722074611742)
+
+[Discord Lists Bot](https://discordlists100.xyz/bot/891070722074611742)
+
+[GitHub Repository](https://github.com/Yoshiboi18303/Moderation-Man)
