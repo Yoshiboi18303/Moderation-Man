@@ -29,4 +29,14 @@ function getCommands() {
   return categories;
 }
 
-module.exports = { getCommands }
+function convertToLowerCase(string) {
+  if(typeof string != 'string') throw new TypeError("String argument must be a type of string.")
+  return string.toLowerCase()
+}
+
+function convertToUpperCase(string) {
+  if(typeof string != 'string') throw new TypeError("String argument must be a type of string.")
+  return string.toUpperCase()
+}
+
+module.exports = { getCommands, convertToLowerCase, convertToUpperCase }

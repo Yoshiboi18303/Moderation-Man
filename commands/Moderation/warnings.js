@@ -17,7 +17,7 @@ module.exports = {
       if(err) throw err
       if(data) {
         const e = data.context.map(
-          (w, i) => `\n\`${i + 1}\` - Moderator: **${interaction.guild.members.cache.get(w.moderator).user.tag}**, Reason: "${w.reason}"`
+          (w, i) => `\n\`${i + 1}\` - Moderator: **${interaction.guild.members.cache.get(w.moderator).user.tag}** - Reason: "${w.reason}" - Severity: ${w.severity.toUpperCase()}`
         )
         const warnings_embed = new MessageEmbed()
           .setColor("YELLOW")
@@ -26,7 +26,9 @@ module.exports = {
           .setDescription(`${e.join('\n')}`)
         await interaction.reply({ embeds: [
           warnings_embed
-        ] })
+        ],
+        ephemeral: true
+        })
       } else {
         return await interaction.reply({ content: "This user doesn't have any warnings!", ephemeral: true })
       }

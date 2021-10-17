@@ -1,20 +1,23 @@
 const Warnings = require('../../schemas/warningSchema');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions, MessageActionRow, MessageButton } = require('discord.js');
+const { convertToLowerCase } = require('../../utils');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("warn")
     .setDescription("Warn a user for breaking your rules!")
     .addUserOption(option => option.setName("user").setDescription("Choose a user to warn").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("Type in a reason for this warn").setRequired(true)),
+    .addStringOption(option => option.setName("reason").setDescription("Type in a reason for this warn").setRequired(true))
+    .addStringOption(option => option.setName("severity").setDescription("The severity of this warn").setRequired(true).addChoice('low', 'LOW').addChoice('medium', 'MEDIUM').addChoice('high', 'HIGH')),
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply({ ephemeral: true })
     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return await interaction.editReply({ content: "You don't have the `MANAGE_MESSAGES` permission, so you can't run this command!", ephemeral: true })
     const user = interaction.options.getUser("user")
     if(user.id == client.user.id) return await interaction.editReply({ content: "You can't warn the client!", ephemeral: true })
     if(user.id == interaction.user.id) return await interaction.editReply({ content: "You can't warn yourself!", ephemeral: true })
     const reason = interaction.options.getString("reason")
+    const severity = interaction.options.getString("severity")
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()
@@ -40,6 +43,8 @@ module.exports = {
       time: 1000 * 30
     })
 
+    var lower_severity = convertToLowerCase(severity)
+
     collector.on('end', async (collection) => {
       if(collection.first()?.customId == 'warning-confirm') {
         Warnings.findOne({ 
@@ -53,19 +58,21 @@ module.exports = {
               id: user.id,
               context: [{
                 moderator: interaction.user.id,
-                reason: reason
+                reason: reason,
+                severity: lower_severity
               }]
             })
           } else {
             const object = {
               moderator: interaction.user.id,
-              reason: reason
+              reason: reason,
+              severity: lower_severity
             }
             data.context.push(object)
           }
           data.save()
         })
-        await interaction.editReply({ content: `Successfully warned **${user.username}**!`, ephemeral: true, components: [] })
+        await interaction.editReply({ content: `Successfully warned **${user.username}** with \`${severity}\` severity!`, ephemeral: true, components: [] })
         if(!user.bot) {
           user.send({ content: `You have been warned in **${interaction.guild.name}** by moderator **${interaction.user.username}** for reason "${reason}"` })
         } else {

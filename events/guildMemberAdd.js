@@ -7,7 +7,7 @@ const bot_role_id = "892611367461326859";
 
 module.exports = {
   name: 'guildMemberAdd',
-  async execute(member, client) {
+  async execute(member) {
     if(member.guild.id == guild_id) {
       if(!member.user.bot) {
         var user = member.user;

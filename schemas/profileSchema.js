@@ -34,7 +34,8 @@ const profileSchema = mongoose.Schema({
     default: {
       items: {
         work_boosters: 0,
-        nukes: 0
+        nukes: 0,
+        computers: 0
       }
     }
   },

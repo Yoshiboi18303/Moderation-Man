@@ -59,17 +59,25 @@ module.exports = {
               value: `${data.vault_level}`,
               inline: true
             },
-            // {
-            //   name: 'Started At',
-            //   value: `${moment.utc(data.startedAt).format("LL - LTS")}`
-            // },
+            {
+              name: 'Computers',
+              value: `${data.inventory.items.computers}`,
+              inline: true
+            },
+            {
+              name: 'Started At',
+              value: `${moment.utc(data.startedAt).format("LL - LTS")}`,
+              inline: true
+            },
             {
               name: 'Coins Away From Max Vault Capacity (vault coins)',
-              value: `${cafvc_vc}`
+              value: `${cafvc_vc}`,
+              inline: true
             },
             {
               name: 'Coins Away From Max Vault Capacity (pocket coins)',
-              value: `${cafvc_pc}`
+              value: `${cafvc_pc}`,
+              inline: true
             }
           ])
         await interaction.editReply({ embeds: [profile_embed] })

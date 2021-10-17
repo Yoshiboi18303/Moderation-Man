@@ -10,7 +10,7 @@ module.exports = {
     await mongo(process.env.MONGO_CS)
     .then(console.log("MM >>> Connected to MongoDB!"))
     .catch(e => console.error(e))
-    const statuses = [`${client.guilds.cache.get('879563241532051476').name}`, `${client.users.cache.size} Users`, `discord.js v13`, `Coded by ${client.users.cache.get('697414293712273408').tag}`]
+    const statuses = [`${client.guilds.cache.get('892603177248096306').name}`, `${client.users.cache.size} Users`, `discord.js v13`, /* `Coded by ${client.users.cache.get('697414293712273408').tag}`*/]
     console.log(`${client.user.username} has logged on!`)
     setInterval(() => {
       const status = statuses[Math.floor(Math.random() * statuses.length)]

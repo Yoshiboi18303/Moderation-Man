@@ -9,10 +9,6 @@ const warningSchema = mongoose.Schema({
     type: String,
     default: ""
   },
-  channel: {
-    type: String,
-    default: ""
-  },
   context: {
     type: Array,
     default: []

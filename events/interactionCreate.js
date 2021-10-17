@@ -3,11 +3,13 @@ module.exports = {
   async execute(interaction, client) {
     if(interaction.isCommand()) {
       const command = client.commands.get(interaction.commandName)
+      var timeouts = []
 
       if(!command) return;
 
       console.log(`Trying to execute command "${interaction.commandName}"...`)
       try {
+        if()
         await command.execute(interaction)
       } catch(e) {
         console.error(e)

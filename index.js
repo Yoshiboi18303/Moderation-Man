@@ -14,6 +14,7 @@ global.client = client;
 global.moment = require('moment');
 global.ms = require('ms');
 global.emojis = require('./emojis.json');
+global.colors = require('./colors.json');
 
 client.commands = new Collection();
 

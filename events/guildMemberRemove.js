@@ -2,11 +2,10 @@ const { MessageEmbed } = require('discord.js');
 const colors = require('../colors.json');
 const log_id = "892607019138310205";
 const guild_id = "892603177248096306";
-const Warnings = require('../schemas/warningSchema');
 
 module.exports = {
   name: 'guildMemberRemove',
-  async execute(member, client) {
+  async execute(member) {
     if(member.guild.id == guild_id) {
       var user = member.user;
       var guild = member.guild;

@@ -5,14 +5,10 @@ const channelSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  c_type: {
-    type: String,
-    default: ""
+  c: {
+    type: Object,
+    default: {}
   },
-  id: {
-    type: String,
-    default: ""
-  }
 })
 
 module.exports = mongoose.model("guild-channels", channelSchema)
