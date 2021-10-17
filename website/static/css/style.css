@@ -17,6 +17,12 @@
   text-align: center;
 }
 
+.topgg-bot-widget {
+  position: relative;
+  left: 518px;
+  top: 5px;
+}
+
 .btn:hover {
   background-color: #4CAF25;
   color: white;

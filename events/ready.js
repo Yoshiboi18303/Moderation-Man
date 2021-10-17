@@ -8,7 +8,7 @@ module.exports = {
   async execute() {
     require('../website/app')
     await mongo(process.env.MONGO_CS)
-    .then(console.log("MM >>> Connected to MongoDB!"))
+    .then(console.log("M-TEST-M >>> Connected to MongoDB!"))
     .catch(e => console.error(e))
     const statuses = [`${client.guilds.cache.get('892603177248096306').name}`, `${client.users.cache.size} Users`, `discord.js v13`, /* `Coded by ${client.users.cache.get('697414293712273408').tag}`*/]
     console.log(`${client.user.username} has logged on!`)
