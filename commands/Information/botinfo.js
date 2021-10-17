@@ -53,7 +53,7 @@ module.exports = {
         },
         {
           name: "Date Created",
-          value: `${moment.utc(client.user.createdTimestamp).format("MM/DD/YYYY || HH:MM:SS -- LL LTS")}`,
+          value: `${moment.utc(client.user.createdTimestamp).format("LL LTS AT")}`,
           inline: true
         },
         {
