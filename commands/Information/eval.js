@@ -13,7 +13,7 @@ module.exports = {
     guildOnly: false
   },
   async execute(interaction) {
-    if(interaction.user.id != "697414293712273408") return await interaction.reply({ content: 'You are **NOT** the owner of this bot!', ephemeral: true })
+    if(interaction.user.id != config.bot.owner) return await interaction.reply({ content: 'You are **NOT** the owner of this bot!', ephemeral: true })
     const code = interaction.options.getString("code")
     await interaction.deferReply()
     var result = new Promise((resolve, reject) => {

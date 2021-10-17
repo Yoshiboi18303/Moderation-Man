@@ -9,7 +9,6 @@ module.exports = {
 
       console.log(`Trying to execute command "${interaction.commandName}"...`)
       try {
-        if()
         await command.execute(interaction)
       } catch(e) {
         console.error(e)

@@ -17,7 +17,7 @@ module.exports = {
       "#8716D5",
       "#00FFFB",
       "#8BFF8D",
-      "7289DA"
+      "#7289DA"
     ]
     var random_color = color_array[Math.floor(Math.random() * color_array.length)]
     var state = config.bot.state.replace("::", "-")
