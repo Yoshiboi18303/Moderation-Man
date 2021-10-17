@@ -23,6 +23,7 @@ module.exports = {
     var secrets = [
       process.env.TOKEN,
       process.env.KEY,
+      process.env.MONGO_CS,
       client.token
     ]
 
