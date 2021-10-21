@@ -10,6 +10,7 @@ module.exports = {
   },
   async execute(interaction) {
     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return await interaction.reply({ content: 'You don\'t have the `MANAGE_CHANNELS` permission, so you can\'t run this command!', ephemeral: true })
+    if(!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return await interaction.reply({ content: "I require the `MANAGE_CHANNELS` permission for this command!", ephemeral: true })
     const channel = interaction.channel
     // console.log(interaction.channel)
     // interaction.reply({ content: 'Check the console!', ephemeral: true })

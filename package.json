@@ -1,6 +1,10 @@
 {
   "name": "moderation-man",
   "version": "1.0.0",
+  "scripts": {
+    "start": "node .",
+    "npx": "npx node ."
+  },
   "devDependencies": {
     "node": "^16.6.1"
   },

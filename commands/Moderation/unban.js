@@ -11,6 +11,7 @@ module.exports = {
   },
   async execute(interaction) {
     if(!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return await interaction.reply({ content: 'You don\'t have the `BAN_MEMBERS` permission, so you can\'t run this command!', ephemeral: true })
+    if(!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return await interaction.reply({ content: "I can't run this command!", ephemeral: true })
     const id = interaction.options.getString('userid')
 
     interaction.guild.members.unban(id)

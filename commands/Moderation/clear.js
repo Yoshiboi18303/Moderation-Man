@@ -11,6 +11,7 @@ module.exports = {
   },
   async execute(interaction) {
     if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return await interaction.reply({ content: "You don't have the `MANAGE_MESSAGES` permission, so you can't run this command!", ephemeral: true })
+    if(!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return await interaction.reply({ content: "I require the `MANAGE_MESSAGES` permission for this command!", ephemeral: true })
     const number_to_delete = interaction.options.getInteger('messages')
     if(number_to_delete > 100) return await interaction.reply("You can only purge 100 messages at a time!")
     interaction.channel.bulkDelete(number_to_delete)

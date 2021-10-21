@@ -2,6 +2,7 @@ const Warnings = require('../../schemas/warningSchema');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions, MessageActionRow, MessageButton } = require('discord.js');
 const { convertToLowerCase } = require('../../utils');
+const hold = require('util').promisify(setTimeout);
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -31,7 +32,7 @@ module.exports = {
           .setEmoji("❌")
           .setCustomId("warning-cancel")
       )
-    await interaction.editReply({ content: "Are you sure you want to warn this member?\nYou have 30 seconds to confirm your action.", ephemeral: true, components: [row] })
+    await interaction.editReply({ content: "❓ Are you sure you want to warn this member?\nYou have 30 seconds to confirm your action. ⏲️", ephemeral: true, components: [row] })
 
     const filter = (btnInt) => {
       return interaction.user.id === btnInt.user.id
@@ -47,6 +48,7 @@ module.exports = {
 
     collector.on('end', async (collection) => {
       if(collection.first()?.customId == 'warning-confirm') {
+        await interaction.editReply({ content: `Warning ${user.username}... ${emojis.wait}`, ephemeral: true, components: [] })
         Warnings.findOne({ 
           id: user.id,
           guild: interaction.guild.id
@@ -72,16 +74,15 @@ module.exports = {
           }
           data.save()
         })
-        await interaction.editReply({ content: `Successfully warned **${user.username}** with \`${severity}\` severity!`, ephemeral: true, components: [] })
+        await hold(2500)
+        await interaction.editReply({ content: `Successfully warned **${user.username}** with \`${severity}\` severity! ${emojis.yes}`, ephemeral: true })
         if(!user.bot) {
-          user.send({ content: `You have been warned in **${interaction.guild.name}** by moderator **${interaction.user.username}** for reason "${reason}"` })
-        } else {
-          return
+          user.send({ content: `⚠️ You have been warned in **${interaction.guild.name}** by moderator **${interaction.user.username}** for reason "${reason}"` })
         }
       } else if(collection.first()?.customId == 'warning-cancel') {
-        await interaction.editReply({ content: 'The yellow flag has been cancelled.', ephemeral: true, components: [] })
+        await interaction.editReply({ content: `The yellow flag has been cancelled.`, ephemeral: true, components: [] })
       } else {
-        await interaction.editReply({ content: "You didn't respond in time.", ephemeral: true, components: [] })
+        await interaction.editReply({ content: `${emojis.nope} You didn't respond in time.`, ephemeral: true, components: [] })
       }
     })
   }
