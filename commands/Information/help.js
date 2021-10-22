@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,6 +26,19 @@ module.exports = {
     for(var [id, cmd] of client.commands) {
       help_embed.addField(`${cmd.data.name}`, `Description: ${cmd.data.description}\nUsage: \`/${cmd.data.name}\``, true)
     }
-    await interaction.editReply({ embeds: [help_embed] })
+    var website_link = "https://Modetestion-Man.yoshiboi18303.repl.co"
+    var support_link = "https://discord.gg/WVyUqBjVah"
+    const link_row = new MessageActionRow()
+      .addComponents(
+        new MessageButton()
+          .setStyle("LINK")
+          .setLabel("Website")
+          .setURL(website_link),
+        new MessageButton()
+          .setStyle("LINK")
+          .setLabel("Support Server")
+          .setURL(support_link)
+      )
+    await interaction.editReply({ embeds: [help_embed], components: [link_row] })
   }
 }
