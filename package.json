@@ -1,8 +1,8 @@
 {
-  "name": "moderation-man",
+  "name": "modetestion-man",
   "version": "1.0.0",
   "scripts": {
-    "start": "node .",
+    "node": "node .",
     "npx": "npx node ."
   },
   "devDependencies": {
@@ -15,7 +15,7 @@
     "bufferutil": "^4.0.4",
     "connect-mongo": "^4.6.0",
     "discord-api-types": "^0.23.1",
-    "discord.js": "^13.3.0-dev.1633608187.d32956c",
+    "discord.js": "^13.3.0-dev.1634861108.579569a",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "express": "^4.17.1",
@@ -30,6 +30,7 @@
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",
     "utf-8-validate": "^5.0.6",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "weather-js": "^2.0.0"
   }
 }
