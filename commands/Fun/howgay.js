@@ -11,7 +11,7 @@ module.exports = {
     var user = interaction.options.getUser("user") || interaction.user;
     var member = interaction.options.getMember("user") || interaction.member;
     var thumbnail = "https://some-random-api.ml/canvas/gay?avatar=%a".replace("%a", user.displayAvatarURL({ dynamic: true, format: 'png', size: 256 }))
-    var how_gay = Math.round(Math.random() * 100)
+    var how_gay = Math.round(Math.random() * 101)
     if(member.displayHexColor == "#000000") {
       color = "RANDOM"
     } else {

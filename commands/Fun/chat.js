@@ -10,6 +10,7 @@ module.exports = {
     guildOnly: false
   },
   async execute(interaction) {
+    return await interaction.reply({ content: 'This command is broken and will be fixed soon!' })
     await interaction.deferReply()
     const message = interaction.options.getString("message")
     const fetch = await import('node-fetch');
