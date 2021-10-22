@@ -29,7 +29,7 @@ module.exports = {
         if(money_to_deposit > coins) return await interaction.reply({ content: `You are depositing way too much!\nYour amount of coins is ${coins} right now.`, ephemeral: true })
         var vc_plus = vc + money_to_deposit
         var coins_minus = coins - money_to_deposit
-        if(vc_plus > vm) return await interaction.reply({ content: "Your vault is at max capacity! Run `/upgrade` to upgrade your vault capacity!", ephemeral: true })
+        if(vc_plus > vm) return await interaction.reply({ content: "Your vault is (or will be) at max capacity! Run `/upgrade` to upgrade your vault capacity!", ephemeral: true })
         data = await Profiles.findOneAndUpdate({
           id: interaction.user.id
         },
