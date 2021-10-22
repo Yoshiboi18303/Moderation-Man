@@ -9,26 +9,18 @@ module.exports = {
     if(member.guild.id == guild_id) {
       var user = member.user;
       var guild = member.guild;
-      // Warnings.findOne({ id: user.id, guild: guild.id }, async (err, data) => {
-      //   if(err) throw err
-      //   if(data) {
-      //     data.delete()
-      //     console.log(`Deleted all warning data on ${user.username} in ${guild.name}!`)
-      //     data.save()
-      //   }
-      // })
       var owner = client.users.cache.get(guild.ownerId);
       if(!member.user.bot) {
         const user_left_embed = new MessageEmbed()
           .setColor(colors.red)
-          .setTitle("New Member Joined!")
+          .setTitle("A Member Left...")
           .setDescription(`**${user.username}** left **${guild.name}**, see you later old buddy... 😦`)
         client.channels.cache.get(log_id).send({ embeds: [user_left_embed] })
         user.send({ content: `Sad to see you leave **${guild.name}**... hope you come back soon!` })
       } else {
         const bot_left_embed = new MessageEmbed()
           .setColor(colors.blue)
-          .setTitle("New Bot Joined!")
+          .setTitle("A Bot Left...")
           .setDescription(`**${user.username}** left **${guild.name}**, see you later bot... 😦`)
         client.channels.cache.get(log_id).send({ embeds: [bot_left_embed] })
       }
