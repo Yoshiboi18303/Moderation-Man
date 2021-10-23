@@ -11,7 +11,7 @@ module.exports = {
       const embed = new MessageEmbed()
         .setColor("YELLOW")
         .setTitle(`Welcome to ${client.user.username}!`)
-        .setDescription(`Hello ${message.author.username}, I see you have mentioned me.\nAre you lost? Check all my commands by starting with \`/\`!`)
+        .setDescription(`Hello ${message.author.username}, I see you have mentioned me.\nAre you lost? Check all my commands by starting with \`/help\`!`)
       await message.channel.send({ embeds: [embed] })
     }/* else if(message.guild && !message.author.bot && guild_options.leveling) {
       const randomXP = Math.floor(Math.random() * 9) + 1;
