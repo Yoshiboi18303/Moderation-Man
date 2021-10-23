@@ -23,5 +23,15 @@ app.get(['/cmds', '/commands'], (req, res) => {
     .render('commands', { commands })
 })
 
+app.get('/info', (req, res) => {
+  var info = {
+    guilds: client.guilds.cache.size,
+    users: client.users.cache.size
+  }
+  res
+    .status(200)
+    .send(info)
+})
+
 app.listen(port)
 console.log(`${client.user.username} website is listening on port ${port}!`)
