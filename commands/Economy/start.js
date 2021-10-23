@@ -23,7 +23,7 @@ module.exports = {
       } else {
         var nickname = interaction.options.getString("nickname") || interaction.user.username
         var color = interaction.options.getString("color") || "#000000"
-        if(!color.includes("#") || color.includes(["h","H","j","J","k","K","L","l","q","Q","W","w","r","R","T","t","y","Y","u","U","I","O","P","p","o","i","s","S","g","G","h","H","Z","X","V","N","M","m","z","x","v"])) return await interaction.reply({ content: "Invalid Hex Code\nA actual Hexadecimal Code would be `#00FF48` for example.", ephemeral: true })
+        if(!color.includes("#")) return await interaction.reply({ content: "Invalid Hex Code\nA actual Hexadecimal Code would be `#00FF48` for example.", ephemeral: true })
         data = new Profiles({ id: interaction.user.id, nickname: nickname, color: color, startedAt: Date.now() })
         data.save()
         const started_embed = new MessageEmbed()

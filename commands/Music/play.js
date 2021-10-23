@@ -4,6 +4,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const ytdl = require('ytdl-core');
 const scdl = require('soundcloud-downloader').default;
 const fs = require('fs');
+const wait = require('util').promisify(setTimeout);
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -12,7 +13,7 @@ module.exports = {
     .addStringOption(option => option.setName("link").setDescription("The link to the song").setRequired(true))
     .addStringOption(option => option.setName("source").setDescription("The source of the song | default: youtube").setRequired(false).addChoice("youtube", "YT").addChoice("soundcloud", "SC")),
   async execute(interaction) {
-    return await interaction.reply({ content: "Coming Soon!", ephemeral: true })
+    // return await interaction.reply({ content: "Coming Soon!", ephemeral: true })
     var link = interaction.options.getString("link")
     var source = interaction.options.getString("source") || "YT"
     var vc = interaction.member.voice.channel
@@ -38,11 +39,15 @@ module.exports = {
         })
       } else if(source == "SC") {}
     } else {
+      await interaction.reply({ content: `I'm not in your VC, joining now...`, ephemeral: true })
+      await wait(2500)
       VoiceConnection = await joinVoiceChannel({
         channelId: vc.id,
         guildId: vc.guild.id,
         adapterCreator: vc.guild.voiceAdapterCreator
       })
+      await interaction.editReply({ content: `Joined ${vc}!`, ephemeral: true })
+      /*
       if(source == "YT") {
         if(!link.startsWith("https://")) return await interaction.reply({ content: 'Invalid Link for source: YouTube', ephemeral: true })
         var souce = await ytdl(link)
@@ -62,6 +67,7 @@ module.exports = {
           }
         })
       } else if(source == "SC") {}
+      */
     }
   }
 }
