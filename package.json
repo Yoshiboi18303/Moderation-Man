@@ -17,6 +17,7 @@
     "@distube/spotify": "^1.0.0",
     "@top-gg/sdk": "^3.1.2",
     "bufferutil": "^4.0.4",
+    "canvacord": "^5.2.3",
     "connect-mongo": "^4.6.0",
     "discord-api-types": "^0.23.1",
     "discord.js": "^13.2.0",

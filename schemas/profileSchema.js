@@ -35,8 +35,10 @@ const profileSchema = mongoose.Schema({
       items: {
         work_boosters: 0,
         nukes: 0,
-        computers: 0
-      }
+        computers: 0,
+        fishing_rods: 0
+      },
+      fish: 0
     }
   },
   startedAt: {
