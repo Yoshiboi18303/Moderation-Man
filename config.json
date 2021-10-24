@@ -1,5 +1,9 @@
 {
   "bot": {
+    "website": {
+      "origin": "moderation-man.ml",
+      "state": "3 :: Alpha"
+    },
     "state": "2 :: Pre-Alpha",
     "owner": "697414293712273408",
     "testServerId": "892603177248096306"
