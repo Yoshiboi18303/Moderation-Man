@@ -33,5 +33,12 @@ app.get('/info', (req, res) => {
     .send(info)
 })
 
+app.get(['/developer','/dev'], (req, res) => {
+  var user = client.users.cache.get('697414293712273408')
+  res
+    .status(200)
+    .render('developer', { user })
+})
+
 app.listen(port)
 console.log(`${client.user.username} website is listening on port ${port}!`)
