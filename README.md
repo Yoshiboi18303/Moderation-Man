@@ -13,6 +13,11 @@ Click [this](https://discord.com/api/oauth2/authorize?client_id=8910707220746117
 
 ---
 
+# Website
+Click [this](https://moderation-man.ml) to go to the Moderation Man website!
+
+---
+
 # Commands
 Here are the commands supported for Moderation Man!
 
