@@ -2,6 +2,7 @@ module.exports = {
   name: 'interactionCreate',
   async execute(interaction, client) {
     if(interaction.isCommand()) {
+      if(!interaction.guild) return;
       const command = client.commands.get(interaction.commandName)
       var timeouts = []
 

@@ -8,6 +8,11 @@ const client = new Client({
   }
 });
 const token = process.env.TOKEN;
+const Distube = require('distube');
+/*
+const SoundCloudPlugin = require('@distube/soundcloud')
+const SpotifyPlugin = require('@distube/spotify')
+*/
 
 global.Discord = require('discord.js');
 global.client = client;
@@ -17,7 +22,18 @@ global.emojis = require('./emojis.json');
 global.colors = require('./colors.json');
 global.config = require('./config.json');
 
+const distube = new Distube.default(client, {
+  searchSongs: 1,
+	searchCooldown: 30,
+	leaveOnEmpty: true,
+	emptyCooldown: 10,
+	leaveOnFinish: true,
+	leaveOnStop: true/*,
+	plugins: [new SoundCloudPlugin(), new SpotifyPlugin()]*/
+})
+
 client.commands = new Collection();
+client.distube = distube
 
 const functions = fs.readdirSync('./functions/').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
