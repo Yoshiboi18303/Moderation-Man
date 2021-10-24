@@ -63,7 +63,8 @@ h1 {
   width: 200px;
 	height: 200px;
   -webkit-transform: -webkit-transform .8s ease-in-out;
-  transition: transform .8s ease-in-out;
+  transform: transform .8s ease-in-out;
+  /* transition: transform .8s ease-in-out; */
 }
 
 .avatar:hover {
