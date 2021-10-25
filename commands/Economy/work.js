@@ -28,22 +28,49 @@ module.exports = {
         return await interaction.reply({ embeds: [no_data_embed], ephemeral: true })
       } else {
         var coins = data.coins
-        var random_coins = Math.floor(Math.random() * 250)
-        var random_job = jobs[Math.floor(Math.random() * jobs.length)]
-        data = await Profiles.findOneAndUpdate({
-          id: interaction.user.id
-        },
-        {
-          $inc: {
-            coins: random_coins
-          }
-        })
-        data.save()
-        const success_embed = new MessageEmbed()
-          .setColor(colors.green)
-          .setTitle("Success")
-          .setDescription(`You worked as a ${random_job} and earned ${random_coins} coins out of it!`)
-        await interaction.reply({ embeds: [success_embed], ephemeral: true })
+        var wb = data.inventory.items.work_boosters
+        /*if(wb > 0) {
+          var random_coins = Math.floor(Math.random() * 375)
+          var random_job = jobs[Math.floor(Math.random() * jobs.length)]
+          data = await Profiles.findOneAndUpdate({
+            id: interaction.user.id
+          },
+          {
+            $inc: {
+              coins: random_coins
+            },
+            $set: {
+              inventory: {
+                items: {
+                  work_boosters: wb - 1
+                }
+              }
+            }
+          })
+          data.save()
+          const success_embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setTitle("Success")
+            .setDescription(`You worked as a ${random_job} and earned ${random_coins} coins out of it!`)
+          await interaction.reply({ embeds: [success_embed], ephemeral: true })
+        } else { */
+          var random_coins = Math.floor(Math.random() * 250)
+          var random_job = jobs[Math.floor(Math.random() * jobs.length)]
+          data = await Profiles.findOneAndUpdate({
+            id: interaction.user.id
+          },
+          {
+            $inc: {
+              coins: random_coins
+            }
+          })
+          data.save()
+          const success_embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setTitle("Success")
+            .setDescription(`You worked as a ${random_job} and earned ${random_coins} coins out of it!`)
+          await interaction.reply({ embeds: [success_embed], ephemeral: true })
+        // }
       }
     })
   }
