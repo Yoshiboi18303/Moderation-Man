@@ -36,7 +36,8 @@ module.exports = {
           "Danios",
           "White Cloud",
           "Bloodfin Tetras",
-          "Black Molly"
+          "Black Molly",
+          "Yisii"
         ]
         var fish_caught = fishes_to_catch[Math.floor(Math.random() * fishes_to_catch.length)]
 
