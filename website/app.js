@@ -11,7 +11,30 @@ app.set('views', path.join(__dirname, '.', 'views'))
 app.use('/static', express.static("website/static"))
 
 app.get(['/', '/home'], (req, res) => {
-  var link = "https://discord.com/api/oauth2/authorize?client_id=891070722074611742&scope=applications.commands+bot&permissions=3557289014"
+  var link = client.generateInvite({
+    scopes: [
+      'applications.commands',
+      'bot'
+    ],
+    permissions: [
+      "KICK_MEMBERS",
+      "BAN_MEMBERS",
+      "MANAGE_CHANNELS",
+      "MANAGE_GUILD",
+      "VIEW_CHANNEL",
+      "SEND_MESSAGES",
+      "MANAGE_MESSAGES",
+      "EMBED_LINKS",
+      "ATTACH_FILES",
+      "READ_MESSAGE_HISTORY",
+      "USE_EXTERNAL_EMOJIS",
+      "MENTION_EVERYONE",
+      "CHANGE_NICKNAME",
+      "MANAGE_ROLES",
+      "MANAGE_EMOJIS_AND_STICKERS",
+      "USE_APPLICATION_COMMANDS"
+    ]
+  })
   res
     .status(200)
     .render('index', { link })
