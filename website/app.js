@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
 const { getCommands } = require('../utils');
+const bot = client.users.cache.get('891070722074611742')
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '.', 'views'))
@@ -33,11 +34,17 @@ app.get('/info', (req, res) => {
     .send(info)
 })
 
-app.get(['/developer','/dev'], (req, res) => {
+app.get(['/developer', '/dev'], (req, res) => {
   var user = client.users.cache.get('697414293712273408')
   res
     .status(200)
     .render('developer', { user })
+})
+
+app.get(['/features', '/feats'], (req, res) => {
+  res
+    .status(200)
+    .render('features', { bot })
 })
 
 app.listen(port)
