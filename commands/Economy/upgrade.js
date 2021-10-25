@@ -62,7 +62,7 @@ module.exports = {
         var vl = data.vault_level
         var cost = costs[vl + 1]
         var new_vm = vms[vl + 1]
-        if(coins < cost) return await interaction.reply({ content: `You don't have enough money! You need ${cost} coins to pay for the upgrade, which means you need!`, ephemeral: true })
+        if(coins < cost) return await interaction.reply({ content: `You don't have enough money! You need ${cost} coins to pay for the upgrade!`, ephemeral: true })
         if(vl + 1 > 17) return await interaction.reply({ content: `This is the maximum upgrade, you are now **OP** and don't need this command anymore!`, ephemeral: true })
         var new_vl = vl + 1
         var new_coins = coins - cost
