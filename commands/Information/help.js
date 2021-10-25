@@ -26,7 +26,7 @@ module.exports = {
     for(var [id, cmd] of client.commands) {
       help_embed.addField(`${cmd.data.name}`, `Description: ${cmd.data.description}\nUsage: \`/${cmd.data.name}\``, true)
     }
-    var website_link = "https://Modetestion-Man.yoshiboi18303.repl.co"
+    var website_link = "https://moderation-man.ml"
     var support_link = "https://discord.gg/WVyUqBjVah"
     var github_link = "https://github.com/Yoshiboi18303/Moderation-Man"
     const link_row = new MessageActionRow()
