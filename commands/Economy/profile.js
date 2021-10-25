@@ -77,7 +77,7 @@ module.exports = {
               inline: true
             },
             {
-              name: 'Started At',
+              name: 'Started On',
               value: `${moment.utc(data.startedAt).format("LL - LTS")}`,
               inline: true
             },
