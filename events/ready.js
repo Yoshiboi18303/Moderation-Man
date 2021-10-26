@@ -1,6 +1,4 @@
 const port = process.env.PORT || 3000;
-// const { WebhookClient } = require('discord.js');
-// const webhook = new WebhookClient({ id: '891438504662429718', token: process.env.WTOKEN });
 const mongo = require('../mongo');
 
 module.exports = {

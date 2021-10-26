@@ -12,7 +12,13 @@ var opBool = {
 
 const userSchema = Schema({
   id: reqString,
-  blacklisted: opBool
+  blacklisted: opBool,
+  voted: opBool,
+  vote_timeout: {
+    type: Number,
+    default: Date.now()
+  },
+  dmable: opBool
 })
 
 module.exports = model('users', userSchema)

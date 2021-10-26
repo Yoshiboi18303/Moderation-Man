@@ -6,6 +6,7 @@ const { getCommands } = require('../utils');
 const { Webhook } = require('@top-gg/sdk');
 const webhook = new Webhook(process.env.TOPGG_WEBHOOK_TOKEN)
 const { MessageEmbed, WebhookClient } = require('discord.js');
+const ms = require('ms');
 
 const main_vote_webhook = new WebhookClient({ 
   id: '902375507499298847',
@@ -19,6 +20,9 @@ const test_vote_webhook = new WebhookClient({
 // Users
 const bot = client.users.cache.get('891070722074611742')
 const owner = client.users.cache.get(config.bot.owner)
+
+// Models
+const Users = require('../schemas/userSchema');
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '.', 'views'))
@@ -112,6 +116,52 @@ app.post('/voteresolve', webhook.listener(async (vote) => {
       embeds: [
         new_vote_embed
       ]
+    })
+    Users.findOne({ id: vote.user }, async (err, data) => {
+      if(err) throw err
+      if(!data) {
+        data = new Users({
+          id: vote.user,
+          voted: true,
+          vote_timeout: ms("1d")
+        })
+        data.save()
+        const embed = new MessageEmbed()
+          .setColor(colors.green)
+          .setTitle("Thanks for voting")
+          .setDescription(`Thank you so much for voting for **${bot.username}**!`)
+        if(data.dmable) {
+          client.users.cache.get(vote.user).send({
+            embeds: [
+              embed
+            ]
+          })
+        } else {
+          return;
+        }
+      } else {
+        data = await Users.findOneAndUpdate({
+          id: vote.user
+        },
+        {
+          voted: true,
+          vote_timeout: ms("1d")
+        })
+        data.save()
+        const embed = new MessageEmbed()
+          .setColor(colors.green)
+          .setTitle("Thanks for voting")
+          .setDescription(`Thank you so much for voting for **${bot.username}**!`)
+        if(data.dmable) {
+          client.users.cache.get(vote.user).send({
+            embeds: [
+              embed
+            ]
+          })
+        } else {
+          return;
+        }
+      }
     })
   }
 }))

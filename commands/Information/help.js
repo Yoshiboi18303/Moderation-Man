@@ -23,6 +23,9 @@ module.exports = {
       .setColor(random_color)
       .setTitle(`${client.user.username} Commands!`)
       .setDescription(`Hello <@${interaction.user.id}>, here are all my commands!`)
+    const sent_embed = new MessageEmbed()
+      .setColor(colors.green)
+      .setDescription("All of my commands were sent to your DMs!")
     for(var [id, cmd] of client.commands) {
       help_embed.addField(`${cmd.data.name}`, `Description: ${cmd.data.description}\nUsage: \`/${cmd.data.name}\``, true)
     }
@@ -44,6 +47,14 @@ module.exports = {
           .setLabel("GitHub Repository")
           .setURL(github_link)
       )
-    await interaction.editReply({ embeds: [help_embed], components: [link_row] })
+    await interaction.editReply({ embeds: [sent_embed] })
+    await interaction.user.send({
+      embeds: [
+        help_embed
+      ], 
+      components: [
+        link_row
+      ]
+    })
   }
 }
