@@ -144,8 +144,10 @@ app.post('/voteresolve', webhook.listener(async (vote) => {
           id: vote.user
         },
         {
-          voted: true,
-          vote_timeout: ms("1d")
+          $set: {
+            voted: true,
+            vote_timeout: ms("1d")
+          }
         })
         data.save()
         const embed = new MessageEmbed()
