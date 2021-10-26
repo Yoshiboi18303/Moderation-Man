@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
 * {
   margin: 0;
@@ -98,4 +100,8 @@ hr {
 
 footer {
   background-color: rgb(29, 56, 56);
+}
+
+.footerdesc {
+  font-family: 'Ubuntu', sans-serif;
 }

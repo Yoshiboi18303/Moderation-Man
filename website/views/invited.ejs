@@ -1,0 +1,15 @@
+<html lang="en">
+  <head>
+    <%- include('includes/head', { title: "Invited" }) %>
+  </head>
+  <body>
+    <%- include('includes/header') %>
+    <br>
+    <h1><%= bot.username %> Successfully Invited</h1>
+    <p style="text-align: center; font-family: 'Rubik', sans-serif;">Thank you so much for inviting <%= bot.username %>, it really means a lot to me (<%= owner.username %>)!</p>
+    <br>
+    <p style="text-align: center; font-family: 'Knewave', cursive;">Now you can run <code>/help</code> to see all of <%= bot.username %>'s commands!</p>
+    <br>
+    <%- include('includes/footer') %>
+  </body>
+</html>

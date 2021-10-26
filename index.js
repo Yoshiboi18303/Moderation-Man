@@ -8,11 +8,16 @@ const client = new Client({
   }
 });
 const token = process.env.TOKEN;
-const Distube = require('distube');
-/*
-const SoundCloudPlugin = require('@distube/soundcloud')
-const SpotifyPlugin = require('@distube/spotify')
-*/
+const { Client: C } = require('statcord.js');
+const statcord = new C({
+  client,
+  key: process.env.STATCORD_KEY,
+  postCpuStatistics: true,
+  postMemStatistics: true,
+  postNetworkStatistics: true
+})
+const { AutoPoster } = require('topgg-autoposter');
+const ap = AutoPoster(process.env.TOPGG_API_KEY, client)
 
 global.Discord = require('discord.js');
 global.client = client;
@@ -22,18 +27,9 @@ global.emojis = require('./emojis.json');
 global.colors = require('./colors.json');
 global.config = require('./config.json');
 
-const distube = new Distube.default(client, {
-  searchSongs: 1,
-	searchCooldown: 30,
-	leaveOnEmpty: true,
-	emptyCooldown: 10,
-	leaveOnFinish: true,
-	leaveOnStop: true/*,
-	plugins: [new SoundCloudPlugin(), new SpotifyPlugin()]*/
-})
-
 client.commands = new Collection();
-client.distube = distube
+client.stats = statcord;
+client.autoposter = ap;
 
 const functions = fs.readdirSync('./functions/').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
@@ -43,6 +39,10 @@ const commandFolder = fs.readdirSync('./commands/');
   for(const file of functions) {
     require(`./functions/${file}`)(client)
   }
+
+  client.stats.on('autopost-start', () => {
+    console.log(`Autoposting session has started! Now logging data on ${client.user.username} to Statcord!`)
+  })
 
   client.handleEvents(eventFiles, "./events");
   client.handleCommands(commandFolder, "./commands")

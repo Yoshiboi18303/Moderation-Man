@@ -1,9 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageAttachment } = require('discord.js');
+const { MessageAttachment, MessageEmbed } = require('discord.js');
 const util = require('util');
 const Warnings = require('../../schemas/warningSchema');
 const Channels = require('../../schemas/channelSchema');
 const Profiles = require('../../schemas/profileSchema');
+const colors = require('../../colors.json');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -25,7 +26,8 @@ module.exports = {
       process.env.TOKEN,
       process.env.KEY,
       process.env.MONGO_CS,
-      client.token
+      client.token,
+      process.env.STATCORD_KEY
     ]
 
     result
@@ -40,7 +42,11 @@ module.exports = {
         var attachment = new MessageAttachment(buffer, "evaluated.js")
         return await interaction.followUp({ content: 'The result is too long to show on Discord, so here\'s a file.', files: [attachment]})
       }
-      await interaction.followUp(`\`\`\`js\n${result}\n\`\`\``);
+      const evaluated_embed = new MessageEmbed()
+        .setColor(colors.green)
+        .setTitle("Evaluation")
+        .setDescription(`Successful Evaluation.\n\`\`\`js\n${result}\n\`\`\``)
+      await interaction.editReply({ embeds: [evaluated_embed] })
     })
     .catch(async (result) => {
       if (typeof result !== "string") result = util.inspect(result, { depth: 0 });
@@ -49,7 +55,11 @@ module.exports = {
         if(result.includes(term)) result = result.replace(term, "[SECRET]")
       }
 
-      await interaction.followUp(`\`\`\`js\n${result}\n\`\`\``)
+      const error_embed = new MessageEmbed()
+        .setColor(colors.red)
+        .setTitle("Error Evaluating")
+        .setDescription(`An error occurred.\n\`\`\`js\n${result}\n\`\`\``)
+      await interaction.editReply({ embeds: [error_embed] })
     })
   }
 }

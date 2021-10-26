@@ -3,7 +3,22 @@ const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
 const { getCommands } = require('../utils');
+const { Webhook } = require('@top-gg/sdk');
+const webhook = new Webhook(process.env.TOPGG_WEBHOOK_TOKEN)
+const { MessageEmbed, WebhookClient } = require('discord.js');
+
+const main_vote_webhook = new WebhookClient({ 
+  id: '902375507499298847',
+  token: process.env.VOTE_WEBHOOK_TOKEN
+})
+const test_vote_webhook = new WebhookClient({
+  id: '902377723589169213',
+  token: process.env.TEST_VOTE_WEBHOOK_TOKEN
+})
+
+// Users
 const bot = client.users.cache.get('891070722074611742')
+const owner = client.users.cache.get(config.bot.owner)
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '.', 'views'))
@@ -69,6 +84,37 @@ app.get(['/features', '/feats'], (req, res) => {
     .status(200)
     .render('features', { bot })
 })
+
+app.get('/invited', (req, res) => {
+  if(!req.query.referral) return res.redirect('/')
+  res
+    .status(200)
+    .render("invited", { bot, owner })
+})
+
+app.post('/voteresolve', webhook.listener(async (vote) => {
+  if(vote.type == 'test') {
+    const new_test_vote_embed = new MessageEmbed()
+      .setColor(colors.cyan)
+      .setTitle("New Test Vote")
+      .setDescription(`<@${vote.user}> voted for ${bot.username}!`)
+    await test_vote_webhook.send({
+      embeds: [
+        new_test_vote_embed
+      ]
+    })
+  } else {
+    const new_vote_embed = new MessageEmbed()
+      .setColor(colors.green)
+      .setTitle("New Vote!")
+      .setDescription(`<@${vote.user}> voted for ${bot.username}!`)
+    await main_vote_webhook.send({
+      embeds: [
+        new_vote_embed
+      ]
+    })
+  }
+}))
 
 app.listen(port)
 console.log(`${client.user.username} website is listening on port ${port}!`)

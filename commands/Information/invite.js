@@ -32,6 +32,7 @@ module.exports = {
         "USE_APPLICATION_COMMANDS"
       ]
     })
+    invite_link += "&redirect_uri=https://moderation-man.ml/invited?referral=discord"
     const invite_embed = new MessageEmbed()
       .setColor(member.displayHexColor || "BLURPLE")
       .setTitle(`Invite ${client.user.username}`)

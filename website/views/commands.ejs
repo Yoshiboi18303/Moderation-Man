@@ -3,10 +3,13 @@
 	<%- include('includes/head', { title: "Commands" }) %>
 </head>
 <body>
+  <%- include('includes/header') %>
+  <br>
   <a href="/"><img src="/static/img/icon.png" alt="Bot Avatar" class="avatar"></a>
+  <br>
   <section class="main-content">
-    <p>To see all the commands in Discord, run <code>/help</code>!</p>
-
+    <p style="text-align: center;">To see all the commands in Discord, run <code>/help</code>!</p>
+    <br>
     <% commands.forEach(({ name, value }) => { %>
       <table class="command-table">
         <h1 style="text-align: center;">
