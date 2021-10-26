@@ -96,12 +96,12 @@ app.get('/invited', (req, res) => {
     .render("invited", { bot, owner })
 })
 
-app.post('/voteresolve', webhook.listener(async (vote) => {
+app.post('/topggvoteresolve', webhook.listener(async (vote) => {
   if(vote.type == 'test') {
     const new_test_vote_embed = new MessageEmbed()
       .setColor(colors.cyan)
-      .setTitle("New Test Vote")
-      .setDescription(`<@${vote.user}> voted for ${bot.username}!`)
+      .setTitle("__New Test Vote!__")
+      .setDescription(`<@${vote.user}> voted for **${bot.username}**!`)
     await test_vote_webhook.send({
       embeds: [
         new_test_vote_embed
@@ -110,8 +110,8 @@ app.post('/voteresolve', webhook.listener(async (vote) => {
   } else {
     const new_vote_embed = new MessageEmbed()
       .setColor(colors.green)
-      .setTitle("New Vote!")
-      .setDescription(`<@${vote.user}> voted for ${bot.username}!`)
+      .setTitle("__New Vote!__")
+      .setDescription(`<@${vote.user}> voted for **${bot.username}**!`)
     await main_vote_webhook.send({
       embeds: [
         new_vote_embed
@@ -129,7 +129,7 @@ app.post('/voteresolve', webhook.listener(async (vote) => {
         const embed = new MessageEmbed()
           .setColor(colors.green)
           .setTitle("Thanks for voting")
-          .setDescription(`Thank you so much for voting for **${bot.username}**!`)
+          .setDescription(`Thank you so much for voting for **${bot.username}**!\nYou have earned: **${voteRewards.join(", ")}**!`)
         if(data.dmable) {
           client.users.cache.get(vote.user).send({
             embeds: [

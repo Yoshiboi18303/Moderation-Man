@@ -1,3 +1,5 @@
+const Users = require('../schemas/userSchema');
+
 module.exports = {
   name: 'interactionCreate',
   async execute(interaction, client) {
@@ -5,6 +7,20 @@ module.exports = {
       if(!interaction.guild) return;
       const command = client.commands.get(interaction.commandName)
       var timeouts = []
+      let bl;
+
+      Users.findOne({ id: interaction.user.id }, async (err, data) => {
+        if(err) throw err
+        if(!data) {
+          data = new Users({
+            id: interaction.user.id
+          })
+          data.save()
+          bl = await data.blacklisted
+        } else {
+          bl = await data.blacklisted
+        }
+      })
 
       global.hexColor = interaction.member.displayHexColor
 
@@ -22,6 +38,7 @@ module.exports = {
 
       console.log(`Trying to execute command "${interaction.commandName}"...`)
       try {
+        if(bl) return await interaction.reply({ content: `You are blacklisted from using **${client.user.username}**!` })
         await command.execute(interaction)
       } catch(e) {
         console.error(e)

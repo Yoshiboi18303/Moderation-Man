@@ -18,6 +18,11 @@ Click [this](https://moderation-man.ml) to go to the Moderation Man website!
 
 ---
 
+# Features
+A list of features for Moderation Man can be found [here](https://moderation-man.ml/features)!
+
+---
+
 # Commands
 Here are the commands supported for Moderation Man!
 

@@ -28,7 +28,7 @@ module.exports = {
               .setCustomId("delete-confirm")
               .setEmoji("🗑️"),
             new MessageButton()
-              .setStyle("SUCCESS")
+              .setStyle("SECONDARY")
               .setLabel("NO")
               .setCustomId("delete-cancel")
               .setEmoji("🎉")

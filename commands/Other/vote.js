@@ -10,7 +10,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor("RANDOM")
       .setTitle(`Vote for ${client.user.username}`)
-      .setDescription(`Hello ${interaction.user.username}, I see you want to vote for me! Well... here are some links!\n\`Top.gg\`: [Vote](${topgg_link})\n\nAfter voting you will get: **More money from working!**`)
+      .setDescription(`Hello ${interaction.user.username}, I see you want to vote for me! Well... here are some links!\n\`Top.gg\`: [Vote](${topgg_link})\n\nAfter voting you will get: **${voteRewards.join(", ")}**`)
     await interaction.reply({ embeds: [embed], ephemeral: true })
   }
 }

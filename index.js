@@ -26,6 +26,9 @@ global.ms = require('ms');
 global.emojis = require('./emojis.json');
 global.colors = require('./colors.json');
 global.config = require('./config.json');
+global.voteRewards = [
+  "More money from working"
+]
 
 client.commands = new Collection();
 client.stats = statcord;
