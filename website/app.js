@@ -96,6 +96,16 @@ app.get('/invited', (req, res) => {
     .render("invited", { bot, owner })
 })
 
+app.get('/vote', (req, res) => {
+  var links = [
+    `https://top.gg/bot/${bot.id}/vote`,
+    `https://infinitybotlist.com/bots/${bot.id}/vote`
+  ]
+  res
+    .status(200)
+    .render("vote", { bot, links, voteRewards })
+})
+
 app.post('/topggvoteresolve', webhook.listener(async (vote) => {
   if(vote.type == 'test') {
     const new_test_vote_embed = new MessageEmbed()

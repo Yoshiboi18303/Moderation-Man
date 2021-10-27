@@ -1,0 +1,16 @@
+<html lang="en">
+<head>
+	<%- include('includes/head', { title: "Vote" }) %>
+</head>
+<body>
+  <%- include('includes/header') %>
+  <br>
+  <h1>Vote for <%= bot.username %></h1>
+  <br>
+  <p style="text-align: center; font-family: 'Quicksand', sans-serif;">You can vote for <%= bot.username %> with these links! <a href="<%= links[0] %>">Top.gg</a>
+  <h4 style="text-align: center; font-family: 'Orbitron', sans-serif; color: #00FE41;">After voting, you will earn...</h4>
+  <p style="text-align: center; font-family: 'Quicksand', sans-serif;"><%= voteRewards.join(", ") %>!</p>
+  <br>
+  <%- include('includes/footer') %>
+</body>
+</html>
