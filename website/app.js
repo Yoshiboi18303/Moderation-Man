@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 const path = require('path');
 const { getCommands } = require('../utils');
 const { Webhook } = require('@top-gg/sdk');
-const webhook = new Webhook(process.env.TOPGG_WEBHOOK_TOKEN)
+const webhook = new Webhook(process.env.WEBHOOK_AUTH)
 const { MessageEmbed, WebhookClient } = require('discord.js');
 const ms = require('ms');
 

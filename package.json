@@ -14,6 +14,7 @@
     "@discordjs/rest": "^0.1.0-canary.0",
     "@discordjs/voice": "^0.6.0",
     "@top-gg/sdk": "^3.1.2",
+    "ascii-table": "^0.0.9",
     "bufferutil": "^4.0.4",
     "canvacord": "^5.2.3",
     "connect-mongo": "^4.6.0",

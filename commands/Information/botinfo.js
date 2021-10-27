@@ -42,6 +42,11 @@ module.exports = {
           inline: true
         },
         {
+          name: "Command Count",
+          value: `${client.commands.size}`,
+          inline: true
+        },
+        {
           name: "Running on discord.js version:",
           value: `${djsversion}`,
           inline: true
