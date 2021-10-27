@@ -4,7 +4,7 @@ const Users = require('../../schemas/userSchema');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("dm")
-    .setDescription("Changes whether you want to get dmed by the client")
+    .setDescription("Changes whether you want to get dmed by the client (for other stuff than the help command)")
     .addBooleanOption(option => option.setName("dmable").setDescription("Do you want to get dmed?").setRequired(true)),
   async execute(interaction) {
     var able_to_be_dmed = interaction.options.getBoolean("dmable")

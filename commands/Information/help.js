@@ -6,7 +6,7 @@ module.exports = {
     .setName("help")
     .setDescription("Shows all the commands on Moderation Man!"),
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply({ ephemeral: true })
     var color_array = [
       "#1DA619",
       "#192CA6",
@@ -47,7 +47,12 @@ module.exports = {
           .setLabel("GitHub Repository")
           .setURL(github_link)
       )
-    await interaction.editReply({ embeds: [sent_embed] })
+    await interaction.editReply({ 
+      embeds: [
+        sent_embed
+      ],
+      ephemeral: true
+    })
     await interaction.user.send({
       embeds: [
         help_embed
