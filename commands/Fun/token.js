@@ -9,7 +9,7 @@ module.exports = {
     guildOnly: true
   },
   async execute(interaction) {
-    await interaction.deferReply()
+    await interaction.deferReply({ ephemeral: true })
     const fetch = await import("node-fetch")
     const id = interaction.options.getString("id")
     var link;

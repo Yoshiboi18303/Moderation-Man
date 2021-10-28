@@ -23,6 +23,11 @@ A list of features for Moderation Man can be found [here](https://moderation-man
 
 ---
 
+# Dashboard
+Coming Soon!
+
+---
+
 # Commands
 Here are the commands supported for Moderation Man!
 

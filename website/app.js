@@ -106,6 +106,12 @@ app.get('/vote', (req, res) => {
     .render("vote", { bot, links, voteRewards })
 })
 
+app.get('/privacy', (req, res) => {
+  res
+    .status(200)
+    .render("privacy")
+})
+
 app.post('/topggvoteresolve', webhook.listener(async (vote) => {
   if(vote.type == 'test') {
     const new_test_vote_embed = new MessageEmbed()

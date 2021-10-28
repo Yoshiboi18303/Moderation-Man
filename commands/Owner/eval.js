@@ -4,6 +4,7 @@ const util = require('util');
 const Warnings = require('../../schemas/warningSchema');
 const Channels = require('../../schemas/channelSchema');
 const Profiles = require('../../schemas/profileSchema');
+const Users = require('../../schemas/userSchema');
 const colors = require('../../colors.json');
 
 module.exports = {
@@ -45,7 +46,7 @@ module.exports = {
       const evaluated_embed = new MessageEmbed()
         .setColor(colors.green)
         .setTitle("Evaluation")
-        .setDescription(`Successful Evaluation.\n\`\`\`js\n${result}\n\`\`\``)
+        .setDescription(`Successful Evaluation.\n\n\`\`\`js\n${result}\n\`\`\``)
       await interaction.editReply({ embeds: [evaluated_embed] })
     })
     .catch(async (result) => {
@@ -58,7 +59,7 @@ module.exports = {
       const error_embed = new MessageEmbed()
         .setColor(colors.red)
         .setTitle("Error Evaluating")
-        .setDescription(`An error occurred.\n\`\`\`js\n${result}\n\`\`\``)
+        .setDescription(`An error occurred.\n\n\`\`\`js\n${result}\n\`\`\``)
       await interaction.editReply({ embeds: [error_embed] })
     })
   }
