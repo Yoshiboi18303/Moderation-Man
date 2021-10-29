@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const warningSchema = mongoose.Schema({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   guild: {
     type: String,
-    default: ""
+    default: "",
   },
   context: {
     type: Array,
-    default: []
-  }
-})
+    default: [],
+  },
+});
 
-module.exports = mongoose.model("user-warnings", warningSchema)
+module.exports = mongoose.model("user-warnings", warningSchema);

@@ -3,9 +3,9 @@
   <br>
   <h1><%= guild.name %></h1>
   <% if(!bot.guilds.cache.has(guild.id)) { %>
-    <button class="btn crd-guild-invite" onclick="location.href='<%= invite_link %>&guild_id=<%= guild.id %>'">Invite Bot</button>
+    <button class="btn crd-guild-invite" onclick="location.href='<%= invite_link %>&guild_id=<%= guild.id %>'" style="position: relative; top: 20px; width: 150px; left: 20px;">Invite Bot</button>
   <% } else { %>
-    <button class="btn crd-guild-invite" onclick="location.href='/servers/<%= guild.id %>/dashboard'">Manage Server</button>
+    <button class="btn crd-guild-invite" onclick="location.href='/servers/<%= guild.id %>/dashboard'" style="position: relative; top: 20px; width: 150px; left: 30px;">Manage Server</button>
 	<% } %>
   <br>
 </div>

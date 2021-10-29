@@ -1,31 +1,37 @@
-const { MessageEmbed } = require('discord.js');
-const colors = require('../colors.json');
+const { MessageEmbed } = require("discord.js");
+const colors = require("../colors.json");
 const log_id = "892607019138310205";
 const guild_id = "892603177248096306";
 
 module.exports = {
-  name: 'guildMemberRemove',
+  name: "guildMemberRemove",
   async execute(member) {
-    if(member.guild.id == guild_id) {
+    if (member.guild.id == guild_id) {
       var user = member.user;
       var guild = member.guild;
       var owner = client.users.cache.get(guild.ownerId);
-      if(!member.user.bot) {
+      if (!member.user.bot) {
         const user_left_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("A Member Left...")
-          .setDescription(`**${user.username}** left **${guild.name}**, see you later old buddy... 😦`)
-        client.channels.cache.get(log_id).send({ embeds: [user_left_embed] })
-        user.send({ content: `Sad to see you leave **${guild.name}**... hope you come back soon!` })
+          .setDescription(
+            `**${user.username}** left **${guild.name}**, see you later old buddy... 😦`
+          );
+        client.channels.cache.get(log_id).send({ embeds: [user_left_embed] });
+        user.send({
+          content: `Sad to see you leave **${guild.name}**... hope you come back soon!`,
+        });
       } else {
         const bot_left_embed = new MessageEmbed()
           .setColor(colors.blue)
           .setTitle("A Bot Left...")
-          .setDescription(`**${user.username}** left **${guild.name}**, see you later bot... 😦`)
-        client.channels.cache.get(log_id).send({ embeds: [bot_left_embed] })
+          .setDescription(
+            `**${user.username}** left **${guild.name}**, see you later bot... 😦`
+          );
+        client.channels.cache.get(log_id).send({ embeds: [bot_left_embed] });
       }
     } else {
       return;
     }
-  }
-}
+  },
+};

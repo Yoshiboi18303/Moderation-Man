@@ -1,14 +1,14 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 var reqString = {
   type: String,
-  required: true
-}
+  required: true,
+};
 
 var opBool = {
   type: Boolean,
-  default: false
-}
+  default: false,
+};
 
 const userSchema = Schema({
   id: reqString,
@@ -16,9 +16,9 @@ const userSchema = Schema({
   voted: opBool,
   vote_timeout: {
     type: Number,
-    default: Date.now()
+    default: Date.now(),
   },
-  dmable: opBool
-})
+  dmable: opBool,
+});
 
-module.exports = model('users', userSchema)
+module.exports = model("users", userSchema);

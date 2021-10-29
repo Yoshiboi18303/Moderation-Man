@@ -1,14 +1,14 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const zooSchema = Schema({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   animals: {
     type: Object,
-    default: {}
-  }
-})
+    default: {},
+  },
+});
 
-module.exports = model("user-zoo", zooSchema)
+module.exports = model("user-zoo", zooSchema);

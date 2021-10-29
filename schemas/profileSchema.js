@@ -1,33 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const profileSchema = mongoose.Schema({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   nickname: {
     type: String,
-    default: "User"
+    default: "User",
   },
   color: {
     type: String,
-    default: "#000000"
+    default: "#000000",
   },
   coins: {
     type: Number,
-    default: 100
+    default: 100,
   },
   vault_coins: {
     type: Number,
-    default: 0
+    default: 0,
   },
   vault_level: {
     type: Number,
-    default: 1
+    default: 1,
   },
   vault_max: {
     type: Number,
-    default: 2500
+    default: 2500,
   },
   inventory: {
     type: Object,
@@ -36,15 +36,15 @@ const profileSchema = mongoose.Schema({
         work_boosters: 0,
         nukes: 0,
         computers: 0,
-        fishing_rods: 0
+        fishing_rods: 0,
       },
-      fish: 0
-    }
+      fish: 0,
+    },
   },
   startedAt: {
     type: Number,
-    default: 0
-  }
-})
+    default: 0,
+  },
+});
 
-module.exports = mongoose.model('user-profiles', profileSchema)
+module.exports = mongoose.model("user-profiles", profileSchema);

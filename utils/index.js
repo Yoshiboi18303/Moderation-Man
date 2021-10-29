@@ -1,19 +1,23 @@
-const { readdirSync } = require('fs');
+const { readdirSync } = require("fs");
 
 function getCommands() {
   let categories = [];
   const value = [];
 
-  readdirSync('./commands').forEach((dir) => {
-    const directories = readdirSync(`./commands/${dir}`).filter(file => file.endsWith('.js'));
+  readdirSync("./commands").forEach((dir) => {
+    const directories = readdirSync(`./commands/${dir}`).filter((file) =>
+      file.endsWith(".js")
+    );
 
     const commands = directories.map((command) => {
       const file = require(`../commands/${dir}/${command}`);
 
       value.push({
-        name: file.data.name ? file.data.name : 'No Command Name',
-        description: file.data.description ? file.data.description : 'No Command Description',
-        options: file.data.options ? file.data.options : 'No Command Options'
+        name: file.data.name ? file.data.name : "No Command Name",
+        description: file.data.description
+          ? file.data.description
+          : "No Command Description",
+        options: file.data.options ? file.data.options : "No Command Options",
       });
     });
 
@@ -25,20 +29,22 @@ function getCommands() {
     };
 
     categories.push(data);
-  })
+  });
   return categories;
 }
 
 function convertToLowerCase(string) {
-  if(typeof string != 'string') throw new TypeError("String argument must be a type of string.")
-  const lowerCaseString = string.toLowerCase()
-  return lowerCaseString
+  if (typeof string != "string")
+    throw new TypeError("String argument must be a type of string.");
+  const lowerCaseString = string.toLowerCase();
+  return lowerCaseString;
 }
 
 function convertToUpperCase(string) {
-  if(typeof string != 'string') throw new TypeError("String argument must be a type of string.")
-  const upperCaseString = string.toUpperCase()
-  return upperCaseString
+  if (typeof string != "string")
+    throw new TypeError("String argument must be a type of string.");
+  const upperCaseString = string.toUpperCase();
+  return upperCaseString;
 }
 
-module.exports = { getCommands, convertToLowerCase, convertToUpperCase }
+module.exports = { getCommands, convertToLowerCase, convertToUpperCase };

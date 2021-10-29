@@ -1,4 +1,4 @@
-const { createAudioPlayer } = require('@discordjs/voice');
+const { createAudioPlayer } = require("@discordjs/voice");
 
 var player = createAudioPlayer();
 

@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 var defaultString = {
   type: String,
-  default: ""
-}
+  default: "",
+};
 
 const channelSchema = mongoose.Schema({
   guild: {
     type: String,
-    required: true
+    required: true,
   },
   channelType: defaultString,
-  channelId: defaultString
-})
+  channelId: defaultString,
+});
 
-module.exports = mongoose.model("guild-channels", channelSchema)
+module.exports = mongoose.model("guild-channels", channelSchema);

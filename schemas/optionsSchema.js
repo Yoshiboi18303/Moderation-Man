@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const optionsSchema = mongoose.Schema({
   guild: {
     type: String,
-    required: true
+    required: true,
   },
   leveling: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
-module.exports = mongoose.model('guild-options', optionsSchema)
+module.exports = mongoose.model("guild-options", optionsSchema);
