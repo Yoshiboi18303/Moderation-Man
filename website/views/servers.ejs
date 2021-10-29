@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+	<%- include('includes/head', { title: "Your Servers" }) %>
+</head>
+<div>
+  <%- include('includes/header') %>
+	<body>
+    <br>
+			<h1>Select a server to manage</h1>
+      <br>
+			<div class="crd-container">
+				<% for (const guild of guilds) { %>
+					<%- include('includes/cards/guild.ejs', { guild, bot, invite_link }) %>
+				<% } %>
+			</div>		
+		<br>
+		<%- include('includes/footer') %>
+  </body>
+</div>
+</html>

@@ -11,6 +11,47 @@
   padding: 0;
 }
 
+div.form-row {
+  text-align: center;
+}
+
+label {
+  font-family: 'Quicksand', sans-serif;
+  color: #69FB69;
+}
+
+.crd-guild {
+	border: 5px solid black;
+	border-radius: 25px;
+	padding: 15px;
+	box-sizing: content-box;
+	text-align: center;
+	display: grid;
+	grid-row: auto;
+	width: 50%;
+	margin: 15px;
+}
+
+.crd-guild > h1 {
+	font-size: 2em !important;
+}
+
+.crd-guild-invite {
+	width: 30%;
+  position: relative;
+  bottom: 100px;
+}
+
+.crd-container {
+	display: flex;
+	width: 100%;	
+}
+
+.crd-container::after {
+	clear: both;
+	content: "";
+}
+
 .btn {
   background-color: #2C2F33;
   color: #1AA415;
@@ -19,6 +60,7 @@
   border: 2px solid #4CAF25;
   border-radius: 8px;
   font-family: 'Josefin Sans', sans-serif;
+	padding: 5px;
 }
 
 .buttons {
@@ -32,7 +74,7 @@
 }
 
 h2 {
-  font-size: 145%;
+  font-size: 250%;
   font-family: 'Josefin Sans', sans-serif;
   color: #7289DA;
   text-align: center;

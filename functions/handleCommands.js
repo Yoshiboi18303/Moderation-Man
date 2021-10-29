@@ -19,12 +19,12 @@ module.exports = (client) => {
 
   (async () => {
 	   try {
-       const clientID = "897538650542321684"
+       const clientID = client.ready ? client.user.id : "891070722074611742"
        const guildID = "892603177248096306"
 	    	console.log('Started refreshing application (/) commands.');
 
 	    	await rest.put(
-	    		Routes.applicationGuildCommands(clientID, guildID),
+	    		Routes.applicationCommands(clientID),
 	  		{ body: client.commandArray },
 		    );
 

@@ -21,6 +21,7 @@ const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
 
 global.Discord = require('discord.js');
 global.client = client;
+global.bot = client;
 global.moment = require('moment');
 global.ms = require('ms');
 global.emojis = require('./emojis.json');

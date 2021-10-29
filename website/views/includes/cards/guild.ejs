@@ -1,0 +1,11 @@
+<div class="crd-guild">
+	<img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" width=56 height=56>
+  <br>
+  <h1><%= guild.name %></h1>
+  <% if(!bot.guilds.cache.has(guild.id)) { %>
+    <button class="btn crd-guild-invite" onclick="location.href='<%= invite_link %>&guild_id=<%= guild.id %>'">Invite Bot</button>
+  <% } else { %>
+    <button class="btn crd-guild-invite" onclick="location.href='/servers/<%= guild.id %>/dashboard'">Manage Server</button>
+	<% } %>
+  <br>
+</div>

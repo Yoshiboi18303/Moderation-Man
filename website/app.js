@@ -8,6 +8,12 @@ const webhook = new Webhook(process.env.WEBHOOK_AUTH)
 const { MessageEmbed, WebhookClient } = require('discord.js');
 const ms = require('ms');
 
+const passport = require('passport')
+const passportDiscord = require('passport-discord')
+
+const session = require('express-session')
+const mongo = require('connect-mongo')
+
 const main_vote_webhook = new WebhookClient({ 
   id: '902375507499298847',
   token: process.env.VOTE_WEBHOOK_TOKEN
@@ -24,10 +30,63 @@ const owner = client.users.cache.get(config.bot.owner)
 // Models
 const Users = require('../schemas/userSchema');
 
+app.use(session({
+	resave: false,
+	saveUninitialized: false,
+	secret: process.env.SECRET,
+	store: mongo.create({
+		mongoUrl: process.env.MONGO_CS,
+		ttl: 86400*2, // 2 days
+		mongoOptions: {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		}
+	})
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.serializeUser((user,done) => {
+	done(null, user)
+})
+
+passport.deserializeUser(async (user, done) => {
+	var User = await Users.findOne({ id: user.id })
+	if (!user) user = new Users({
+		id: user.id
+	})
+
+	done(null, {
+		id: user.id,
+		discord: user,
+		voted: User.voted,
+		blacklisted: User.blacklisted
+	})
+})
+
+passport.use(new passportDiscord.Strategy({
+	clientID: "891070722074611742",
+	clientSecret: process.env.CLIENT_SECRET,
+	callbackURL: "/login/callback",
+	scope: ["identify", "guilds"],
+	prompt: "none",
+}, (access,refresh,profile,done) => {
+	process.nextTick(() => {
+		done(null, profile)
+	})
+}))
+
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, '.', 'views'))
+app.set('views', `${__dirname}/views/`)
+app.set('etag', false)
+
+app.use(require('nocache')())
 
 app.use('/static', express.static("website/static"))
+
+app.use('/login', require('./routes/login'))
+app.use('/servers', require('./routes/servers'))
 
 app.get(['/', '/home'], (req, res) => {
   var link = client.generateInvite({
@@ -56,7 +115,7 @@ app.get(['/', '/home'], (req, res) => {
   })
   res
     .status(200)
-    .render('index', { link })
+    .render('index', { link, auth: req.isAuthenticated(), user: req.user })
 })
 
 app.get(['/cmds', '/commands'], (req, res) => {
@@ -76,11 +135,12 @@ app.get('/info', (req, res) => {
     .send(info)
 })
 
-app.get(['/developer', '/dev'], (req, res) => {
-  var user = client.users.cache.get('697414293712273408')
+app.get(['/developer', '/dev'], async (req, res) => {
+  var user = await client.users.fetch('697414293712273408')
+	var fhg = await client.users.fetch('482326304381730826')
   res
     .status(200)
-    .render('developer', { user })
+    .render('developer', { users: [user, fhg] })
 })
 
 app.get(['/features', '/feats'], (req, res) => {

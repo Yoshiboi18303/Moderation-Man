@@ -7,6 +7,11 @@ const Profiles = require('../../schemas/profileSchema');
 const Users = require('../../schemas/userSchema');
 const colors = require('../../colors.json');
 
+const admins = [
+	"482326304381730826",
+	"697414293712273408"
+]
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('eval')
@@ -16,7 +21,7 @@ module.exports = {
     guildOnly: false
   },
   async execute(interaction) {
-    if(interaction.user.id != config.bot.owner) return await interaction.reply({ content: 'You are **NOT** the owner of this bot!', ephemeral: true })
+    if(!admins.includes(interaction.user.id)) return await interaction.reply({ content: 'You are **NOT** the owner of this bot!', ephemeral: true })
     const code = interaction.options.getString("code")
     await interaction.deferReply()
     var result = new Promise((resolve, reject) => {

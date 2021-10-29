@@ -8,6 +8,7 @@ module.exports = {
     .setName("botinfo")
     .setDescription("Shows some info on the client!"),
   async execute(interaction) {
+    const fetch = await import('node-fetch')
     var color_array = [
       "#1DA619",
       "#192CA6",
@@ -21,6 +22,11 @@ module.exports = {
     ]
     var random_color = color_array[Math.floor(Math.random() * color_array.length)]
     var state = config.bot.state.replace("::", "-")
+    var infinityReq = await fetch.default(`https://api.infinitybotlist.com/bot/891070722074611742`, {
+      method: "GET"
+    })
+    var infinityData = await infinityReq.json()
+    console.log(infinityData)
     const embed = new MessageEmbed()
       .setColor(interaction.guild.me.displayHexColor || random_color)
       .setTitle(`Info on ${client.user.username}`)
@@ -51,6 +57,12 @@ module.exports = {
           value: `${djsversion}`,
           inline: true
         },
+        /*
+        {
+          name: "Vote Count (Infinity Bot List)",
+          value: `${infinityData.votes}`
+        },
+        */
         {
           name: "NodeJS Version",
           value: `${process.version}`,
