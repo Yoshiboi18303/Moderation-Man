@@ -18,6 +18,8 @@ const statcord = new C({
 });
 const { AutoPoster } = require("topgg-autoposter");
 const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
+const BoatsClient = require("boats.js");
+const Boats = new BoatsClient(process.env.BOATS_KEY);
 
 global.Discord = require("discord.js");
 global.client = client;
@@ -36,6 +38,7 @@ global.voteRewards = [
 client.commands = new Collection();
 client.stats = statcord;
 client.autoposter = ap;
+client.boat = Boats;
 
 const functions = fs
   .readdirSync("./functions/")

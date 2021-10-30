@@ -49,6 +49,13 @@ module.exports = {
     });
     // json = await req.json()
     // console.log(json)
+
+    var botId = client.ready ? client.user.id : "891070722074611742";
+
+    client.boat
+      .postStats(client.guilds.cache.size, botId)
+      .then(() => console.log("Successfully sent bot data to Discord Boats!"))
+      .catch((err) => console.error(err));
     require("../website/app");
     await client.stats.autopost();
     await mongo(process.env.MONGO_CS)
