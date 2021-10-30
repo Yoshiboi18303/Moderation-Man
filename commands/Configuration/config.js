@@ -91,6 +91,7 @@ module.exports = {
           content: "Please define a new value!",
           ephemeral: true,
         });
+      await interaction.reply({ content: "Coming Soon!", ephemeral: true });
     }
 
     // i like to always leave a blank line below the last line of my code... it just looks nice imo. lol
