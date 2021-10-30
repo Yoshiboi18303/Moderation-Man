@@ -17,6 +17,7 @@ module.exports = {
     const infinityLink = `https://api.infinitybotlist.com/bot/${client.user.id}`;
     const reqBody = {
       guildCount: client.guilds.cache.size,
+      shardCount: client.ready ? client.shard.count : 1, // This will help when I make the bot with a ShardingClient.
     };
     var status = "Dashboard in Development!";
     status += " | /help";
