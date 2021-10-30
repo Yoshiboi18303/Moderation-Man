@@ -6,6 +6,7 @@ const Channels = require("../../schemas/channelSchema");
 const Profiles = require("../../schemas/profileSchema");
 const Users = require("../../schemas/userSchema");
 const colors = require("../../colors.json");
+const { joinVoiceChannel } = require("@discordjs/voice");
 
 const admins = ["482326304381730826", "697414293712273408"];
 

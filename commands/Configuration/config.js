@@ -88,7 +88,7 @@ module.exports = {
     } else if (action == "change") {
       if (!value)
         return await interaction.reply({
-          content: "DFJHBUEFIOJKBNEJ",
+          content: "Please define a new value!",
           ephemeral: true,
         });
     }

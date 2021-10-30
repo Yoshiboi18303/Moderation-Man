@@ -9,6 +9,12 @@ module.exports = {
       var timeouts = [];
       let bl;
 
+      /*
+      if(command.config.guildOnly) {
+        if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `**${command.data.name}** is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for right now!` })
+      }
+      */
+
       Users.findOne({ id: interaction.user.id }, async (err, data) => {
         if (err) throw err;
         if (!data) {
