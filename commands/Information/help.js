@@ -44,7 +44,7 @@ module.exports = {
     const link_row = new MessageActionRow().addComponents(
       new MessageButton()
         .setStyle("LINK")
-        .setLabel("Website (down currently)")
+        .setLabel("Website")
         .setURL(website_link)
         /* .setDisabled(true) */,
       new MessageButton()
