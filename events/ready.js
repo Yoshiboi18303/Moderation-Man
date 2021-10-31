@@ -8,16 +8,32 @@ const infinityHeaders = {
   "Content-Type": "application/json",
   Authorization: process.env.INFINITY_API_TOKEN,
 };
+const servicesHeaders = {
+  "Content-Type": "application/json",
+  Authorization: process.env.SERVICES_API_KEY,
+};
 
 module.exports = {
   name: "ready",
   async execute() {
+    const commands = [];
+    for (var [id, cmd] of client.commands) {
+      var push = {
+        command: cmd.data.name,
+        desc: cmd.data.description,
+      };
+      commands.push(push);
+    }
     const fetch = await import("node-fetch");
     const link = `https://api.discordextremelist.xyz/v2/bot/${client.user.id}/stats`;
     const infinityLink = `https://api.infinitybotlist.com/bot/${client.user.id}`;
     const reqBody = {
       guildCount: client.guilds.cache.size,
       shardCount: client.ready ? client.shard.count : 1, // This will help when I make the bot with a ShardingClient.
+    };
+    const servicesBody = {
+      servers: client.guilds.cache.size,
+      shards: client.ready ? client.shard.count : 1,
     };
     var status = "Dashboard in Development!";
     status += " | /help";
@@ -43,6 +59,26 @@ module.exports = {
     );
     // json = await f.json()
     // console.log(json)
+    var servicesReq = await fetch.default(
+      `https://api.discordservices.net/bot/${client.user.id}/stats`,
+      {
+        method: "POST",
+        headers: servicesHeaders,
+        body: JSON.stringify(servicesBody),
+      }
+    );
+    var d = await servicesReq.json();
+    console.log(d);
+    var servicesCommands = await fetch.default(
+      `https://api.discordservices.net/bot/${client.user.id}/commands`,
+      {
+        method: "POST",
+        headers: servicesHeaders,
+        body: JSON.stringify(commands),
+      }
+    );
+    d = await servicesCommands.json();
+    console.log(d);
     var req = await fetch.default(infinityLink, {
       method: "POST",
       headers: infinityHeaders,
@@ -57,7 +93,6 @@ module.exports = {
       .postStats(client.guilds.cache.size, botId)
       .then(() => console.log("Successfully sent bot data to Discord Boats!"))
       .catch((err) => console.error(err));
-    require("../website/app");
     await client.stats.autopost();
     await mongo(process.env.MONGO_CS)
       .then(console.log("M-TEST-M >>> Connected to MongoDB!"))

@@ -2,8 +2,8 @@
   "name": "modetestion-man",
   "version": "1.0.0",
   "scripts": {
-    "node": "node .",
-    "npx": "npx node ."
+    "node": "node run.js",
+    "npx": "npx node run.js"
   },
   "devDependencies": {
     "node": "^16.6.1",
@@ -22,7 +22,7 @@
     "canvas": "^2.8.0",
     "connect-mongo": "^4.6.0",
     "discord-api-types": "^0.24.0",
-    "discord.js": "^13.3.0-dev.1635250077.ceaf738",
+    "discord.js": "^13.4.0-dev.1635552294.761a901",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "express": "^4.17.1",

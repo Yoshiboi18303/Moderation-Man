@@ -23,14 +23,6 @@ module.exports = {
     var random_color =
       color_array[Math.floor(Math.random() * color_array.length)];
     var state = config.bot.state.replace("::", "-");
-    var infinityReq = await fetch.default(
-      `https://api.infinitybotlist.com/bot/891070722074611742`,
-      {
-        method: "GET",
-      }
-    );
-    var infinityData = await infinityReq.json();
-    console.log(infinityData);
     const embed = new MessageEmbed()
       .setColor(interaction.guild.me.displayHexColor || random_color)
       .setTitle(`Info on ${client.user.username}`)
@@ -54,21 +46,10 @@ module.exports = {
           inline: true,
         },
         {
-          name: "Command Count",
-          value: `${client.commands.size}`,
-          inline: true,
-        },
-        {
           name: "Running on discord.js version:",
           value: `${djsversion}`,
           inline: true,
         },
-        /*
-        {
-          name: "Vote Count (Infinity Bot List)",
-          value: `${infinityData.votes}`
-        },
-        */
         {
           name: "NodeJS Version",
           value: `${process.version}`,
@@ -94,6 +75,16 @@ module.exports = {
         {
           name: "User Count",
           value: `${client.users.cache.size}`,
+          inline: true,
+        },
+        {
+          name: "Command Count",
+          value: `${client.commands.size}`,
+          inline: true,
+        },
+        {
+          name: "Channel Count",
+          value: `${client.channels.cache.size}`,
           inline: true,
         },
       ]);

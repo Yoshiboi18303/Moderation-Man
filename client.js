@@ -1,4 +1,4 @@
-console.clear();
+console.log("Starting bot...");
 const { Client, Collection } = require("discord.js");
 const fs = require("fs");
 const client = new Client({

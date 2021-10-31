@@ -28,7 +28,9 @@ module.exports = {
       );
     const sent_embed = new MessageEmbed()
       .setColor(colors.green)
-      .setDescription("All of my commands were sent to your DMs!");
+      .setDescription(
+        `${emojis.yes} **-** All of my commands were sent to your DMs!`
+      );
     for (var [id, cmd] of client.commands) {
       help_embed.addField(
         `${cmd.data.name}`,
@@ -42,8 +44,9 @@ module.exports = {
     const link_row = new MessageActionRow().addComponents(
       new MessageButton()
         .setStyle("LINK")
-        .setLabel("Website")
-        .setURL(website_link),
+        .setLabel("Website (down currently)")
+        .setURL(website_link)
+        .setDisabled(true),
       new MessageButton()
         .setStyle("LINK")
         .setLabel("Support Server")
