@@ -46,7 +46,7 @@ module.exports = {
         .setStyle("LINK")
         .setLabel("Website (down currently)")
         .setURL(website_link)
-        .setDisabled(true),
+        /* .setDisabled(true) */,
       new MessageButton()
         .setStyle("LINK")
         .setLabel("Support Server")
