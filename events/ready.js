@@ -90,11 +90,15 @@ module.exports = {
 
     var botId = client.ready ? client.user.id : "891070722074611742";
 
-    var grabbed = await mbl.servers(
+    let grabbed = await mbl.servers(
       botId,
       process.env.KEY_TO_MOTION,
       client.guilds.cache.size
     );
+
+    console.log(grabbed);
+
+    grabbed = await mbl.grabInfo(botId, process.env.KEY_TO_MOTION);
 
     console.log(grabbed);
 
