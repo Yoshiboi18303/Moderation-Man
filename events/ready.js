@@ -12,6 +12,7 @@ const servicesHeaders = {
   "Content-Type": "application/json",
   Authorization: process.env.SERVICES_API_KEY,
 };
+const mbl = require("motionbotlist");
 
 module.exports = {
   name: "ready",
@@ -88,6 +89,14 @@ module.exports = {
     // console.log(json)
 
     var botId = client.ready ? client.user.id : "891070722074611742";
+
+    var grabbed = await mbl.servers(
+      botId,
+      process.env.KEY_TO_MOTION,
+      client.guilds.cache.size
+    );
+
+    console.log(grabbed);
 
     client.boat
       .postStats(client.guilds.cache.size, botId)

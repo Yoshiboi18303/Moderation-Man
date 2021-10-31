@@ -140,7 +140,7 @@ app.get("/info", (req, res) => {
 app.get(["/developer", "/dev"], async (req, res) => {
   var user = await client.users.fetch("697414293712273408");
   var fhg = await client.users.fetch("482326304381730826");
-  res.status(200).render("developer", { users: [user, fhg] });
+  res.status(200).render("developers", { users: [user, fhg] });
 });
 
 app.get(["/features", "/feats"], (req, res) => {
