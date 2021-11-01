@@ -22,6 +22,7 @@ module.exports = {
         .setRequired(false)
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const fetch = await import("node-fetch");
     var song = interaction.options.getString("song");
     var lyrics_are_cancerous =
@@ -32,11 +33,10 @@ module.exports = {
     });
     var data = await f.json();
     if (data.error)
-      return await interaction.reply({
+      return await interaction.editReply({
         content: `There were no lyrics found for **${song}**!`,
         ephemeral: true,
       });
-    await interaction.deferReply();
     var lyrics_link = hyperlink("here", data.links.genius);
     lyrics_link = hideLinkEmbed(lyrics_link);
     if (data.lyrics > 2000)

@@ -1,5 +1,5 @@
 {
-  "name": "modetestion-man",
+  "name": "moderation-man",
   "version": "1.0.0",
   "scripts": {
     "node": "node run.js",

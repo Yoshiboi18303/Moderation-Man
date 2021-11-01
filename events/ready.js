@@ -25,25 +25,21 @@ module.exports = {
       };
       commands.push(push);
     }
+    var returnShardCount = client.ready ? client.shard.count : 1; // This will help when I make the bot with a ShardingManager.
     const fetch = await import("node-fetch");
     const link = `https://api.discordextremelist.xyz/v2/bot/${client.user.id}/stats`;
     const infinityLink = `https://api.infinitybotlist.com/bot/${client.user.id}`;
     const reqBody = {
       guildCount: client.guilds.cache.size,
-      shardCount: client.ready ? client.shard.count : 1, // This will help when I make the bot with a ShardingClient.
+      shardCount: returnShardCount,
     };
     const servicesBody = {
       servers: client.guilds.cache.size,
-      shards: client.ready ? client.shard.count : 1,
+      shards: returnShardCount,
     };
-    var status = "Dashboard in Development!";
-    status += " | /help";
-    client.user.setActivity(`${status}`, {
-      type: "WATCHING",
-    });
     const infinityBody = {
       servers: client.guilds.cache.size,
-      shards: client.ready ? client.shard.count : 1,
+      shards: returnShardCount,
     };
     var res = await fetch.default(link, {
       method: "POST",
@@ -102,13 +98,51 @@ module.exports = {
 
     console.log(grabbed);
 
+    let botlistReqLink = `https://api.botlist.me/api/v1/bots/${botId}/stats`;
+    var botlistReqHeaders = {
+      "Content-Type": "application/json",
+      Authorization: process.env.API_KEY,
+    };
+    var botlistReqBody = {
+      server_count: client.guilds.cache.size,
+      shard_count: returnShardCount,
+    };
+
+    var botlistReq = await fetch.default(botlistReqLink, {
+      method: "POST",
+      headers: botlistReqHeaders,
+      body: JSON.stringify(botlistReqBody),
+    });
+
+    data = await botlistReq.json();
+    console.log(data);
+
+    botlistReqLink = `https://discordlistology.com/api/v1/bots/${botId}/stats`;
+    botlistReqHeaders = {
+      "Content-Type": "application/json",
+      Authorization: process.env.DISCORDLISTOLOGY,
+    };
+    botlistReqBody = {
+      servers: client.guilds.cache.size,
+      shards: returnShardCount,
+    };
+
+    botlistReq = await fetch.default(botlistReqLink, {
+      method: "POST",
+      headers: botlistReqHeaders,
+      body: JSON.stringify(botlistReqBody),
+    });
+
+    data = await botlistReq.json();
+    console.log(data);
+
     client.boat
       .postStats(client.guilds.cache.size, botId)
       .then(() => console.log("Successfully sent bot data to Discord Boats!"))
       .catch((err) => console.error(err));
     await client.stats.autopost();
     await mongo(process.env.MONGO_CS)
-      .then(console.log("M-TEST-M >>> Connected to MongoDB!"))
+      .then(console.log("MM >>> Connected to MongoDB!"))
       .catch((e) => console.error(e));
     const statuses = [
       `${client.guilds.cache.get("892603177248096306").name}`,
@@ -118,20 +152,25 @@ module.exports = {
       `${client.guilds.cache.size} Guilds`,
       `${config.bot.website.origin}`,
       `Make money with my Economy system!`,
+      `Uptime: ${client.uptime}%`,
     ];
     client.autoposter.on("posted", () => {
       console.log("Successful sent bot data to Top.gg!");
     });
+    const channel = client.channels.cache.get("904421522205204531");
+    await channel.send({
+      content: `${client.user.username} has logged on! Now running with ${
+        client.ready ? client.shard.count : 1
+      } shard(s) in ${client.guilds.cache.size} guilds!`,
+    });
     console.log(`${client.user.username} has logged on!`);
-    /*
     setInterval(() => {
-      var status = statuses[Math.floor(Math.random() * statuses.length)]
-      status += " | /help"
+      var status = statuses[Math.floor(Math.random() * statuses.length)];
+      status += " | /help";
       client.user.setActivity(`${status}`, {
-        type: "WATCHING"
-      })
-    }, 10000)
-    */
+        type: "WATCHING",
+      });
+    }, 10000);
     client.stats.on("post", (status) => {
       if (!status) console.log("Successful Post");
       else console.error(status);

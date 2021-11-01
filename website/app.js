@@ -224,7 +224,9 @@ app.post(
             .setColor(colors.green)
             .setTitle("Thanks for voting")
             .setDescription(
-              `Thank you so much for voting for **${bot.username}**!`
+              `Thank you so much for voting for **${
+                bot.username
+              }**!\nYou have earned **${voteRewards.join(", ")}`
             );
           if (data.dmable) {
             client.users.cache.get(vote.user).send({
@@ -241,3 +243,6 @@ app.post(
 
 app.listen(port);
 console.log(`${client.user.username} website is listening on port ${port}!`);
+console.log(
+  "\n--------------------------------------------------------------\n"
+);

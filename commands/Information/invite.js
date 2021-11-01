@@ -4,8 +4,20 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("invite")
-    .setDescription("Returns the link to invite Moderation Man!"),
+    .setDescription("Returns the link to invite Moderation Man!")
+    .addBooleanOption((option) =>
+      option
+        .setName("enable_redirect")
+        .setDescription(
+          "Do you want a redirect_uri with the invite link? { default: true }"
+        )
+        .setRequired(false)
+    ),
   async execute(interaction) {
+    var enable_redirect = interaction
+      ? interaction.options.getBoolean("enable_redirect")
+      : false;
+    // console.log(enable_redirect)
     var user = interaction.user;
     var member = interaction.member;
     var invite_link = client.generateInvite({
@@ -29,8 +41,10 @@ module.exports = {
         "USE_APPLICATION_COMMANDS",
       ],
     });
-    invite_link +=
-      "&redirect_uri=https://moderation-man.ml/invited?referral=discord";
+    if (enable_redirect == true) {
+      invite_link +=
+        "&redirect_uri=https://moderation-man.ml/invited?referral=discord";
+    }
     const invite_embed = new MessageEmbed()
       .setColor(member.displayHexColor || "BLURPLE")
       .setTitle(`Invite ${client.user.username}`)

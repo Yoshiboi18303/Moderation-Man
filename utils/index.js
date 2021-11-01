@@ -47,4 +47,13 @@ function convertToUpperCase(string) {
   return upperCaseString;
 }
 
-module.exports = { getCommands, convertToLowerCase, convertToUpperCase };
+function reverseString(string) {
+  return string.split("").reverse().join("");
+}
+
+module.exports = {
+  getCommands,
+  convertToLowerCase,
+  convertToUpperCase,
+  reverseString,
+};

@@ -65,7 +65,6 @@ module.exports = {
             });
             data = await Profiles.findOneAndDelete({ id: interaction.user.id });
             await wait(5000);
-            data.save();
             await interaction.editReply({
               content: "Data deleted!",
               ephemeral: true,

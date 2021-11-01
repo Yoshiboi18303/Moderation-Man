@@ -43,6 +43,10 @@ module.exports = {
       */
 
       console.log(`Trying to execute command "${interaction.commandName}"...`);
+      const channel = await client.channels.cache.get("904421522205204531");
+      await channel.send({
+        content: `Trying to execute command "**${interaction.commandName}**" in **${interaction.guild.name}**`,
+      });
       try {
         if (bl)
           return await interaction.reply({
@@ -51,6 +55,16 @@ module.exports = {
         await command.execute(interaction);
       } catch (e) {
         console.error(e);
+        const error_embed = new MessageEmbed()
+          .setColor(colors.red)
+          .setTitle("Error")
+          .setDescription(
+            `An error occured trying to execute **${command.data.name}**...\n\n\`\`\`js\n${e}\n\`\`\``
+          );
+        await channel.send({
+          content: `<@&904429332582240266>`,
+          embeds: [error_embed],
+        });
         if (interaction.replied || interaction.deferred) {
           return interaction.editReply({
             content:

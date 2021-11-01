@@ -6,6 +6,11 @@ module.exports = {
     .setName("join")
     .setDescription("Makes the client join your Voice Channel"),
   async execute(interaction) {
+    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.CONNECT))
+      return await interaction.reply({
+        content: "I don't have the `CONNECT` permission in this server!",
+        ephemeral: true,
+      });
     var vc = interaction.member.voice.channel;
     if (!vc)
       return await interaction.reply({

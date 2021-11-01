@@ -1,10 +1,16 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { Permissions } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("leave")
     .setDescription("Makes the client disconnect from its Voice Channel"),
   async execute(interaction) {
+    if (!interaction.guild.me.permissions.has(Permissions.FLAGS.CONNECT))
+      return await interaction.reply({
+        content: "I don't have the `CONNECT` permission in this server!",
+        ephemeral: true,
+      });
     var vc = interaction.member.voice.channel;
     var cv = interaction.guild.me.voice;
     var cvc = interaction.guild.me.voice.channel;

@@ -9,6 +9,7 @@ module.exports = {
       option.setName("user").setDescription("A user to use").setRequired(false)
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     var color;
     var user = interaction.options.getUser("user") || interaction.user;
     var member = interaction.options.getMember("user") || interaction.member;
@@ -34,6 +35,6 @@ module.exports = {
         user.displayAvatarURL({ dynamic: false, format: "png", size: 32 })
       );
     }
-    await interaction.reply({ embeds: [how_gay_embed] });
+    await interaction.editReply({ embeds: [how_gay_embed] });
   },
 };
