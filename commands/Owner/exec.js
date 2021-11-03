@@ -19,7 +19,7 @@ module.exports = {
         ephemeral: true,
       });
     await interaction.deferReply();
-    var cmd = interaction.options.getString("command").toLowerCase();
+    var cmd = interaction.options.getString("command");
     // cmd = cmd.toLowerCase();
     let output = shell.exec(cmd);
     if (output == "" && output.stderr != "") {
