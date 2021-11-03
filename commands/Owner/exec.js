@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed /*, MessageAttachment */ } = require("discord.js");
 const shell = require("shelljs");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("exec")
-    .setDescription("Executes a shell command")
+    .setDescription("Executes shell commands")
     .addStringOption((option) =>
       option
         .setName("command")
@@ -19,7 +19,8 @@ module.exports = {
         ephemeral: true,
       });
     await interaction.deferReply();
-    var cmd = interaction.options.getString("command");
+    var cmd = interaction.options.getString("command").toLowerCase();
+    // cmd = cmd.toLowerCase();
     let output = shell.exec(cmd);
     if (output == "" && output.stderr != "") {
       output = `${output.stderr}`;
