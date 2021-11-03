@@ -1,12 +1,17 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("eightball")
     .setDescription("Ask the magic 8ball something")
-    .addStringOption((option) => option.setName("question").setDescription("The question to ask").setRequired(true)),
+    .addStringOption((option) =>
+      option
+        .setName("question")
+        .setDescription("The question to ask")
+        .setRequired(true)
+    ),
   async execute(interaction) {
-    var question = interaction.options.getString("question")
+    var question = interaction.options.getString("question");
     const responses = [
       "It is certain",
       "It is decidedly so",
@@ -28,12 +33,25 @@ module.exports = {
       "My sources say no",
       "Outlook not so good",
       "Very doubtful",
-    ]
-    const response = responses[Math.floor(Math.random() * responses.length)]
-    await interaction.reply({ content: `You shake the magic 8 ball asking it: "${question}"... 🎱`, ephemeral: true })
+    ];
+    const response = responses[Math.floor(Math.random() * responses.length)];
+    await interaction.reply({
+      content: `You shake the magic 8 ball asking it: "${question}"... 🎱`,
+      ephemeral: true,
+    });
     setTimeout(async () => {
-      await interaction.editReply({ content: "And it says...", ephemeral: true })
-      setTimeout(async () => await interaction.editReply({ content: `${response}.`, ephemeral: true }), 5000)
-    }, 5000)
-  }
-}
+      await interaction.editReply({
+        content: "And it says...",
+        ephemeral: true,
+      });
+      setTimeout(
+        async () =>
+          await interaction.editReply({
+            content: `${response}.`,
+            ephemeral: true,
+          }),
+        5000
+      );
+    }, 5000);
+  },
+};

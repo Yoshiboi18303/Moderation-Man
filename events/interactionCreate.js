@@ -4,7 +4,11 @@ module.exports = {
   name: "interactionCreate",
   async execute(interaction, client) {
     if (interaction.isCommand()) {
-      if (!interaction.guild) return await interaction.reply({ content: "You need to run these commands in a guild!", ephemeral: true });
+      if (!interaction.guild)
+        return await interaction.reply({
+          content: "You need to run these commands in a guild!",
+          ephemeral: true,
+        });
       if (interaction.user.bot) return;
       const command = client.commands.get(interaction.commandName);
       var timeouts = [];
