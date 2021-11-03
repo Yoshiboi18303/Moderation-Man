@@ -20,6 +20,9 @@ var costs = {
   15: 145133,
   16: 169691,
   17: 200000,
+  18: 250000,
+  19: 300000,
+  20: 350000,
 };
 
 var vms = {
@@ -39,6 +42,9 @@ var vms = {
   15: 123133,
   16: 169969,
   17: 225000,
+  18: 275000,
+  19: 325000,
+  20: 375000,
 };
 
 module.exports = {
@@ -79,7 +85,7 @@ module.exports = {
               } more coins!`,
               ephemeral: true,
             });
-          if (vl + 1 > 17)
+          if (vl + 1 > 20)
             return await interaction.reply({
               content: `This is the maximum upgrade, you are now **OP** and don't need this command anymore!`,
               ephemeral: true,

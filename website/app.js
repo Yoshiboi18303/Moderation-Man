@@ -241,8 +241,11 @@ app.post(
   })
 );
 
+app.post("/discordswebhook", async (user, type, votes) => {
+  console.log(user, type, votes);
+});
+
 app.listen(port);
-console.log(`${client.user.username} website is listening on port ${port}!`);
 console.log(
-  "\n--------------------------------------------------------------\n"
+  `${client.user.username} website is listening on port ${port}!\n\n--------------------------------------------------------------\n`
 );

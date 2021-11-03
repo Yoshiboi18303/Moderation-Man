@@ -8,11 +8,12 @@ module.exports = {
     ),
   async execute(interaction) {
     const fetch = await import("node-fetch");
+    await interaction.deferReply();
     var link = "https://some-random-api.ml/joke";
     var f = await fetch.default(link, {
       method: "GET",
     });
     var data = await f.json();
-    await interaction.reply({ content: `${data.joke}` });
+    await interaction.editReply({ content: `${data.joke}` });
   },
 };

@@ -40,6 +40,7 @@
     "passport": "^0.5.0",
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",
+    "shelljs": "^0.8.4",
     "soundcloud-downloader": "^1.0.0",
     "spotifydl-core": "^0.2.0",
     "statcord.js": "^3.3.0",

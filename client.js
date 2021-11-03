@@ -1,4 +1,6 @@
-console.log("Starting bot...");
+console.log(
+  "Starting bot...\n\n--------------------------------------------------------------\n"
+);
 const { Client, Collection } = require("discord.js");
 const fs = require("fs");
 const client = new Client({
@@ -34,6 +36,7 @@ global.voteRewards = [
   "More money from working",
   "Voice Moderation logs (soon)",
 ];
+global.admins = ["482326304381730826", "697414293712273408"];
 
 client.commands = new Collection();
 client.stats = statcord;
@@ -55,7 +58,7 @@ const commandFolder = fs.readdirSync("./commands/");
 
   client.stats.on("autopost-start", () => {
     console.log(
-      `Autoposting session has started! Now logging data on ${client.user.username} to Statcord!`
+      `Autoposting session has started! Now sending data on ${client.user.username} to Statcord!`
     );
   });
 

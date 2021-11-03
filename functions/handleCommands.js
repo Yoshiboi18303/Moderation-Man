@@ -29,7 +29,9 @@ module.exports = (client) => {
           body: client.commandArray,
         });
 
-        console.log("Successfully reloaded application (/) commands.");
+        console.log(
+          "Successfully reloaded application (/) commands.\nBot functions successfully made and completed!"
+        );
         console.log(
           "\n--------------------------------------------------------------\n"
         );

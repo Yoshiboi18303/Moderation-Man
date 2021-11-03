@@ -22,7 +22,7 @@ module.exports = {
     client.destroy();
     client.login(process.env.TOKEN);
     require("../../events/ready");
-    require("../../index");
+    require("../../client");
     setTimeout(async () => {
       await interaction.editReply({
         content: `Restart Successful! ${yes}`,

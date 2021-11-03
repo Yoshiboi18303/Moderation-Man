@@ -30,7 +30,7 @@ A list of features for Moderation Man can be found [here](https://moderation-man
 
 # Dashboard
 
-Coming Soon!
+(still in development!) Click [this](https://moderation-man.ml/servers) to go to the dashboard.
 
 ---
 
@@ -49,9 +49,20 @@ The command prefix right now is `/`
 
 ## Worried about your data?
 
-Well then check out the [Privacy Policy](https://github.com/Yoshiboi18303/Moderation-Man/blob/main/PRIVACY.md) to see what the developer collects!
+Well then check out the [Privacy Policy](https://moderation-man.ml/privacy) to see what the developer collects!
 
 You can also join the [Support Server](https://discord.gg/nv4pyCXBnr) if you want to contact `Yoshiboi18303#4045` and tell him any concerns you have!
+
+---
+
+# FAQ:
+Frequently Asked Questions
+
+- Q: What should I do when I first invite the bot?
+- A: There's many things you could do when you first invite Moderation Man to your server! I would personally recommend you change the settings for your bot on the dashboard [here](https://moderation-man.ml/servers) (good note: the Dashboard is still in development, so nothing works yet)!
+
+- Q: What would show all the commands to me?
+- A: This is a simple answer. You can run `/help` in a server with Application Commands to see all the commands!
 
 ---
 

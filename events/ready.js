@@ -136,6 +136,26 @@ module.exports = {
     data = await botlistReq.json();
     console.log(data);
 
+    botlistReqLink = `https://discords.com/api/bot/${botId}`;
+    botlistReqHeaders = {
+      "Content-Type": "application/json",
+      Authorization: process.env.DISCORDBOTLIST,
+    };
+    botlistReqBody = {
+      server_count: client.guilds.cache.size,
+    };
+
+    botlistReq = await fetch.default(botlistReqLink, {
+      method: "POST",
+      headers: botlistReqHeaders,
+      body: JSON.stringify(botlistReqBody),
+    });
+
+    /*
+    data = await botlistReq.json()
+    console.log(data)
+    */
+
     client.boat
       .postStats(client.guilds.cache.size, botId)
       .then(() => console.log("Successfully sent bot data to Discord Boats!"))
@@ -152,8 +172,8 @@ module.exports = {
       `${client.guilds.cache.size} Guilds`,
       `${config.bot.website.origin}`,
       `Make money with my Economy system!`,
-      `Uptime: ${client.uptime}%`,
     ];
+    const status_types = ["LISTENING", "PLAYING", "WATCHING"];
     client.autoposter.on("posted", () => {
       console.log("Successful sent bot data to Top.gg!");
     });
@@ -167,8 +187,9 @@ module.exports = {
     setInterval(() => {
       var status = statuses[Math.floor(Math.random() * statuses.length)];
       status += " | /help";
+      var type = status_types[Math.floor(Math.random() * status_types.length)];
       client.user.setActivity(`${status}`, {
-        type: "WATCHING",
+        type: type,
       });
     }, 10000);
     client.stats.on("post", (status) => {

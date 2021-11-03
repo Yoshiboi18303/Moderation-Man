@@ -10,7 +10,14 @@ const Guilds = require("../schemas/guildSchema");
 module.exports = {
   name: "guildMemberAdd",
   async execute(member) {
-    if (member.guild.id == guild_id) {
+    var guild = Guilds.findOne({ id: member.guild.id });
+
+    const fetch = await import("node-fetch");
+    var f = await fetch.default("https://captcha.dogemod.ml/generate", {
+      method: "GET",
+    });
+    var data = await f.json();
+    /* Testing Purposes */ if (member.guild.id == guild_id) {
       if (!member.user.bot) {
         var user = member.user;
         var guild = member.guild;
@@ -22,18 +29,77 @@ module.exports = {
             `**${user.username}** joined **${guild.name}**, welcome to the server! 👋`
           );
         client.channels.cache.get(log_id).send({ embeds: [new_user_embed] });
-        member.roles.add(user_role_id);
-        user.send({
-          content: `Welcome to **${
-            guild.name
-          }**, thanks so much for joining!\nThe current owner is **<@${
-            guild.ownerId
-          }>**, and they joined Discord on ${moment
-            .utc(owner.createdTimestamp)
-            .format("LL LTS")} which was ${moment
-            .utc(owner.createdTimestamp)
-            .fromNow()}!`,
-        });
+        const captcha_embed = new MessageEmbed()
+          .setColor(colors.yellow)
+          .setTitle("__Verification__")
+          .setDescription(
+            `Please enter the code in the following image (case-sensitive).`
+          )
+          .setImage(data.path)
+          .setFooter(`${member.guild.name} Captcha Verification`)
+          .setTimestamp();
+        // member.roles.add(user_role_id);
+        user
+          .send({
+            content: `Welcome to **${
+              guild.name
+            }**, thanks so much for joining!\nThe current owner is **<@${
+              guild.ownerId
+            }>**, and they joined Discord on ${moment
+              .utc(owner.createdTimestamp)
+              .format("LL LTS")} which was ${moment
+              .utc(owner.createdTimestamp)
+              .fromNow()}!\n\n**You now need to verify yourself before being able to talk in __${
+              member.guild.name
+            }__, please look at the following embed.**`,
+            embeds: [captcha_embed],
+          })
+          .then(() => {
+            bot.on("messageCreate", async (message) => {
+              let attempts = 0;
+              if (member.user.id == message.author.id && !message.guild) {
+                if (message.content.includes(data.code)) {
+                  attempts = 0;
+                  user
+                    .send({
+                      content: `You are now verified in **${member.guild.name}**.`,
+                    })
+                    .then(() => {
+                      member.roles.add(
+                        /* member.guild.roles.cache.find(r => r.name == "Verified" || r.id == guild.verified) */ member.guild.roles.cache.get(
+                          user_role_id
+                        )
+                      );
+                    });
+                } else {
+                  user.send({
+                    content: `Incorrect code, please look more carefully.\n\n**You have ${
+                      10 - attempts
+                    } attempts left.**`,
+                  });
+                  if (attempts >= 10) {
+                    const failure_embed = new MessageEmbed()
+                      .setColor(colors.red)
+                      .setTitle("Verification Failure...")
+                      .setDescription(
+                        `I have failed to verify you due to "Too many incorrect answers!", you have been kicked from ${member.guild.name}!`
+                      );
+                    await user.send({
+                      embeds: [failure_embed],
+                    });
+                    attempts = 0;
+                    return member.kick({
+                      reason:
+                        "Too many incorrect attempts on Captcha Verification!",
+                    });
+                  } else {
+                    attempts = attempts + 1;
+                  }
+                }
+              }
+            });
+          })
+          .catch((e) => console.error(e));
       } else {
         var user = member.user;
         var guild = member.guild;

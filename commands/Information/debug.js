@@ -47,8 +47,10 @@ module.exports = {
       switch (permission_choice) {
         case "c":
           var permissions_c = interaction.guild.me.permissions.toArray();
+          var permissions_g = new Permissions(interaction.guild);
           function check_c_permissions(p_array) {
             var pa = [];
+            let permission_count = 0;
             for (var p in p_array) {
               if (p == 0) {
                 i = 0;
@@ -58,11 +60,16 @@ module.exports = {
               if (!interaction.guild.me.permissions.has(p)) {
                 var not_allowed = `${p_array[i]} - Not Allowed.`;
                 pa.push(not_allowed);
+                permission_count = permission_count - 1;
               } else {
                 var allowed = `${p_array[i]} - Allowed!`;
+                permission_count = permission_count + 1;
                 pa.push(allowed);
               }
             }
+            pa.push(
+              `\nI currently have ${permission_count}/ permissions allowed for myself.`
+            );
             return pa.join("\n");
           }
           var file = Buffer.from(check_c_permissions(permissions_c));
