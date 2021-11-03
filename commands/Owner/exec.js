@@ -5,7 +5,7 @@ const shell = require("shelljs");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("exec")
-    .setDescription("Executes shell commands")
+    .setDescription("Executes shell commands (admins only)")
     .addStringOption((option) =>
       option
         .setName("command")

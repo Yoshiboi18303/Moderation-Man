@@ -11,7 +11,7 @@ const { joinVoiceChannel } = require("@discordjs/voice");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("eval")
-    .setDescription("Evaluate some code (owner only & dangerous)")
+    .setDescription("Evaluate some code (admins only & dangerous)")
     .addStringOption((option) =>
       option
         .setName("code")
