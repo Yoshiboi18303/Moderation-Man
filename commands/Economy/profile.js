@@ -50,8 +50,11 @@ module.exports = {
         var cafvc_pc = data.vault_max - data.coins;
         if (cafvc_pc < 0) cafvc_pc = 0;
         var computer_count = data.inventory.items.computers;
+        var fish_count = data.inventory.fish;
         if (computer_count == undefined || typeof computer_count == "undefined")
           computer_count = 0;
+        if (fish_count == undefined || typeof fish_count == "undefined")
+          fish_count = 0;
         const profile_embed = new MessageEmbed()
           .setColor(data.color)
           .setTitle(`${data.nickname}'s Profile!`)
@@ -63,7 +66,7 @@ module.exports = {
             },
             {
               name: "Fish",
-              value: `${data.inventory.fish}`,
+              value: `${fish_count}`,
               inline: true,
             },
             {

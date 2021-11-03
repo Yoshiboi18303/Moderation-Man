@@ -15,6 +15,7 @@ module.exports = {
     ),
   async execute(interaction) {
     var able_to_be_dmed = interaction.options.getBoolean("dmable");
+    await interaction.deferReply();
     Users.findOne({ id: interaction.user.id }, async (err, data) => {
       if (err) throw err;
       if (!data) {
@@ -23,7 +24,7 @@ module.exports = {
           dmable: able_to_be_dmed,
         });
         data.save();
-        await interaction.reply({
+        await interaction.editReply({
           content: `Successfully set your client DM state to \`${able_to_be_dmed}\`!`,
         });
       } else {
@@ -36,7 +37,7 @@ module.exports = {
           }
         );
         data.save();
-        await interaction.reply({
+        await interaction.editReply({
           content: `Successfully changed your client DM state to \`${able_to_be_dmed}\``,
         });
       }
