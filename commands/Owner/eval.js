@@ -92,7 +92,9 @@ module.exports = {
         const error_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("Error Evaluating")
-          .setDescription(`An error occurred.\n\nError:\n\`\`\`js\n${result}\n\`\`\``);
+          .setDescription(
+            `An error occurred.\n\nError:\n\`\`\`js\n${result}\n\`\`\``
+          );
         await interaction.editReply({ embeds: [error_embed] });
       });
   },
