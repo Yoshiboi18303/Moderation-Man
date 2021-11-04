@@ -13,10 +13,10 @@ module.exports = {
     var guild = Guilds.findOne({ id: member.guild.id });
 
     const fetch = await import("node-fetch");
-    var f = await fetch.default("https://captcha.dogemod.ml/generate", {
+    /* var f = await fetch.default("https://captcha.dogemod.ml/generate", {
       method: "GET",
     });
-    var data = await f.json();
+    var data = await f.json(); */
     /* Testing Purposes */ if (member.guild.id == guild_id) {
       if (!member.user.bot) {
         var user = member.user;

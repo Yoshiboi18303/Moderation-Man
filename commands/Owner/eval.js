@@ -39,6 +39,21 @@ module.exports = {
       process.env.MONGO_CS,
       client.token,
       process.env.STATCORD_KEY,
+      process.env.BACKUP_DLS_API_KEY,
+      process.env.BOATS_KEY,
+      process.env.CLIENT_SECRET,
+      process.env.DEL_API_KEY,
+      process.env.DISCORDBOTLIST,
+      process.env.DISCORDLISTOLOGY,
+      process.env.INFINITY_API_TOKEN,
+      process.env.KEY_TO_MOTION,
+      process.env.MAIN_DLS_API_KEY,
+      process.env.SECRET,
+      process.env.SERVICES_API_KEY,
+      process.env.TEST_VOTE_WEBHOOK_TOKEN,
+      process.env.TOPGG_API_KEY,
+      process.env.VOTE_WEBHOOK_TOKEN,
+      process.env.WEBHOOK_AUTH,
     ];
 
     result
@@ -62,7 +77,7 @@ module.exports = {
           .setColor(colors.green)
           .setTitle("Evaluation")
           .setDescription(
-            `Successful Evaluation.\n\n\`\`\`js\n${result}\n\`\`\``
+            `Successful Evaluation.\n\nOutput:\n\`\`\`js\n${result}\n\`\`\``
           );
         await interaction.editReply({ embeds: [evaluated_embed] });
       })
@@ -77,7 +92,7 @@ module.exports = {
         const error_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("Error Evaluating")
-          .setDescription(`An error occurred.\n\n\`\`\`js\n${result}\n\`\`\``);
+          .setDescription(`An error occurred.\n\nError:\n\`\`\`js\n${result}\n\`\`\``);
         await interaction.editReply({ embeds: [error_embed] });
       });
   },

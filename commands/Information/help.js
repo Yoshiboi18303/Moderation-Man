@@ -25,6 +25,13 @@ module.exports = {
       .setTitle(`${client.user.username} Commands!`)
       .setDescription(
         `Hello <@${interaction.user.id}>, here are all my commands!`
+      )
+      .setThumbnail(
+        interaction.user.displayAvatarURL({
+          dynamic: true,
+          format: "png",
+          size: 512,
+        })
       );
     const sent_embed = new MessageEmbed()
       .setColor(colors.green)

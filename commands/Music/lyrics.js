@@ -1,8 +1,4 @@
-const {
-  SlashCommandBuilder,
-  hyperlink,
-  hideLinkEmbed,
-} = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
@@ -18,7 +14,7 @@ module.exports = {
     .addBooleanOption((option) =>
       option
         .setName("enable_cancer")
-        .setDescription("Should the lyrics be cancerous?")
+        .setDescription("Should the lyrics be cancerous? (default: false)")
         .setRequired(false)
     ),
   async execute(interaction) {
@@ -37,13 +33,24 @@ module.exports = {
         content: `There were no lyrics found for **${song}**!`,
         ephemeral: true,
       });
-    var lyrics_link = hyperlink("here", data.links.genius);
-    lyrics_link = hideLinkEmbed(lyrics_link);
-    if (data.lyrics > 2000)
+    if (data.lyrics.length > 2000) {
+      const too_long_embed = new MessageEmbed()
+        .setColor(colors.orange)
+        .setTitle("Lyrics too long")
+        .setDescription(
+          `The lyrics for **${
+            data.title
+          }** (with cancerous being \`${lyrics_are_cancerous}\`) are too long to be shown on Discord, please go [here](${
+            data.links.genius
+          }) to see the full lyrics ${
+            lyrics_are_cancerous == true ? `(without the cancerous lyrics)` : ""
+          }.`
+        );
       return await interaction.editReply({
-        content: `The lyrics for **${song}** are too long to be shown on Discord, please go **${lyrics_link}** to see the full lyrics.`,
+        embeds: [too_long_embed],
         ephemeral: true,
       });
+    }
     const lyrics_embed = new MessageEmbed()
       .setColor("RANDOM")
       .setAuthor(`${data.author}`)

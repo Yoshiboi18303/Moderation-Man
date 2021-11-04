@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const Options = require("../schemas/optionsSchema");
 
 module.exports = {
   name: "messageCreate",

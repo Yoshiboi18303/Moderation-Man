@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed /*, MessageAttachment */ } = require("discord.js");
+const { MessageEmbed, MessageAttachment } = require("discord.js");
 const shell = require("shelljs");
 
 module.exports = {
@@ -26,6 +26,13 @@ module.exports = {
       output = `${output.stderr}`;
     } else if (output == "" && output.stderr == "") {
       output = "Command Completed (no output)";
+    } else if (output.length > 4096 || output.stderr.length > 4096) {
+      var buffer = Buffer.from(output)
+      var attachment = new MessageAttachment(buffer, "output.txt")
+      return await interaction.editReply({
+        content: `The output wanting to be shown for \`${cmd}\` is too long to be shown on Discord, so here's a file.`,
+        files: [attachment]
+      })
     }
     // console.log(output)
     const executed_embed = new MessageEmbed()

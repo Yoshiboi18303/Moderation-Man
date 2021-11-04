@@ -12,6 +12,27 @@ module.exports = (client) => {
       for (const file of commandFiles) {
         const command = require(`../commands/${folder}/${file}`);
 
+        if (!command.data.name || typeof command.data.name == "undefined")
+          throw new Error(
+            "Moderation Man Error > All commands require a name!"
+          );
+        if (typeof command.data.name != "string")
+          throw new TypeError(
+            "Moderation Man TypeError > Your command name needs to be a string!"
+          );
+
+        if (
+          !command.data.description ||
+          typeof command.data.description == "undefined"
+        )
+          throw new Error(
+            "Moderation Man Error > All commands require a description!"
+          );
+        if (typeof command.data.description != "string")
+          throw new TypeError(
+            "Moderation Man TypeError > Your command description needs to be a string!"
+          );
+
         client.commands.set(command.data.name, command);
         client.commandArray.push(command.data.toJSON());
       }

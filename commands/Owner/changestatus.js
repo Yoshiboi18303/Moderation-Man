@@ -23,9 +23,9 @@ module.exports = {
         .addChoice("watching", "WATCHING")
     ),
   async execute(interaction) {
-    if (interaction.user.id != config.bot.owner)
+    if (!admins.includes(interaction.user.id))
       return await interaction.reply({
-        content: "You are **NOT** the owner of this bot!",
+        content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
     var status = interaction.options.getString("status");

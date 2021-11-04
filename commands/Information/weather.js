@@ -18,13 +18,13 @@ module.exports = {
 
     weather.find({ search: location }, async (error, result) => {
       if (error) {
-        await interaction.reply({
+        await interaction.editReply({
           content: `Something went wrong! Please DM \`Yoshiboi18303#4045\`!`,
           ephemeral: true,
         });
-        throw error;
+        console.error(error);
       } else if (result == undefined || result.length == 0) {
-        await interaction.reply({
+        await interaction.editReply({
           content: "Invalid location.",
           ephemeral: true,
         });

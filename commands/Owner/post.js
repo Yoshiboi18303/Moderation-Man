@@ -8,9 +8,9 @@ module.exports = {
     .setName("post")
     .setDescription("Post stats to Statcord"),
   async execute(interaction) {
-    if (interaction.user.id != config.bot.owner)
+    if (!admins.includes(interaction.user.id))
       return await interaction.reply({
-        content: `${nope} - You are **NOT** the owner of this bot!`,
+        content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
     client.stats.post();

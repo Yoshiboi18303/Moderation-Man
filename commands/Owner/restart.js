@@ -7,9 +7,9 @@ module.exports = {
     .setName("restart")
     .setDescription("Restarts the client!"),
   async execute(interaction) {
-    if (interaction.user.id != config.bot.owner)
+    if (!admins.includes(interaction.user.id))
       return await interaction.reply({
-        content: `${nope} - You are **NOT** the owner of **${client.user.username}**!`,
+        content: `${nope} - You are **NOT** an owner of **${client.user.username}**!`,
         ephemeral: true,
       });
     await interaction.reply({
