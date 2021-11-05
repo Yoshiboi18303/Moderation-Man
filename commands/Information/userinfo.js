@@ -82,11 +82,11 @@ module.exports = {
           ? "None"
           : member.roles.highest.name
       }`,
-      `**❯ Joined Server At:** ${utc(member.joinedAt).format("LL LTS")} | ${utc(
+      `**❯ Joined Server On:** ${utc(member.joinedAt).format("LL LTS")} | ${utc(
         member.joinedAt
       ).fromNow()}`,
       `**❯ Hoisted Role:** ${
-        member.roles.hoist ? member.roles.hoist.name : "None"
+        member.roles.hoist ? member.roles.hoist.name : "No hoisted role"
       }`,
     ];
     const embed = new MessageEmbed()

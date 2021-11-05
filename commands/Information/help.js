@@ -66,9 +66,18 @@ module.exports = {
       embeds: [sent_embed],
       ephemeral: true,
     });
-    await interaction.user.send({
-      embeds: [help_embed],
-      components: [link_row],
-    });
+    try {
+      await interaction.user.send({
+        embeds: [help_embed],
+        components: [link_row],
+      });
+    } catch(e) {
+      await interaction.editReply({
+        content: "I can't send you a DM, so here's the raw embed.",
+        embeds: [help_embed],
+        components: [link_row],
+        ephemeral: true
+      });
+    };
   },
 };
