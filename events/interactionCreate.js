@@ -12,26 +12,12 @@ module.exports = {
       if (interaction.user.bot) return;
       const command = client.commands.get(interaction.commandName);
       var timeouts = [];
-      let bl;
 
       /*
       if(typeof command.config.guildOnly != "undefined" && command.config.guildOnly) {
         if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `**${command.data.name}** is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for right now!` })
       }
       */
-
-      Users.findOne({ id: interaction.user.id }, async (err, data) => {
-        if (err) throw err;
-        if (!data) {
-          data = new Users({
-            id: interaction.user.id,
-          });
-          data.save();
-          bl = await data.blacklisted;
-        } else {
-          bl = await data.blacklisted;
-        }
-      });
 
       global.hexColor = interaction.member.displayHexColor;
 
@@ -52,11 +38,33 @@ module.exports = {
       await channel.send({
         content: `Trying to execute command "**${interaction.commandName}**" in **${interaction.guild.name}**`,
       });
+      Users.findOne({ id: interaction.user.id }, async (err, data) => {
+        if(err) throw err;
+        if(!data) {
+          console.log("Inserting a new document...")
+          data = new Users({ id: interaction.user.id })
+          data.save()
+          cmds_used = data.commandsUsed
+          data = await Users.findOneAndUpdate({
+            id: interaction.user.id
+          },
+          {
+            commandsUsed: cmds_used + 1
+          })
+          data.save()
+        } else {
+          cmds_used = data.commandsUsed
+          console.log("Updating a document...")
+          data = await Users.findOneAndUpdate({
+            id: interaction.user.id
+          },
+          {
+            commandsUsed: cmds_used + 1
+          })
+          data.save()
+        }
+      })
       try {
-        if (bl)
-          return await interaction.reply({
-            content: `You are blacklisted from using **${client.user.username}**!`,
-          });
         await command.execute(interaction);
       } catch (e) {
         console.error(e);

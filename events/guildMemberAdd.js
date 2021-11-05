@@ -17,6 +17,43 @@ module.exports = {
       method: "GET",
     });
     var data = await f.json(); */
+    /*
+    var welcome_icon_fetch = await fetch.default("https://api.fluxpoint.dev/list/icons", {
+      method: "GET",
+      headers: {
+        Authorization: process.env.FP_KEY
+      }
+    })
+    var welcome_banner_fetch = await fetch.default("https://api.fluxpoint.dev/list/banners", {
+      method: "GET",
+      headers: {
+        Authorization: process.env.FP_KEY
+      }
+    })
+    var welcome_icons = await welcome_icon_fetch.json()
+    var welcome_banners = await welcome_banner_fetch.json()
+    console.log(welcome_icons, welcome_banners()
+    var welcome_img_body = {
+      username: member.user.tag,
+      avatar: member.user.displayAvatarURL({ dynamic: false, format: "png", size: 300 }),
+      background: colors.mint_green,
+      members: `Member #${member.guild.memberCount}`,
+      icon: "dragon",
+      banner: "rainbow",
+      color_welcome: colors.green,
+      color_username: member.displayHexColor,
+      color_members: colors.orange,
+    }
+    var welcome_img_fetch = await fetch.default("https://api.fluxpoint.dev/gen/welcome", {
+      method: "GET",
+      headers: {
+        Authorization: process.env.FP_KEY
+      }
+    })
+    var welcome_img = await welcome_img_fetch.json()
+    console.log(welcome_img)
+    */
+    
     /* Testing Purposes */ if (member.guild.id == guild_id) {
       if (!member.user.bot) {
         var user = member.user;
@@ -27,7 +64,7 @@ module.exports = {
           .setTitle("New Member Joined!")
           .setDescription(
             `**${user.username}** joined **${guild.name}**, welcome to the server! 👋`
-          );
+          )
         client.channels.cache.get(log_id).send({ embeds: [new_user_embed] });
         const captcha_embed = new MessageEmbed()
           .setColor(colors.yellow)
@@ -51,8 +88,8 @@ module.exports = {
               .utc(owner.createdTimestamp)
               .fromNow()}!\n\n**You now need to verify yourself before being able to talk in __${
               member.guild.name
-            }__, please look at the following embed.**`,
-            embeds: [captcha_embed],
+            }__, please look at the following embed (captcha broken, embed is not sending).**`,
+            /* embeds: [captcha_embed], */
           })
           .then(() => {
             bot.on("messageCreate", async (message) => {

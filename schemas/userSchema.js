@@ -19,6 +19,10 @@ const userSchema = Schema({
     default: Date.now(),
   },
   dmable: opBool,
+  commandsUsed: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = model("users", userSchema);

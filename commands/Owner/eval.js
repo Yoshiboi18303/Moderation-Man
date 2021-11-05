@@ -37,6 +37,7 @@ module.exports = {
       process.env.TOKEN,
       process.env.KEY,
       process.env.MONGO_CS,
+      process.env.FP_KEY,
       client.token,
       process.env.STATCORD_KEY,
       process.env.BACKUP_DLS_API_KEY,

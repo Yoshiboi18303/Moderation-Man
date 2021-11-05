@@ -28,6 +28,7 @@ module.exports = {
       process.env.DEL_API_KEY,
       process.env.DISCORDBOTLIST,
       process.env.DISCORDLISTOLOGY,
+      process.env.FP_KEY,
       process.env.INFINITY_API_TOKEN,
       process.env.KEY,
       process.env.KEY_TO_MOTION,
