@@ -6,7 +6,7 @@ module.exports = {
   async execute(guild) {
     const log_channel = client.channels.cache.get("904421522205204531");
     var guild_channel = guild.channels.cache.find(
-      (channel) => channel.name == "bot-hell"
+      (channel) => channel.type == "GUILD_TEXT" && channel.name == "bot-hell"
     );
     // console.log(guild_channel)
     const new_guild_embed = new MessageEmbed()
@@ -35,9 +35,8 @@ module.exports = {
       embeds: [new_guild_embed],
     });
     if (!guild_channel || typeof guild_channel == "undefined") return;
-    if (guild.id == "833671287381032970")
-      await guild_channel.send({
-        embeds: [added_embed],
-      });
+    await guild_channel.send({
+      embeds: [added_embed],
+    });
   },
 };

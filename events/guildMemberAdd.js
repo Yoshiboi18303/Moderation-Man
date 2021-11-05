@@ -53,7 +53,7 @@ module.exports = {
     var welcome_img = await welcome_img_fetch.json()
     console.log(welcome_img)
     */
-    
+
     /* Testing Purposes */ if (member.guild.id == guild_id) {
       if (!member.user.bot) {
         var user = member.user;
@@ -64,7 +64,7 @@ module.exports = {
           .setTitle("New Member Joined!")
           .setDescription(
             `**${user.username}** joined **${guild.name}**, welcome to the server! 👋`
-          )
+          );
         client.channels.cache.get(log_id).send({ embeds: [new_user_embed] });
         const captcha_embed = new MessageEmbed()
           .setColor(colors.yellow)

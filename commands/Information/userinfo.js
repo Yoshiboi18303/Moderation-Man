@@ -43,16 +43,16 @@ module.exports = {
     function returnCommandCount(u) {
       var cmdCount;
       Users.findOne({ id: u.id }, async (err, data) => {
-        if(err) throw err;
-        if(!data) {
-          data = new Users({ id: u.id })
-          data.save()
-          cmdCount = await data.commandsUsed
+        if (err) throw err;
+        if (!data) {
+          data = new Users({ id: u.id });
+          data.save();
+          cmdCount = await data.commandsUsed;
         } else {
-          cmdCount = await data.commandsUsed
+          cmdCount = await data.commandsUsed;
         }
-      })
-      return cmdCount
+      });
+      return cmdCount;
     }
     const roles = member.roles.cache
       .sort((a, b) => b.position - a.position)
@@ -73,7 +73,7 @@ module.exports = {
       `**❯ Time Created:** ${utc(user.createdTimestamp).format("LT")} - ${utc(
         user.createdTimestamp
       ).format("LL")} | ${utc(user.createdTimestamp).fromNow()}`,
-      `**❯ Commands Used:** ${returnCommandCount(user)}`,
+      // `**❯ Commands Used:** ${returnCommandCount(user)}`,
       `\u200b`,
     ];
     const memberArray = [
