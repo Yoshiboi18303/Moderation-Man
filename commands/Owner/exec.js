@@ -20,7 +20,28 @@ module.exports = {
       });
     await interaction.deferReply();
     var cmd = interaction.options.getString("command");
-    // cmd = cmd.toLowerCase();
+    var secrets = [
+      process.env.TOKEN,
+      process.env.BACKUP_DLS_API_KEY,
+      process.env.BOATS_KEY,
+      process.env.CLIENT_SECRET,
+      process.env.DEL_API_KEY,
+      process.env.DISCORDBOTLIST,
+      process.env.DISCORDLISTOLOGY,
+      process.env.INFINITY_API_TOKEN,
+      process.env.KEY,
+      process.env.KEY_TO_MOTION,
+      process.env.MAIN_DLS_API_KEY,
+      process.env.MONGO_CS,
+      process.env.SECRET,
+      process.env.SERVICES_API_KEY,
+      process.env.STATCORD_KEY,
+      process.env.TEST_VOTE_WEBHOOK_TOKEN,
+      process.env.TOPGG_API_KEY,
+      process.env.VOTE_WEBHOOK_TOKEN,
+      process.env.WEBHOOK_AUTH,
+    ];
+    // var secret_included = false;
     let output = shell.exec(cmd);
     if (output == "" && output.stderr != "") {
       output = `${output.stderr}`;
@@ -34,6 +55,19 @@ module.exports = {
         files: [attachment],
       });
     }
+    for (const secret of secrets) {
+      if (output.includes(secret)) {
+        /* secret_included = true; */
+        output = "[HIDDEN SECRET (Console Cleared!)]";
+        console.clear();
+      }
+    }
+    /*
+    let ehmral = true;
+    if(secret_included == false) {
+      ehmral = false
+    }
+    */
     // console.log(output)
     const executed_embed = new MessageEmbed()
       .setColor(colors.orange)
@@ -50,6 +84,9 @@ module.exports = {
         })
       )
       .setTimestamp();
-    await interaction.editReply({ embeds: [executed_embed] });
+    await interaction.editReply({
+      embeds: [executed_embed],
+      /* ephemeral: ehmral */
+    });
   },
 };

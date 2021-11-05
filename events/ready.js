@@ -114,8 +114,10 @@ module.exports = {
       body: JSON.stringify(botlistReqBody),
     });
 
+    /*
     data = await botlistReq.json();
     console.log(data);
+    */
 
     botlistReqLink = `https://discordlistology.com/api/v1/bots/${botId}/stats`;
     botlistReqHeaders = {
@@ -179,9 +181,7 @@ module.exports = {
     });
     const channel = client.channels.cache.get("904421522205204531");
     await channel.send({
-      content: `${client.user.username} has logged on! Now running with ${
-        client.ready ? client.shard.count : 1
-      } shard(s) in ${client.guilds.cache.size} guilds!`,
+      content: `${client.user.username} has logged on! Now running with ${returnShardCount} shard(s) in ${client.guilds.cache.size} guilds!`,
     });
     console.log(`${client.user.username} has logged on!`);
     setInterval(() => {
@@ -193,7 +193,7 @@ module.exports = {
       });
     }, 10000);
     client.stats.on("post", (status) => {
-      if (!status) console.log("Successful Post");
+      if (!status) console.log("Last post was successful!");
       else console.error(status);
     });
     // webhook.send("BurnLimited is awesome, this webhook message is a test.")
