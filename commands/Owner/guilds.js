@@ -19,7 +19,7 @@ module.exports = {
       .setColor("RANDOM")
       .setTitle(`Guilds for ${client.user.username}`)
       .setDescription(
-        `Here are all the guilds I am in.\n\n${guilds.join(", ")}`
+        `Here are all the guilds I am in.\n\n${guilds.join(",\n")}`
       );
     await interaction.reply({ embeds: [embed], ephemeral: true });
   },
