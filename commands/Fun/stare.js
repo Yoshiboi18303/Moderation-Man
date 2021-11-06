@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require("discord.js");
 const key = process.env.FP_KEY;
 const link = "https://gallery.fluxpoint.dev/api/album/40";
 
@@ -7,7 +7,12 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("stare")
     .setDescription("Stare at someone (weirdo)")
-    .addUserOption((option) => option.setName("user").setDescription("The user to stare at").setRequired(true)),
+    .addUserOption((option) =>
+      option
+        .setName("user")
+        .setDescription("The user to stare at")
+        .setRequired(true)
+    ),
   async execute(interaction) {
     var user = interaction.options.getUser("user");
     const fetch = await import("node-fetch");
@@ -30,5 +35,5 @@ module.exports = {
     await interaction.editReply({
       embeds: [embed],
     });
-  }
-}
+  },
+};

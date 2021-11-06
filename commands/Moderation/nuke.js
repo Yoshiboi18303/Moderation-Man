@@ -40,8 +40,7 @@ module.exports = {
         .setEmoji("❌")
     );
     await interaction.reply({
-      content:
-        `${emojis.warn} Are you sure you want to nuke this channel?\nConfirmation will be cancelled after 30 seconds. ${emojis.warn}`,
+      content: `${emojis.warn} Are you sure you want to nuke this channel?\nConfirmation will be cancelled after 30 seconds. ${emojis.warn}`,
       ephemeral: true,
       components: [row],
     });

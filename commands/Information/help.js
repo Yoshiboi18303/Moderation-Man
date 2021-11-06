@@ -71,7 +71,7 @@ module.exports = {
       embeds: [sending_embed],
       ephemeral: true,
     });
-    await hold(4500)
+    await hold(4500);
     try {
       await interaction.user.send({
         embeds: [help_embed],
@@ -79,13 +79,15 @@ module.exports = {
       });
       await interaction.editReply({
         embeds: [sent_embed],
-        ephemeral: true
+        ephemeral: true,
       });
-    } catch(e) {
+    } catch (e) {
       const failed_embed = new MessageEmbed()
         .setColor(colors.red)
         .setTitle("DM Failed")
-        .setDescription(`${emojis.no} **-** I can't send you a DM, do you want to get the raw embed instead?`)
+        .setDescription(
+          `${emojis.no} **-** I can't send you a DM, do you want to get the raw embed instead?`
+        );
       const re_row = new MessageActionRow().addComponents(
         new MessageButton()
           .setStyle("SUCCESS")
@@ -97,46 +99,47 @@ module.exports = {
           .setLabel("NO")
           .setCustomId("raw-embed-no")
           .setEmoji("❌")
-      )
+      );
       await interaction.editReply({
         embeds: [failed_embed],
         components: [re_row],
-        ephemeral: true
-      })
+        ephemeral: true,
+      });
 
       const filter = (btnInt) => {
-        return interaction.user.id == btnInt.user.id
-      }
+        return interaction.user.id == btnInt.user.id;
+      };
 
       const collector = interaction.channel.createMessageComponentCollector({
         filter,
-        max: 1
-      })
+        max: 1,
+      });
 
       collector.on("end", async (collection) => {
-        if(collection.first()?.customId == "raw-embed-yes") {
+        if (collection.first()?.customId == "raw-embed-yes") {
           await interaction.editReply({
             content: `Okay, fetching the raw embed... ${emojis.wait}`,
             embeds: [],
             components: [],
-            ephemeral: true
-          })
-          await hold(4500)
+            ephemeral: true,
+          });
+          await hold(4500);
           await interaction.editReply({
             content: "Here you go!",
             embeds: [help_embed],
             components: [link_row],
-            ephemeral: true
-          })
-        } else if(collection.first()?.customId == "raw-embed-no") {
+            ephemeral: true,
+          });
+        } else if (collection.first()?.customId == "raw-embed-no") {
           await interaction.editReply({
-            content: "Okay then! If you want to get the embed in DMs, just turn on your direct messages from server members.\n`User Settings > Privacy & Safety > Allow direct messages from server members (update this for all servers) OR Server > Dropdown > Privacy Settings > Allow direct messages from server members.`",
+            content:
+              "Okay then! If you want to get the embed in DMs, just turn on your direct messages from server members.\n`User Settings > Privacy & Safety > Allow direct messages from server members (update this for all servers) OR Server > Dropdown > Privacy Settings > Allow direct messages from server members.`",
             embeds: [],
             components: [],
-            ephemeral: true
+            ephemeral: true,
           });
-        };
+        }
       });
-    };
+    }
   },
 };
