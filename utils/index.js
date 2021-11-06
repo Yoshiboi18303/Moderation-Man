@@ -34,15 +34,11 @@ function getCommands() {
 }
 
 function convertToLowerCase(string) {
-  if (typeof string != "string")
-    throw new TypeError("String argument must be a type of string.");
   const lowerCaseString = string.toLowerCase();
   return lowerCaseString;
 }
 
 function convertToUpperCase(string) {
-  if (typeof string != "string")
-    throw new TypeError("String argument must be a type of string.");
   const upperCaseString = string.toUpperCase();
   return upperCaseString;
 }

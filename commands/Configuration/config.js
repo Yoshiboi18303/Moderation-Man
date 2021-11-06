@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Users = require("../../schemas/userSchema");
-const Guilds = require("../../schemas/guildSchema");
+// const Guilds = require("../../schemas/guildSchema");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
@@ -54,10 +54,10 @@ module.exports = {
     var setting = args[1];
     var value = args[2] ? interaction.options.getString("value") : null;
 
-    var guild = Guilds.findOne({ id: interaction.guild.id });
+    // var guild = Guilds.findOne({ id: interaction.guild.id });
 
     var cmd = interaction;
-
+    /*
     if (action == "view") {
       await cmd.deferReply();
 
@@ -95,12 +95,11 @@ module.exports = {
     }
 
     // i like to always leave a blank line below the last line of my code... it just looks nice imo. lol
+    */
   },
 };
 
 function getStatus(boolean) {
-  if (!boolean || typeof boolean != "boolean")
-    throw new TypeError("Boolean is undefined, or is not a type of boolean.");
   if (boolean) {
     return "Enabled";
   } else return "Disabled";

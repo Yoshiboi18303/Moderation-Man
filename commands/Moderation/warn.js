@@ -125,7 +125,7 @@ module.exports = {
         });
         if (!user.bot) {
           user.send({
-            content: `⚠️ You have been warned in **${interaction.guild.name}** by moderator **${interaction.user.username}** for reason "${reason}"`,
+            content: `${emojis.warn} You have been warned in **${interaction.guild.name}** by moderator **${interaction.user.username}** for reason "${reason}"`,
           });
         }
       } else if (collection.first()?.customId == "warning-cancel") {

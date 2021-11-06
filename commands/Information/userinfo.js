@@ -73,7 +73,7 @@ module.exports = {
       `**❯ Time Created:** ${utc(user.createdTimestamp).format("LT")} - ${utc(
         user.createdTimestamp
       ).format("LL")} | ${utc(user.createdTimestamp).fromNow()}`,
-      // `**❯ Commands Used:** ${returnCommandCount(user)}`,
+      // `\u3000**❯ Commands Used:** ${returnCommandCount(user)}`,
       `\u200b`,
     ];
     const memberArray = [

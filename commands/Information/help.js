@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const hold = require("util").promisify(setTimeout);
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -33,8 +34,12 @@ module.exports = {
           size: 512,
         })
       );
+    const sending_embed = new MessageEmbed()
+      .setColor(colors.yellow)
+      .setDescription(`${emojis.wait} **-** Trying to send you a DM...`);
     const sent_embed = new MessageEmbed()
       .setColor(colors.green)
+      .setTitle("DM Successful!")
       .setDescription(
         `${emojis.yes} **-** All of my commands were sent to your DMs!`
       );
@@ -63,20 +68,74 @@ module.exports = {
         .setURL(github_link)
     );
     await interaction.editReply({
-      embeds: [sent_embed],
+      embeds: [sending_embed],
       ephemeral: true,
     });
+    await hold(4500)
     try {
       await interaction.user.send({
         embeds: [help_embed],
         components: [link_row],
       });
-    } catch(e) {
       await interaction.editReply({
-        content: "I can't send you a DM, so here's the raw embed.",
-        embeds: [help_embed],
-        components: [link_row],
+        embeds: [sent_embed],
         ephemeral: true
+      });
+    } catch(e) {
+      const failed_embed = new MessageEmbed()
+        .setColor(colors.red)
+        .setTitle("DM Failed")
+        .setDescription("I can't send you a DM, do you want to get the raw embed instead?")
+      const re_row = new MessageActionRow().addComponents(
+        new MessageButton()
+          .setStyle("SUCCESS")
+          .setLabel("YES")
+          .setCustomId("raw-embed-yes")
+          .setEmoji("✅"),
+        new MessageButton()
+          .setStyle("SECONDARY")
+          .setLabel("NO")
+          .setCustomId("raw-embed-no")
+          .setEmoji("❌")
+      )
+      await interaction.editReply({
+        embeds: [failed_embed],
+        components: [re_row],
+        ephemeral: true
+      })
+
+      const filter = (btnInt) => {
+        return interaction.user.id == btnInt.user.id
+      }
+
+      const collector = interaction.channel.createMessageComponentCollector({
+        filter,
+        max: 1
+      })
+
+      collector.on("end", async (collection) => {
+        if(collection.first()?.customId == "raw-embed-yes") {
+          await interaction.editReply({
+            content: `Okay, fetching the raw embed... ${emojis.wait}`,
+            embeds: [],
+            components: [],
+            ephemeral: true
+          })
+          await hold(4500)
+          await interaction.editReply({
+            content: "Here you go!",
+            embeds: [help_embed],
+            components: [link_row],
+            ephemeral: true
+          })
+        } else if(collection.first()?.customId == "raw-embed-no") {
+          await interaction.editReply({
+            content: "Okay then! If you want to get the embed in DMs, just turn on your direct messages from server members.\n`User Settings > Privacy & Safety > Allow direct messages from server members (update this for all servers) OR Server > Dropdown > Privacy Settings > Allow direct messages from server members.`",
+            embeds: [],
+            components: [],
+            ephemeral: true
+          });
+        };
       });
     };
   },

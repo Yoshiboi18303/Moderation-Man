@@ -32,7 +32,7 @@ module.exports = {
 
     if (text.length > 20)
       return await interaction.reply({
-        content: `Please make your text shorter! - The text limit is 20.`,
+        content: `Please make your text shorter! - The text limit is 20 characters.`,
         ephemeral: true,
       });
 

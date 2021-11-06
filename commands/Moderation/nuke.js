@@ -41,7 +41,7 @@ module.exports = {
     );
     await interaction.reply({
       content:
-        "Are you sure you want to nuke this channel?\nConfirmation will be cancelled after 30 seconds.",
+        `${emojis.warn} Are you sure you want to nuke this channel?\nConfirmation will be cancelled after 30 seconds. ${emojis.warn}`,
       ephemeral: true,
       components: [row],
     });

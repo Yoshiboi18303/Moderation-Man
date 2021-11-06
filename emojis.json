@@ -1,5 +1,6 @@
 {
-  "nope": "<a:Animated_Cross:854142043365441546>",
-  "yes": "<a:Animated_Checkmark:854125352698642452>",
-  "wait": "<a:windows_loading:854438904325472287>"
+  "nope": "<a:nope:906374698504421457>",
+  "yes": "<a:done:906374464571330688>",
+  "wait": "<a:windows_loading:854438904325472287>",
+  "warn": "<a:warn:906380825711497307>"
 }
