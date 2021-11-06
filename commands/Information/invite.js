@@ -45,8 +45,10 @@ module.exports = {
       invite_link +=
         "&redirect_uri=https://moderation-man.ml/invited?referral=discord";
     }
+    var color = member.displayHexColor;
+    if(color == "#000000") color = "BLURPLE"
     const invite_embed = new MessageEmbed()
-      .setColor(member.displayHexColor || "BLURPLE")
+      .setColor(color)
       .setTitle(`Invite ${client.user.username}`)
       .setDescription(`Click [this](${invite_link}) to invite me!`)
       .setFooter(
