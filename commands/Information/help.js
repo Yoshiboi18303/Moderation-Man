@@ -86,7 +86,7 @@ module.exports = {
         .setColor(colors.red)
         .setTitle("DM Failed")
         .setDescription(
-          `${emojis.no} **-** I can't send you a DM, do you want to get the raw embed instead?`
+          `${emojis.nope} **-** I can't send you a DM, do you want to get the raw embed instead?`
         );
       const re_row = new MessageActionRow().addComponents(
         new MessageButton()
