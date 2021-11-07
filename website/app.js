@@ -226,7 +226,7 @@ app.post(
             .setDescription(
               `Thank you so much for voting for **${
                 bot.username
-              }**!\nYou have earned **${voteRewards.join(", ")}`
+              }**!\nYou have earned **${voteRewards.join(", ")}**`
             );
           if (data.dmable) {
             client.users.cache.get(vote.user).send({

@@ -47,7 +47,6 @@ module.exports = {
       switch (permission_choice) {
         case "c":
           var permissions_c = interaction.guild.me.permissions.toArray();
-          var permissions_g = new Permissions(interaction.guild);
           function check_c_permissions(p_array) {
             var pa = [];
             let permission_count = 0;

@@ -1,4 +1,4 @@
-# Moderation Man Privacy Policy
+# Moderation Man - Privacy Policy
 
 Here is the Privacy Policy for Moderation Man!
 

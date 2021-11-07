@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { utc } = require("moment");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 const Users = require("../../schemas/userSchema");
 
 const flags = {
@@ -58,6 +58,9 @@ module.exports = {
       .sort((a, b) => b.position - a.position)
       .map((role) => role.toString())
       .slice(0, -1);
+    var role_array = [];
+    member.roles.cache.forEach(r => role_array.push(`<@&${r.id}>`))
+    role_array.splice(member.roles.cache.size - 1, 1)
     const userFlags = user.flags.toArray();
     const userArray = [
       `**❯ Username:** ${user.username}`,
@@ -76,18 +79,30 @@ module.exports = {
       // `\u3000**❯ Commands Used:** ${returnCommandCount(user)}`,
       `\u200b`,
     ];
+    function getPermissions(member) {
+      var permissions_allowed = [];
+      var member_permissions = new Permissions(member.permissions.bitfield)
+      for(const perm of member_permissions.toArray()) {
+        if(member.permissions.has(perm)) {
+          permissions_allowed.push(perm)
+        }
+      }
+      return permissions_allowed.join(", ")
+    }
     const memberArray = [
+      `**❯ Roles (except everyone):** ${role_array.join(", ")}`,
       `**❯ Highest Role:** ${
         member.roles.highest.id === interaction.guild.id
           ? "None"
           : member.roles.highest.name
       }`,
-      `**❯ Joined Server On:** ${utc(member.joinedAt).format("LL LTS")} | ${utc(
+      `**❯ Joined Server On:** ${utc(member.joinedAt).format("LL **-** LTS")} **|** ${utc(
         member.joinedAt
       ).fromNow()}`,
       `**❯ Hoisted Role:** ${
         member.roles.hoist ? member.roles.hoist.name : "No hoisted role"
       }`,
+      `**❯ Permissions:** \`${getPermissions(member)}\``
     ];
     const embed = new MessageEmbed()
       .setTitle(`Info on ${user.username}`)
