@@ -8,7 +8,7 @@ module.exports = {
     .setName("dance")
     .setDescription("Do the dance moves now"),
   async execute(interaction) {
-    if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment.`, ephemeral: true });
+    // if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment.`, ephemeral: true });
     const fetch = await import("node-fetch");
     await interaction.deferReply();
     var img_fetch = await fetch.default(link, {
