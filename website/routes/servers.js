@@ -16,7 +16,7 @@ app.get("/", async (req, res) => {
     var perms = new Permissions(guild.permissions_new);
 
     if (perms.has([Permissions.FLAGS.MANAGE_GUILD])) {
-      // var g = Guilds.findOne({ id: guild.id });
+      var g = Guilds.findOne({ id: guild.id });
 
       guilds.push(guild);
     }

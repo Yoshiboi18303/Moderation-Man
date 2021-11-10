@@ -75,13 +75,13 @@ module.exports = {
       }`,
       `**❯ Time Created:** ${utc(user.createdTimestamp).format("LT")} - ${utc(
         user.createdTimestamp
-      ).format("LL")} | ${utc(user.createdTimestamp).fromNow()}`,
-      // `\u3000**❯ Commands Used:** ${returnCommandCount(user)}`,
+      ).format("LL")} **|** ${utc(user.createdTimestamp).fromNow()}`,
+      // `**❯ Commands Used:** ${returnCommandCount(user)}`,
       `\u200b`,
     ];
     function getPermissions(member) {
       var permissions_allowed = [];
-      var member_permissions = new Permissions(member.permissions.bitfield);
+      const member_permissions = new Permissions(member.permissions.bitfield);
       for (const perm of member_permissions.toArray()) {
         if (member.permissions.has(perm)) {
           permissions_allowed.push(perm);
@@ -89,20 +89,30 @@ module.exports = {
       }
       return permissions_allowed.join(", ");
     }
+    function getPermissionNumber(member) {
+      var permissions_allowed = 0;
+      const member_permissions = new Permissions(member.permissions.bitfield);
+      for (const perm of member_permissions.toArray()) {
+        if (member.permissions.has(perm)) {
+          permissions_allowed = permissions_allowed + 1;
+        }
+      }
+      return permissions_allowed;
+    }
     const memberArray = [
-      `**❯ Roles (except everyone):** ${role_array.join(", ")}`,
+      `**❯ Roles (except everyone):** ${role_array.length > 1 ? role_array.join(", ") : "None"}`,
       `**❯ Highest Role:** ${
         member.roles.highest.id === interaction.guild.id
           ? "None"
           : member.roles.highest.name
       }`,
       `**❯ Joined Server On:** ${utc(member.joinedAt).format(
-        "LL **-** LTS"
+        "LL - LTS"
       )} **|** ${utc(member.joinedAt).fromNow()}`,
       `**❯ Hoisted Role:** ${
         member.roles.hoist ? member.roles.hoist.name : "No hoisted role"
       }`,
-      `**❯ Permissions:** \`${getPermissions(member)}\``,
+      `**❯ Permissions:** \`${getPermissions(member)}\` **-** ${getPermissionNumber(member)}/41`,
     ];
     const embed = new MessageEmbed()
       .setTitle(`Info on ${user.username}`)

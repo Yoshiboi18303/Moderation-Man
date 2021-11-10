@@ -123,7 +123,7 @@ module.exports = {
             components: [],
             ephemeral: true,
           });
-          await hold(4500);
+          await hold(1750);
           await interaction.editReply({
             content: "Here you go!",
             embeds: [help_embed],
@@ -133,7 +133,7 @@ module.exports = {
         } else if (collection.first()?.customId == "raw-embed-no") {
           await interaction.editReply({
             content:
-              "Okay then! If you want to get the embed in DMs, just turn on your direct messages from server members.\n`User Settings > Privacy & Safety > Allow direct messages from server members (update this for all servers) OR Server > Dropdown > Privacy Settings > Allow direct messages from server members.`",
+              "Okay then! If you want to get the embed in DMs, just turn on your direct messages from server members.\n`User Settings > Privacy & Safety > Allow direct messages from server members (update this for all servers) OR Server > Dropdown > Privacy Settings > Allow direct messages from server members.`\n\n**You also could have the bot blocked on Discord, please check that.**",
             embeds: [],
             components: [],
             ephemeral: true,

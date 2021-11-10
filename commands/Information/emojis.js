@@ -17,7 +17,7 @@ module.exports = {
         : `<:${emoji.name}:${emoji.id}>`;
       emojis_embed.addField(
         `${emoji.name}`,
-        `${emoji_tag}\n\`${emoji_tag}\``,
+        `${emoji_tag}\n\`${emoji_tag}\`\nAdded by **${emoji.author != null ? emoji.author.username : "No one"}**`,
         true
       );
     }

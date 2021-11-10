@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("echo")
-    .setDescription("Echos what you type in in an ephemeral message!")
+    .setDescription("Echos what you type in an ephemeral message!")
     .addStringOption((option) =>
       option
         .setName("text")

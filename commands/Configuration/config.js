@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Users = require("../../schemas/userSchema");
-// const Guilds = require("../../schemas/guildSchema");
-const { MessageEmbed } = require("discord.js");
+const Guilds = require("../../schemas/guildSchema");
+const { MessageEmbed, Permissions } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -39,6 +39,15 @@ module.exports = {
         }** for right now!`,
         ephemeral: true,
       });
+    
+    if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
+      const bad_permissions_embed = new MessageEmbed()
+        .setColor(colors.red)
+        .setTitle("Error")
+        .setDescription(`${emojis.nope} **-** You don't have permission to run this command!`)
+        .setTimestamp()
+      return await interaction.reply({ embeds: [bad_permissions_embed], ephemeral: true })
+    }
 
     // return await interaction.reply({ content: "Coming Soon!", ephemeral: true })
 
@@ -57,7 +66,6 @@ module.exports = {
     // var guild = Guilds.findOne({ id: interaction.guild.id });
 
     var cmd = interaction;
-    /*
     if (action == "view") {
       await cmd.deferReply();
 
@@ -95,7 +103,6 @@ module.exports = {
     }
 
     // i like to always leave a blank line below the last line of my code... it just looks nice imo. lol
-    */
   },
 };
 

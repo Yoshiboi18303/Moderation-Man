@@ -7,6 +7,7 @@ const Profiles = require("../../schemas/profileSchema");
 const Users = require("../../schemas/userSchema");
 const colors = require("../../colors.json");
 const { joinVoiceChannel } = require("@discordjs/voice");
+const shell = require('shelljs');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -32,6 +33,8 @@ module.exports = {
     var result = new Promise((resolve, reject) => {
       resolve(eval(code));
     });
+
+    if(code == "shell.exec" || code.includes("shell.exec")) return await interaction.editReply({ content: "You should use the `exec` command for this shell command.", ephemeral: true });
 
     var secrets = [
       process.env.TOKEN,

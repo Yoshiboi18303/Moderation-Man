@@ -35,8 +35,12 @@ module.exports = {
       embeds: [new_guild_embed],
     });
     if (!guild_channel || typeof guild_channel == "undefined") return;
-    await guild_channel.send({
-      embeds: [added_embed],
-    });
+    try {
+      await guild_channel.send({
+        embeds: [added_embed],
+      });
+    } catch(err) {
+      console.error(err)
+    }
   },
 };

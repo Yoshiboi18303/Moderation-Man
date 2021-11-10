@@ -241,8 +241,8 @@ app.post(
   })
 );
 
-app.post("/discordswebhook", async (user, type, votes) => {
-  console.log(user, type, votes);
+app.post("/voteresolve", async (vote) => {
+  console.log(vote)
 });
 
 app.listen(port);

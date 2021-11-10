@@ -138,8 +138,10 @@ module.exports = {
       body: JSON.stringify(botlistReqBody),
     });
 
+    /*
     data = await botlistReq.json();
     console.log(data);
+    */
 
     botlistReqLink = `https://discords.com/api/bot/${botId}`;
     botlistReqHeaders = {

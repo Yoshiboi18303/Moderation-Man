@@ -62,7 +62,7 @@ module.exports = {
       ]);
     await hold(3000);
     await interaction.editReply({
-      content: "Suggestion successful!",
+      content: "Suggestion successfully sent!",
       embeds: [sent_embed],
       ephemeral: true,
     });

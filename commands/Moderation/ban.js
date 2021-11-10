@@ -34,7 +34,7 @@ module.exports = {
   async execute(interaction) {
     var user = interaction.options.getUser("user");
     var member = interaction.options.getMember("user");
-    var days = interaction.options.getInteger("days") || 0;
+    var days = interaction.options.getInteger("days") || 1;
     var reason =
       interaction.options.getString("reason") || "No reason provided!";
 
@@ -78,12 +78,12 @@ module.exports = {
         .setStyle("SUCCESS")
         .setLabel("YES")
         .setCustomId("ban-yes")
-        .setEmoji("✅"),
+        .setEmoji(`${emojis.yes}`),
       new MessageButton()
-        .setStyle("DANGER")
+        .setStyle("SECONDARY")
         .setLabel("NO")
         .setCustomId("ban-no")
-        .setEmoji("❌")
+        .setEmoji(`${emojis.nope}`)
     );
     await interaction.reply({
       content:
