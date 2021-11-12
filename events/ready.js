@@ -20,6 +20,9 @@ module.exports = {
     await mongo(process.env.MONGO_CS)
       .then(console.log("MM >>> Connected to MongoDB!"))
       .catch((e) => console.error(e));
+    await client.user.setActivity("Loading bot data...", {
+      type: "PLAYING"
+    });
     const commands = [];
     for (var [id, cmd] of client.commands) {
       var push = {
@@ -168,6 +171,9 @@ module.exports = {
       .then(() => console.log("Successfully sent bot data to Discord Boats!"))
       .catch((err) => console.error(err));
     await client.stats.autopost();
+    await client.user.setActivity("Bot data ready! Waiting on first status...", {
+      type: "PLAYING"
+    })
     const statuses = [
       `${client.guilds.cache.get("892603177248096306").name}`,
       `${client.users.cache.size} Users`,

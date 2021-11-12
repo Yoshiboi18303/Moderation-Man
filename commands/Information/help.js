@@ -17,7 +17,7 @@ module.exports = {
       "#8716D5",
       "#00FFFB",
       "#8BFF8D",
-      "7289DA",
+      "#7289DA",
     ];
     var random_color =
       color_array[Math.floor(Math.random() * color_array.length)];
@@ -86,7 +86,7 @@ module.exports = {
         .setColor(colors.red)
         .setTitle("DM Failed")
         .setDescription(
-          `${emojis.nope} **-** I can't send you a DM, do you want to get the raw embed instead?`
+          `${emojis.nope} **-** I can't send you a DM, do you want to get the raw embed instead?\n\n**You have 1 minute to select an option.**`
         );
       const re_row = new MessageActionRow().addComponents(
         new MessageButton()
@@ -113,6 +113,7 @@ module.exports = {
       const collector = interaction.channel.createMessageComponentCollector({
         filter,
         max: 1,
+        time: 1000 * 60
       });
 
       collector.on("end", async (collection) => {
@@ -133,7 +134,14 @@ module.exports = {
         } else if (collection.first()?.customId == "raw-embed-no") {
           await interaction.editReply({
             content:
-              "Okay then! If you want to get the embed in DMs, just turn on your direct messages from server members.\n`User Settings > Privacy & Safety > Allow direct messages from server members (update this for all servers) OR Server > Dropdown > Privacy Settings > Allow direct messages from server members.`\n\n**You also could have the bot blocked on Discord, please check that.**",
+              "Okay then! If you want to get the embed in DMs, just turn on your direct messages from server members.\n`User Settings > Privacy & Safety > Allow direct messages from server members (update this for all servers) OR Server > Dropdown > Privacy Settings > Allow direct messages from server members.`\n\n**You also could've had the bot blocked on Discord, please check for that as well.**",
+            embeds: [],
+            components: [],
+            ephemeral: true,
+          });
+        } else {
+          await interaction.editReply({
+            content: "You didn't respond in time.",
             embeds: [],
             components: [],
             ephemeral: true,

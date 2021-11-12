@@ -36,7 +36,7 @@ global.voteRewards = [
   "More money from working",
   "Voice Moderation logs (soon)",
 ];
-global.admins = ["482326304381730826", "697414293712273408"];
+global.admins = ["482326304381730826", "697414293712273408", "738988218002964581"];
 
 client.commands = new Collection();
 client.stats = statcord;

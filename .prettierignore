@@ -1,6 +1,7 @@
 *.ejs
 *.png
-*.json
+.cache/replit/nix/env.json
+.upm/store.json
 replit.nix
 .replit
 .gitignore

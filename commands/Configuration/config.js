@@ -39,14 +39,19 @@ module.exports = {
         }** for right now!`,
         ephemeral: true,
       });
-    
-    if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
+
+    if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
       const bad_permissions_embed = new MessageEmbed()
         .setColor(colors.red)
         .setTitle("Error")
-        .setDescription(`${emojis.nope} **-** You don't have permission to run this command!`)
-        .setTimestamp()
-      return await interaction.reply({ embeds: [bad_permissions_embed], ephemeral: true })
+        .setDescription(
+          `${emojis.nope} **-** You don't have permission to run this command!`
+        )
+        .setTimestamp();
+      return await interaction.reply({
+        embeds: [bad_permissions_embed],
+        ephemeral: true,
+      });
     }
 
     // return await interaction.reply({ content: "Coming Soon!", ephemeral: true })

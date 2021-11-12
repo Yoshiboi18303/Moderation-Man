@@ -32,19 +32,21 @@ module.exports = {
       `**Running on discord.js version:** ${djsversion}`,
       `**NodeJS Version:** ${process.version}`,
       `**Date Created:** ${moment
-            .utc(client.user.createdTimestamp)
-            .format("LL LTS AT")}`,
-      `**Time Away from Creation:** ${moment.utc(client.user.createdTimestamp).fromNow()}`,
+        .utc(client.user.createdTimestamp)
+        .format("LL LTS AT")}`,
+      `**Time Away from Creation:** ${moment
+        .utc(client.user.createdTimestamp)
+        .fromNow()}`,
       `**Guild Count:** ${client.guilds.cache.size}`,
       `**User Count:** ${client.users.cache.size}`,
       `**Command Count:** ${client.commands.size}`,
       `**Channel Count:** ${client.channels.cache.size}`,
       "\u200b",
-    ]
+    ];
     const system_info_array = [
       `**Platform:** ${process.platform}`,
       `**CPU Count:** ${cpus.length}`,
-    ]
+    ];
     const embed = new MessageEmbed()
       .setColor(interaction.guild.me.displayHexColor || random_color)
       .setTitle(`Info on ${client.user.username}`)
@@ -52,7 +54,7 @@ module.exports = {
         `Hello ${interaction.user.username}, thanks for calling upon this command! Here's some info on me!`
       )
       .addField("Main Information", `\n${main_info_array.join("\n")}`)
-      .addField("System Information", `\n${system_info_array.join("\n")}`)
+      .addField("System Information", `\n${system_info_array.join("\n")}`);
     await interaction.reply({ embeds: [embed] });
   },
 };

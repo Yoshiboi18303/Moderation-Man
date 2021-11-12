@@ -6,8 +6,8 @@ const Channels = require("../../schemas/channelSchema");
 const Profiles = require("../../schemas/profileSchema");
 const Users = require("../../schemas/userSchema");
 const colors = require("../../colors.json");
-const { joinVoiceChannel } = require("@discordjs/voice");
-const shell = require('shelljs');
+const shell = require("shelljs");
+const voice = require('../../items/voice');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -34,7 +34,11 @@ module.exports = {
       resolve(eval(code));
     });
 
-    if(code == "shell.exec" || code.includes("shell.exec")) return await interaction.editReply({ content: "You should use the `exec` command for this shell command.", ephemeral: true });
+    if (code == "shell.exec" || code.includes("shell.exec"))
+      return await interaction.editReply({
+        content: "You should use the `exec` command for this shell command.",
+        ephemeral: true,
+      });
 
     var secrets = [
       process.env.TOKEN,
@@ -42,6 +46,7 @@ module.exports = {
       process.env.MONGO_CS,
       process.env.FP_KEY,
       client.token,
+      interaction.token,
       process.env.STATCORD_KEY,
       process.env.BACKUP_DLS_API_KEY,
       process.env.BOATS_KEY,
@@ -58,6 +63,9 @@ module.exports = {
       process.env.TOPGG_API_KEY,
       process.env.VOTE_WEBHOOK_TOKEN,
       process.env.WEBHOOK_AUTH,
+      voice.password,
+      process.env.LL_HOST,
+      process.env.LL_PASS,
     ];
 
     result

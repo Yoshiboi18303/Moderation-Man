@@ -242,7 +242,7 @@ app.post(
 );
 
 app.post("/voteresolve", async (vote) => {
-  console.log(vote)
+  console.log(vote);
 });
 
 app.listen(port);

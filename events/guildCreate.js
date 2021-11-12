@@ -39,8 +39,8 @@ module.exports = {
       await guild_channel.send({
         embeds: [added_embed],
       });
-    } catch(err) {
-      console.error(err)
+    } catch (err) {
+      console.error(err);
     }
   },
 };

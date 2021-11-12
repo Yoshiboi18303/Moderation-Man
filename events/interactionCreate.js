@@ -39,7 +39,7 @@ module.exports = {
           console.log("Inserting a new document...");
           data = new Users({ id: interaction.user.id });
           data.save();
-          console.log("Document inserted! Waiting until next command usage!")
+          console.log("Document inserted! Waiting until next command usage!");
         } else {
           cmds_used = data.commandsUsed;
           console.log("Updating a document...");
@@ -60,7 +60,7 @@ module.exports = {
         content: `Trying to execute command "**${interaction.commandName}**" in **${interaction.guild.name}**`,
       });
       try {
-        client.stats.postCommand(command.data.name, interaction.user.id)
+        client.stats.postCommand(command.data.name, interaction.user.id);
         await command.execute(interaction);
       } catch (e) {
         console.error(e);

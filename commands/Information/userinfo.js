@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { utc } = require("moment");
 const { MessageEmbed, Permissions } = require("discord.js");
 const Users = require("../../schemas/userSchema");
+const { returnUserStatusText } = require('../../utils/');
 
 const flags = {
   DISCORD_EMPLOYEE: "Discord Employee",
@@ -79,28 +80,11 @@ module.exports = {
       // `**❯ Commands Used:** ${returnCommandCount(user)}`,
       `\u200b`,
     ];
-    function getPermissions(member) {
-      var permissions_allowed = [];
-      const member_permissions = new Permissions(member.permissions.bitfield);
-      for (const perm of member_permissions.toArray()) {
-        if (member.permissions.has(perm)) {
-          permissions_allowed.push(perm);
-        }
-      }
-      return permissions_allowed.join(", ");
-    }
-    function getPermissionNumber(member) {
-      var permissions_allowed = 0;
-      const member_permissions = new Permissions(member.permissions.bitfield);
-      for (const perm of member_permissions.toArray()) {
-        if (member.permissions.has(perm)) {
-          permissions_allowed = permissions_allowed + 1;
-        }
-      }
-      return permissions_allowed;
-    }
     const memberArray = [
-      `**❯ Roles (except everyone):** ${role_array.length > 1 ? role_array.join(", ") : "None"}`,
+      `**❯ Nickname:** ${member.nickname != null ? member.nickname : "None"}`,
+      `**❯ Roles (except everyone):** ${
+        role_array.length > 1 ? role_array.join(", ") : "None"
+      }`,
       `**❯ Highest Role:** ${
         member.roles.highest.id === interaction.guild.id
           ? "None"
@@ -112,7 +96,7 @@ module.exports = {
       `**❯ Hoisted Role:** ${
         member.roles.hoist ? member.roles.hoist.name : "No hoisted role"
       }`,
-      `**❯ Permissions:** \`${getPermissions(member)}\` **-** ${getPermissionNumber(member)}/41`,
+      `**❯ Status:** ${returnUserStatusText(member)}`,
     ];
     const embed = new MessageEmbed()
       .setTitle(`Info on ${user.username}`)

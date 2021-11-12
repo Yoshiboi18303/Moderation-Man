@@ -46,7 +46,7 @@ module.exports = {
     let output = shell.exec(cmd);
     if (output == "" && output.stderr != "") {
       output = `${output.stderr}`;
-    } else if (output == "" && output.stderr == "") {
+    } else if (output == "" && output.stderr == "" || output == "\n") {
       output = "Command Completed (no output)";
     } else if (output.length > 4096 || output.stderr.length > 4096) {
       var buffer = Buffer.from(output);
@@ -74,7 +74,7 @@ module.exports = {
       .setColor(colors.orange)
       .setTitle("Executed Callback")
       .setDescription(
-        `This is what came back from your command...\n\nCommand: \`\`\`shell\n${cmd}\n\`\`\`\n\nOutput: \`\`\`\n${output}\n\`\`\``
+        `This is what came back from your command...\n\nCommand: \`\`\`bash\n${cmd}\n\`\`\`\n\nOutput: \`\`\`\n${output}\n\`\`\``
       )
       .setFooter(
         `${interaction.user.username} requested this.`,

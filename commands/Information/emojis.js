@@ -11,13 +11,15 @@ module.exports = {
     const emojis_embed = new MessageEmbed()
       .setColor("RANDOM")
       .setTitle(`Emojis in ${guild.name}`);
-    for (var emoji of guild.emojis.cache.toJSON()) {
-      var emoji_tag = emoji.animated
+    for (const emoji of guild.emojis.cache.toJSON()) {
+      const emoji_tag = emoji.animated
         ? `<a:${emoji.name}:${emoji.id}>`
         : `<:${emoji.name}:${emoji.id}>`;
       emojis_embed.addField(
         `${emoji.name}`,
-        `${emoji_tag}\n\`${emoji_tag}\`\nAdded by **${emoji.author != null ? emoji.author.username : "No one"}**`,
+        `${emoji_tag}\n\`${emoji_tag}\`\nAdded by **${
+          emoji.author != null ? emoji.author.username : "No one"
+        }**`,
         true
       );
     }
