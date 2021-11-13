@@ -1,4 +1,6 @@
 node_modules
 replit.nix
 .replit
-.upm/store.json
+.upm
+.config
+.cache
