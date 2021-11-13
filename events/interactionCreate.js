@@ -70,10 +70,7 @@ module.exports = {
       try {
         await command.execute(interaction);
       } catch (e) {
-        new CommandError({
-          error_text: `An error occured trying to execute **${command.data.name}**...\n\n`,
-          error: e,
-        });
+        new CommandError(`An error occured trying to execute **${command.data.name}**...\n\n`, e);
         const error_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("Error")

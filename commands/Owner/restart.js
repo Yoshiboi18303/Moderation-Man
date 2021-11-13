@@ -29,5 +29,8 @@ module.exports = {
         ephemeral: true,
       });
     }, 1500);
+    await client.user.setActivity("Restart Completed!", {
+      type: "PLAYING"
+    });
   },
 };

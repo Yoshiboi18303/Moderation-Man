@@ -13,6 +13,7 @@ module.exports = {
         content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
+    await interaction.deferReply({ ephemeral: true })
     client.stats.post().then(async (status) => {
       if (status == String) {
         const success_embed = new MessageEmbed()
@@ -21,7 +22,7 @@ module.exports = {
           .setDescription(
             `Successfully posted stats on **${client.user.username}** to Statcord!`
           );
-        return await interaction.reply({
+        return await interaction.editReply({
           embeds: [success_embed],
           ephemeral: true,
         });
@@ -32,7 +33,7 @@ module.exports = {
           .setDescription(
             `An error occurred while posting stats, please check the console.`
           );
-        return await interaction.reply({
+        return await interaction.editReply({
           embeds: [error_embed],
           ephemeral: true,
         });
