@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { utc } = require("moment");
 const { MessageEmbed, Permissions } = require("discord.js");
 const Users = require("../../schemas/userSchema");
-const { returnUserStatusText } = require('../../utils/');
+const { returnUserStatusText } = require("../../utils/");
 
 const flags = {
   DISCORD_EMPLOYEE: "Discord Employee",

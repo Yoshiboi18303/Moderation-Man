@@ -12,27 +12,30 @@ const servicesHeaders = {
   Authorization: process.env.SERVICES_API_KEY,
 };
 const mbl = require("motionbotlist");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageAttachment } = require("discord.js");
 const Profiles = require("../schemas/profileSchema");
 const AsciiTable = require("ascii-table");
+let i = 1;
 
 module.exports = {
   name: "ready",
   async execute() {
     await client.user.setActivity("Loading bot data...", {
-      type: "PLAYING"
+      type: "PLAYING",
     });
     const commands = [];
-    const table = new AsciiTable(`${client.user.username} Commands`)
-      .setHeading("Number", "Name", "Description")
+    const table = new AsciiTable(`${client.user.username} Commands`).setHeading(
+      "Number",
+      "Name",
+      "Description"
+    );
     for (var [id, cmd] of client.commands) {
       var push = {
         command: cmd.data.name,
         desc: cmd.data.description,
       };
-      var i = 1;
-      table.addRow(`${i}`, `${cmd.data.name}`, `${cmd.data.description}`)
-      i = i + 1
+      table.addRow(`${i}`, `${cmd.data.name}`, `${cmd.data.description}`);
+      i = i + 1;
       commands.push(push);
     }
     var returnShardCount = client.ready ? client.shard.count : 1; // This will help when I make the bot with a ShardingManager.
@@ -180,9 +183,12 @@ module.exports = {
       .then(() => console.log("Successfully sent bot data to Discord Boats!"))
       .catch((err) => console.error(err));
     await client.stats.autopost();
-    await client.user.setActivity("Bot data ready! Waiting on first status...", {
-      type: "PLAYING"
-    })
+    await client.user.setActivity(
+      "Bot data ready! Waiting on first status...",
+      {
+        type: "PLAYING",
+      }
+    );
     const statuses = [
       `${client.guilds.cache.get("892603177248096306").name}`,
       `${client.users.cache.size} Users`,
@@ -200,10 +206,25 @@ module.exports = {
     const ready_embed = new MessageEmbed()
       .setColor(colors.green)
       .setTitle("Ready!")
-      .setDescription(`${client.user.username} has logged on! Now running with ${returnShardCount} shard(s) in ${client.guilds.cache.size} guilds!`)
-    await channel.send({
-      embeds: [ready_embed],
-    });
+      .setDescription(
+        `${client.user.username} has logged on! Now running with ${returnShardCount} shard(s) in ${client.guilds.cache.size} guilds!`
+      );
+    if(client.commands.size < 50) {
+      const commands_embed = new MessageEmbed()
+        .setColor(colors.purple)
+        .setTitle("Commands")
+        .setDescription(`\`\`\`\n${table.toString()}\n\`\`\``)
+      await channel.send({
+        embeds: [ready_embed, commands_embed],
+      });
+    } else {
+      const buffer = Buffer.from(table.toString())
+      const attachment = new MessageAttachment(buffer, "commands.txt")
+      await channel.send({
+        embeds: [ready_embed],
+        files: [attachment]
+      });
+    }
     console.log(`${client.user.username} has logged on!`);
     setInterval(() => {
       var status = statuses[Math.floor(Math.random() * statuses.length)];

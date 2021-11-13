@@ -46,7 +46,7 @@ module.exports = {
     let output = shell.exec(cmd);
     if (output == "" && output.stderr != "") {
       output = `${output.stderr}`;
-    } else if (output == "" && output.stderr == "" || output == "\n") {
+    } else if ((output == "" && output.stderr == "") || output == "\n") {
       output = "Command Completed (no output)";
     } else if (output.length > 4096 || output.stderr.length > 4096) {
       var buffer = Buffer.from(output);

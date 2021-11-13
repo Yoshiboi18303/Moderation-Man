@@ -7,7 +7,7 @@ const Profiles = require("../../schemas/profileSchema");
 const Users = require("../../schemas/userSchema");
 const colors = require("../../colors.json");
 const shell = require("shelljs");
-const voice = require('../../items/voice');
+const voice = require("../../items/voice");
 
 module.exports = {
   data: new SlashCommandBuilder()

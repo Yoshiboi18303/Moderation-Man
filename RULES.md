@@ -1,9 +1,11 @@
 # Moderation Man Rules
+
 These are the rules for using Moderation Man, by using Moderation Man, you agree to these rules.
 
 ---
 
 # General Rules
+
 The general rules.
 
 1. You are not allowed to use this bot for malicious purposes.
@@ -13,9 +15,10 @@ The general rules.
 ---
 
 # Economy Rules
+
 The rules for the Economy system.
 
-1. *(this only applies to admins)* You are not allowed to add money to yourself.
+1. _(this only applies to admins)_ You are not allowed to add money to yourself.
 
 ---
 

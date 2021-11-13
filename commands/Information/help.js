@@ -113,7 +113,7 @@ module.exports = {
       const collector = interaction.channel.createMessageComponentCollector({
         filter,
         max: 1,
-        time: 1000 * 60
+        time: 1000 * 60,
       });
 
       collector.on("end", async (collection) => {

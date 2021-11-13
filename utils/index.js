@@ -49,14 +49,14 @@ function reverseString(string) {
 
 function returnUserStatusText(user) {
   var status_text = "";
-  if(user.presence.status == "online") {
-    status_text = `${emojis.online} **-** Online`
-  } else if(user.presence.status == "idle") {
-    status_text = `${emojis.idle} **-** Idle/AFK`
-  } else if(user.presence.status == "dnd") {
-    status_text = `${emojis.dnd} **-** Do Not Disturb`
+  if (user.presence.status == "online") {
+    status_text = `${emojis.online} **-** Online`;
+  } else if (user.presence.status == "idle") {
+    status_text = `${emojis.idle} **-** Idle/AFK`;
+  } else if (user.presence.status == "dnd") {
+    status_text = `${emojis.dnd} **-** Do Not Disturb`;
   } else {
-    status_text = `${emojis.offline} **-** Offline/Invisible`
+    status_text = `${emojis.offline} **-** Offline/Invisible`;
   }
   return status_text;
 }

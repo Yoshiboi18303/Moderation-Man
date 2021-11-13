@@ -165,8 +165,8 @@ app.get("/privacy", (req, res) => {
 });
 
 app.get("/rules", (req, res) => {
-  res.status(200).render("rules")
-})
+  res.status(200).render("rules");
+});
 
 app.post(
   "/topggvoteresolve",

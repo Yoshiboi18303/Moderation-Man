@@ -46,7 +46,7 @@ module.exports = {
           Uncomment the code below ONLY on Weekends
         */
         // var earned_coins = Math.floor(Math.random() * 150) + 5;
-        var earned_coins = Math.floor(Math.random() * 300) + 5
+        var earned_coins = Math.floor(Math.random() * 300) + 5;
         const success_embed = new MessageEmbed()
           .setColor(colors.green)
           .setTitle("Success!")

@@ -13,23 +13,30 @@ module.exports = {
         content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
-      client.stats.post()
-        .then(async (status) => {
-          if(typeof status == "string") {
-            const success_embed = new MessageEmbed()
-              .setColor(colors.green)
-              .setTitle("Success")
-              .setDescription(
-                `Successfully posted stats on **${client.user.username}** to Statcord!`
-              );
-            return await interaction.reply({ embeds: [success_embed], ephemeral: true });
-          } else {
-            const error_embed = new MessageEmbed()
-              .setColor(colors.red)
-              .setTitle("Error")
-              .setDescription(`An error occurred while posting stats, please check the console.`)
-            return await interaction.reply({ embeds: [error_embed], ephemeral: true })
-          }
-        })
+    client.stats.post().then(async (status) => {
+      if (status == String) {
+        const success_embed = new MessageEmbed()
+          .setColor(colors.green)
+          .setTitle("Success")
+          .setDescription(
+            `Successfully posted stats on **${client.user.username}** to Statcord!`
+          );
+        return await interaction.reply({
+          embeds: [success_embed],
+          ephemeral: true,
+        });
+      } else {
+        const error_embed = new MessageEmbed()
+          .setColor(colors.red)
+          .setTitle("Error")
+          .setDescription(
+            `An error occurred while posting stats, please check the console.`
+          );
+        return await interaction.reply({
+          embeds: [error_embed],
+          ephemeral: true,
+        });
+      }
+    });
   },
 };

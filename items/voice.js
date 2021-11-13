@@ -9,8 +9,10 @@ const voice = new Node({
   shardCount: returnShardCount,
   host: process.env.LL_HOST,
   send(guildID, packet) {
-    return gateway.connections.get(Long.fromString(guildID).shiftRight(22).mod(this.shardCount)).send(packet);
-  }
+    return gateway.connections
+      .get(Long.fromString(guildID).shiftRight(22).mod(this.shardCount))
+      .send(packet);
+  },
 });
 
 module.exports = voice;
