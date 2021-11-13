@@ -66,6 +66,7 @@ module.exports = {
             `**${user.username}** joined **${guild.name}**, welcome to the server! 👋`
           );
         client.channels.cache.get(log_id).send({ embeds: [new_user_embed] });
+        /*
         const captcha_embed = new MessageEmbed()
           .setColor(colors.yellow)
           .setTitle("__Verification__")
@@ -75,7 +76,8 @@ module.exports = {
           .setImage(data.path)
           .setFooter(`${member.guild.name} Captcha Verification`)
           .setTimestamp();
-        // member.roles.add(user_role_id);
+        */
+        member.roles.add(user_role_id);
         user
           .send({
             content: `Welcome to **${

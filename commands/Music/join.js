@@ -19,7 +19,8 @@ module.exports = {
         .setColor(colors.red)
         .setTitle("Error")
         .setDescription(`${emojis.nope} **-** You need to be in a Voice Channel!`)
-      return await interaction.reply({ embeds: [no_vc_embed] })
+      await interaction.reply({ embeds: [no_vc_embed] })
+      return;
     }
     const player = voice.players.get(interaction.guild.id)
     await player.join(vc.id)

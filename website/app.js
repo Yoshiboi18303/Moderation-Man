@@ -164,6 +164,10 @@ app.get("/privacy", (req, res) => {
   res.status(200).render("privacy");
 });
 
+app.get("/rules", (req, res) => {
+  res.status(200).render("rules")
+})
+
 app.post(
   "/topggvoteresolve",
   webhook.listener(async (vote) => {

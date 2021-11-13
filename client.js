@@ -8,6 +8,7 @@ const client = new Client({
   allowedMentions: {
     parse: ["users", "roles"],
   },
+  shards: "auto",
 });
 const token = process.env.TOKEN;
 const { Client: C } = require("statcord.js");

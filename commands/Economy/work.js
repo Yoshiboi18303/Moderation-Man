@@ -67,12 +67,8 @@ module.exports = {
               });
               data.save();
               if (data.voted) {
-                var random_coins = Math.floor(Math.random() * 500);
-                /*
-                  Uncomment the code below ONLY on weekends.
-                  
-                  var random_coins = Math.floor(Math.random() * 650)
-                */
+                var random_coins = Math.floor(Math.random() * 650)
+                // var random_coins = Math.floor(Math.random() * 500);
                 var random_job = jobs[Math.floor(Math.random() * jobs.length)];
                 data = await Profiles.findOneAndUpdate(
                   {

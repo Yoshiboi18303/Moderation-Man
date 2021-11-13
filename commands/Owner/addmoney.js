@@ -29,6 +29,8 @@ module.exports = {
     var amount = interaction.options.getInteger("amount");
     var user = interaction.options.getUser("user") || interaction.user;
 
+    if(user.id == interaction.user.id && interaction.user.id != config.bot.owner) return await interaction.reply({ content: "I'm sorry, if you want to add money to yourself, that's not possible here.", ephemeral: true })
+
     if (amount < 1)
       return await interaction.editReply({
         content: "You need to add at least 1 coin!",

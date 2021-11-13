@@ -51,7 +51,7 @@ module.exports = {
       );
     }
     var website_link = "https://moderation-man.ml";
-    var support_link = "https://discord.gg/WVyUqBjVah";
+    var support_link = "https://discord.gg/nv4pyCXBnr";
     var github_link = "https://github.com/Yoshiboi18303/Moderation-Man";
     const link_row = new MessageActionRow().addComponents(
       new MessageButton()

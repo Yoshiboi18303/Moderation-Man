@@ -1,4 +1,5 @@
 const Users = require("../schemas/userSchema");
+const CommandError = require("../items/classes/CommandError")
 
 module.exports = {
   name: "interactionCreate",
@@ -56,14 +57,21 @@ module.exports = {
       });
       console.log(`Trying to execute command "${interaction.commandName}"...`);
       const channel = await client.channels.cache.get("904421522205204531");
+      const trying_embed = new MessageEmbed()
+        .setColor(colors.yellow)
+        .setTitle("Command Attempt")
+        .setDescription(`Trying to execute command "**${interaction.commandName}**" in **${interaction.guild.name}**\n\nUser: **${interaction.user.username}**`)
       await channel.send({
-        content: `Trying to execute command "**${interaction.commandName}**" in **${interaction.guild.name}**`,
+        embeds: [trying_embed],
       });
+      client.stats.postCommand(command.data.name, interaction.user.id);
       try {
-        client.stats.postCommand(command.data.name, interaction.user.id);
         await command.execute(interaction);
       } catch (e) {
-        console.error(e);
+        new CommandError({
+          error_text: `An error occured trying to execute **${command.data.name}**...\n\n`,
+          error: e
+        })
         const error_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("Error")

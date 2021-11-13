@@ -1,5 +1,4 @@
 const port = process.env.PORT || 3000;
-const mongo = require("../mongo");
 const reqHeaders = {
   "Content-Type": "application/json",
   Authorization: process.env.DEL_API_KEY,
@@ -13,22 +12,27 @@ const servicesHeaders = {
   Authorization: process.env.SERVICES_API_KEY,
 };
 const mbl = require("motionbotlist");
+const { MessageEmbed } = require("discord.js");
+const Profiles = require("../schemas/profileSchema");
+const AsciiTable = require("ascii-table");
 
 module.exports = {
   name: "ready",
   async execute() {
-    await mongo(process.env.MONGO_CS)
-      .then(console.log("MM >>> Connected to MongoDB!"))
-      .catch((e) => console.error(e));
     await client.user.setActivity("Loading bot data...", {
       type: "PLAYING"
     });
     const commands = [];
+    const table = new AsciiTable(`${client.user.username} Commands`)
+      .setHeading("Number", "Name", "Description")
     for (var [id, cmd] of client.commands) {
       var push = {
         command: cmd.data.name,
         desc: cmd.data.description,
       };
+      var i = 1;
+      table.addRow(`${i}`, `${cmd.data.name}`, `${cmd.data.description}`)
+      i = i + 1
       commands.push(push);
     }
     var returnShardCount = client.ready ? client.shard.count : 1; // This will help when I make the bot with a ShardingManager.
@@ -166,6 +170,11 @@ module.exports = {
     console.log(data)
     */
 
+    await client.stats.registerCustomFieldHandler(1, async (client) => {
+      var documents = await Profiles.countDocuments();
+      return `${await documents}`;
+    });
+
     client.boat
       .postStats(client.guilds.cache.size, botId)
       .then(() => console.log("Successfully sent bot data to Discord Boats!"))
@@ -188,8 +197,12 @@ module.exports = {
       console.log("Successful sent bot data to Top.gg!");
     });
     const channel = client.channels.cache.get("904421522205204531");
+    const ready_embed = new MessageEmbed()
+      .setColor(colors.green)
+      .setTitle("Ready!")
+      .setDescription(`${client.user.username} has logged on! Now running with ${returnShardCount} shard(s) in ${client.guilds.cache.size} guilds!`)
     await channel.send({
-      content: `${client.user.username} has logged on! Now running with ${returnShardCount} shard(s) in ${client.guilds.cache.size} guilds!`,
+      embeds: [ready_embed],
     });
     console.log(`${client.user.username} has logged on!`);
     setInterval(() => {
