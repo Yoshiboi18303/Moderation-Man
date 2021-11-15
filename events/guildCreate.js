@@ -63,7 +63,8 @@ module.exports = {
       return new BotError(
         "An error occurred while executing guildCreate...",
         err,
-        true
+        true,
+        1
       );
     }
   },
