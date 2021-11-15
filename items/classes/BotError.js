@@ -7,8 +7,7 @@ module.exports = class BotError extends Error {
     this.error = error;
     this.critical = critical;
 
-    if (!this.error_text || this.error_text.length <= 0)
-      throw new Error(`Error text cannot be an empty string or undefined.`);
+    if (!this.error_text) throw new Error(`Error text cannot be undefined.`);
     if (!this.error) throw new Error(`This class needs an error to return.`);
     if (!this.critical)
       throw new Error("Critical error option can't be left out!");
@@ -17,6 +16,8 @@ module.exports = class BotError extends Error {
         `Expected error text type to be a type of string, got ${typeof this
           .error_text} instead.`
       );
+    if (this.error_text.length <= 0)
+      throw new Error("Error text cannot be an empty string!");
     if (typeof this.critical != "boolean")
       throw new Error(
         `Expected critical error type to be a type of boolean, got ${typeof this
