@@ -48,6 +48,7 @@ global.CommandError = require("./items/classes/CommandError");
 global.AsciiTable = require("ascii-table");
 global.fs = require("fs");
 global.cp = require("child_process");
+global.mongoose = require("mongoose");
 
 client.commands = new Collection();
 client.events = new Collection();

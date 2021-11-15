@@ -10,6 +10,7 @@ const shell = require("shelljs");
 const voice = require("../../items/voice");
 const CommandError = require("../../items/classes/CommandError");
 const BotError = require("../../items/classes/BotError");
+const CloseProcess = require("../../items/classes/CloseProcess");
 const utils = require("../../utils/");
 
 module.exports = {
