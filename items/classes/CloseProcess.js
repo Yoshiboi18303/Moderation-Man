@@ -18,12 +18,25 @@ module.exports = class CloseProcess {
           .status_code} instead.`
       );
 
-    console.log("Closing process...");
-    client.destroy();
-    console.log("Client destroyed, still trying to close the process...");
+    if (client.ready) {
+      client.user.setActivity("Closing Process... see you soon!", {
+        type: "PLAYING",
+      });
+    }
     setTimeout(() => {
-      console.log(`This process has been closed for reason ${this.reason}.`);
-      return cp.exit(this.status_code);
-    }, 4500);
+      console.log("Closing process...");
+      setTimeout(() => {
+        client.destroy();
+        console.log(
+          "Discord client destroyed, still trying to close the process..."
+        );
+        setTimeout(() => {
+          console.log(
+            `This process has been closed for reason ${this.reason}.`
+          );
+          return cp.exit(this.status_code);
+        }, 4500);
+      }, 5000);
+    }, 3500);
   }
 };
