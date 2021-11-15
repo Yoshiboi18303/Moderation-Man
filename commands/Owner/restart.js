@@ -30,7 +30,7 @@ module.exports = {
       });
     }, 1500);
     await client.user.setActivity("Restart Completed!", {
-      type: "PLAYING"
+      type: "PLAYING",
     });
   },
 };

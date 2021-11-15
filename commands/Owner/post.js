@@ -13,7 +13,7 @@ module.exports = {
         content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
-    await interaction.deferReply({ ephemeral: true })
+    await interaction.deferReply({ ephemeral: true });
     client.stats.post().then(async (status) => {
       if (status == String) {
         const success_embed = new MessageEmbed()

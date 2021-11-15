@@ -41,18 +41,20 @@ module.exports = {
       if (u.bot) return "Yes";
       else return "No";
     }
-    function returnCommandCount(u) {
-      var cmdCount;
+    async function returnCommandCount(u) {
+      var cmdCount = 0;
+      var d;
       Users.findOne({ id: u.id }, async (err, data) => {
         if (err) throw err;
         if (!data) {
           data = new Users({ id: u.id });
           data.save();
-          cmdCount = await data.commandsUsed;
+          d = data.commandsUsed;
         } else {
-          cmdCount = await data.commandsUsed;
+          d = data.commandsUsed;
         }
       });
+      cmdCount = d;
       return cmdCount;
     }
     const roles = member.roles.cache
@@ -96,7 +98,12 @@ module.exports = {
       `**❯ Hoisted Role:** ${
         member.roles.hoist ? member.roles.hoist.name : "No hoisted role"
       }`,
-      `**❯ Status:** ${returnUserStatusText(member)}`,
+      `**❯ Status:** ${
+        member.presence != null
+          ? returnUserStatusText(member)
+          : `${emojis.offline} **-** Offline`
+      }`,
+      // `**❯ Commands Used:** ${await returnCommandCount(user)}`
     ];
     const embed = new MessageEmbed()
       .setTitle(`Info on ${user.username}`)

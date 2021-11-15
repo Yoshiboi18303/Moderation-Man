@@ -68,7 +68,7 @@ module.exports = {
     var setting = args[1];
     var value = args[2] ? interaction.options.getString("value") : null;
 
-    // var guild = Guilds.findOne({ id: interaction.guild.id });
+    var guild = Guilds.findOne({ id: interaction.guild.id });
 
     var cmd = interaction;
     if (action == "view") {

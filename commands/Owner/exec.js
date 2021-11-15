@@ -34,6 +34,7 @@ module.exports = {
       process.env.KEY_TO_MOTION,
       process.env.MAIN_DLS_API_KEY,
       process.env.MONGO_CS,
+      process.env.RADAR_KEY,
       process.env.SECRET,
       process.env.SERVICES_API_KEY,
       process.env.STATCORD_KEY,

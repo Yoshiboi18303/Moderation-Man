@@ -42,12 +42,23 @@ module.exports = {
       ]);
     await interaction.reply(`Reporting bug... ${wait}`);
     setTimeout(async function () {
-      await owner.send({
-        embeds: [new_bug_reported_embed],
-      });
-      await interaction.editReply(
-        `${yes} - Your bug has been reported to **${owner.tag}**!`
-      );
+      try {
+        await owner.send({
+          embeds: [new_bug_reported_embed],
+        });
+        await interaction.editReply(
+          `${yes} - Your bug has been reported to **${owner.tag}** in their DMs!`
+        );
+      } catch (e) {
+        await interaction.editReply(
+          `${nope} - Whoops! I can't send a DM to Yoshiboi18303!\nYour bug is being sent to a channel in the support server!`
+        );
+        const channel = client.channels.cache.get("909146026038939688");
+        await channel.send({
+          content: `<@${owner.id}>`,
+          embeds: [new_bug_reported_embed],
+        });
+      }
     }, 5000);
   },
 };

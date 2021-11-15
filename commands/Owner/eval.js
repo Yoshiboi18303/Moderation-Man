@@ -8,6 +8,9 @@ const Users = require("../../schemas/userSchema");
 const colors = require("../../colors.json");
 const shell = require("shelljs");
 const voice = require("../../items/voice");
+const CommandError = require("../../items/classes/CommandError");
+const BotError = require("../../items/classes/BotError");
+const utils = require("../../utils/");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -28,7 +31,7 @@ module.exports = {
         content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
-    const code = interaction.options.getString("code");
+    const code = interaction.options.getString("code") || "";
     await interaction.deferReply();
     var result = new Promise((resolve, reject) => {
       resolve(eval(code));
@@ -47,6 +50,7 @@ module.exports = {
       process.env.FP_KEY,
       client.token,
       interaction.token,
+      process.env.RADAR_KEY,
       process.env.STATCORD_KEY,
       process.env.BACKUP_DLS_API_KEY,
       process.env.BOATS_KEY,
@@ -90,7 +94,8 @@ module.exports = {
           .setTitle("Evaluation")
           .setDescription(
             `Successful Evaluation.\n\nOutput:\n\`\`\`js\n${result}\n\`\`\``
-          );
+          )
+          .setTimestamp();
         await interaction.editReply({ embeds: [evaluated_embed] });
       })
       .catch(async (result) => {
@@ -106,7 +111,8 @@ module.exports = {
           .setTitle("Error Evaluating")
           .setDescription(
             `An error occurred.\n\nError:\n\`\`\`js\n${result}\n\`\`\``
-          );
+          )
+          .setTimestamp();
         await interaction.editReply({ embeds: [error_embed] });
       });
   },

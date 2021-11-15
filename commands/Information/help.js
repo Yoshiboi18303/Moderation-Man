@@ -88,7 +88,7 @@ module.exports = {
         .setDescription(
           `${emojis.nope} **-** I can't send you a DM, do you want to get the raw embed instead?\n\n**You have 1 minute to select an option.**`
         );
-      const re_row = new MessageActionRow().addComponents(
+      var re_row = new MessageActionRow().addComponents(
         new MessageButton()
           .setStyle("SUCCESS")
           .setLabel("YES")
@@ -118,15 +118,31 @@ module.exports = {
 
       collector.on("end", async (collection) => {
         if (collection.first()?.customId == "raw-embed-yes") {
+          const getting_embed = new MessageEmbed()
+            .setColor(colors.orange)
+            .setTitle("Fetching Embed...")
+            .setDescription(`Okay, fetching the raw embed... ${emojis.wait}`);
+          re_row = new MessageActionRow().addComponents(
+            new MessageButton()
+              .setStyle("SUCCESS")
+              .setLabel("YES")
+              .setCustomId("raw-embed-yes")
+              .setEmoji("✅")
+              .setDisabled(true),
+            new MessageButton()
+              .setStyle("SECONDARY")
+              .setLabel("NO")
+              .setCustomId("raw-embed-no")
+              .setEmoji("❌")
+              .setDisabled(true)
+          );
           await interaction.editReply({
-            content: `Okay, fetching the raw embed... ${emojis.wait}`,
-            embeds: [],
-            components: [],
+            embeds: [getting_embed],
+            components: [re_row],
             ephemeral: true,
           });
           await hold(1750);
           await interaction.editReply({
-            content: "Here you go!",
             embeds: [help_embed],
             components: [link_row],
             ephemeral: true,

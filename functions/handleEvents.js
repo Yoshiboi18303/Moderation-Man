@@ -10,6 +10,7 @@ module.exports = (client) => {
         console.info(`Event "${event.name}" registered to run always!`);
         client.on(event.name, (...args) => event.execute(...args, client));
       }
+      client.events.set(event.name, event);
     }
     console.log("Events registered!");
     console.log(

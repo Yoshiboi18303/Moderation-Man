@@ -1,3 +1,5 @@
 {
-	"lastCheck": 1636774388287
+	"lastCheck": 1636774388287,
+  "verbose": true,
+  "ignore": [".replit", "replit.nix", "README.md", "RULES.md", "PRIVACY.md", "LICENSE", ".gitignore", ".prettierignore", "package.json", "package-lock.json"]
 }

@@ -17,7 +17,6 @@ module.exports = {
         .setDescription("Is this user the Impostor?")
         .setRequired(false)
     ),
-  // These are comments
   async execute(interaction) {
     await interaction.deferReply();
     var user = interaction.options.getUser("user") || interaction.user;
@@ -35,18 +34,7 @@ module.exports = {
     } else {
       name = "not_impostor.gif";
     }
-    // Use the rest of the code below to make the attachment and send it.
     const attachment = new MessageAttachment(link, name);
-    // Correct line:
-    // await interaction.reply({ files: [attachment] })
     await interaction.followUp({ files: [attachment] });
-    /*
-const { MessageAttachment } = require('discord.js');
-var link = "https://cdn.discordapp.com/avatars/851596287861587968/fc19ea76d8801fb3d37b5d62ba589447.png?size=512"
-const attachment = new MessageAttachment(link, "attachment.png")
-interaction.reply({ files: [attachment] })
-*/
-    // Attachment (variables) go in the files array.
-    // reply tutorial in REPLY.md
   },
 };

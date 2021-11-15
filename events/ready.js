@@ -15,7 +15,9 @@ const mbl = require("motionbotlist");
 const { MessageEmbed, MessageAttachment } = require("discord.js");
 const Profiles = require("../schemas/profileSchema");
 const AsciiTable = require("ascii-table");
-let i = 1;
+let command_index = 1;
+let event_index = 1;
+const c = require("colors");
 
 module.exports = {
   name: "ready",
@@ -24,19 +26,28 @@ module.exports = {
       type: "PLAYING",
     });
     const commands = [];
-    const table = new AsciiTable(`${client.user.username} Commands`).setHeading(
-      "Number",
-      "Name",
-      "Description"
-    );
+    const command_table = new AsciiTable(
+      `${client.user.username} Commands`
+    ).setHeading("Command Number", "Name", "Description");
+    const event_table = new AsciiTable(
+      `${client.user.username} Events`
+    ).setHeading("Event Number", "Name");
     for (var [id, cmd] of client.commands) {
       var push = {
         command: cmd.data.name,
         desc: cmd.data.description,
       };
-      table.addRow(`${i}`, `${cmd.data.name}`, `${cmd.data.description}`);
-      i = i + 1;
+      command_table.addRow(
+        `${command_index}`,
+        `${cmd.data.name}`,
+        `${cmd.data.description}`
+      );
+      command_index = command_index + 1;
       commands.push(push);
+    }
+    for (var [id, event] of client.events) {
+      event_table.addRow(`${event_index}`, `${event.name}`);
+      event_index = event_index + 1;
     }
     var returnShardCount = client.ready ? client.shard.count : 1; // This will help when I make the bot with a ShardingManager.
     const fetch = await import("node-fetch");
@@ -99,6 +110,8 @@ module.exports = {
 
     var botId = client.ready ? client.user.id : "891070722074611742";
 
+    /*
+    
     let grabbed = await mbl.servers(
       botId,
       process.env.KEY_TO_MOTION,
@@ -110,6 +123,8 @@ module.exports = {
     grabbed = await mbl.grabInfo(botId, process.env.KEY_TO_MOTION);
 
     console.log(grabbed);
+
+    */
 
     let botlistReqLink = `https://api.botlist.me/api/v1/bots/${botId}/stats`;
     var botlistReqHeaders = {
@@ -173,10 +188,31 @@ module.exports = {
     console.log(data)
     */
 
-    await client.stats.registerCustomFieldHandler(1, async (client) => {
+    botlistReqLink = `https://radarbotdirectory.xyz/api/bot/${botId}/stats`;
+    botlistReqHeaders = {
+      "Content-Type": "application/json",
+      Authorization: `${process.env.RADAR_KEY}`,
+    };
+    botlistReqBody = {
+      shards: returnShardCount,
+      guilds: client.guilds.cache.size,
+    };
+
+    botlistReq = await fetch.default(botlistReqLink, {
+      method: "POST",
+      headers: botlistReqHeaders,
+      body: JSON.stringify(botlistReqBody),
+    });
+
+    data = await botlistReq.json();
+    console.log(data);
+
+    await client.stats.registerCustomFieldHandler(1, async function (client) {
       var documents = await Profiles.countDocuments();
       return `${await documents}`;
     });
+
+    var b = `${client.user.username}`.rainbow.underline.bold;
 
     client.boat
       .postStats(client.guilds.cache.size, botId)
@@ -200,32 +236,56 @@ module.exports = {
     ];
     const status_types = ["LISTENING", "PLAYING", "WATCHING"];
     client.autoposter.on("posted", () => {
-      console.log("Successful sent bot data to Top.gg!");
+      var bot_list_link = "Top.gg".random
+      console.log(`Successful sent bot data to ${bot_list_link}!`);
     });
     const channel = client.channels.cache.get("904421522205204531");
     const ready_embed = new MessageEmbed()
       .setColor(colors.green)
       .setTitle("Ready!")
       .setDescription(
-        `${client.user.username} has logged on! Now running with ${returnShardCount} shard(s) in ${client.guilds.cache.size} guilds!`
+        `**${client.user.username}** has logged on! Now running with **${returnShardCount}** shard(s) in **${client.guilds.cache.size}** guilds!`
       );
-    if(client.commands.size < 50) {
+    await channel.send({
+      embeds: [ready_embed],
+    });
+    if (client.commands.size < 50) {
       const commands_embed = new MessageEmbed()
         .setColor(colors.purple)
         .setTitle("Commands")
-        .setDescription(`\`\`\`\n${table.toString()}\n\`\`\``)
+        .setDescription(`\`\`\`\n${command_table.toString()}\n\`\`\``);
       await channel.send({
-        embeds: [ready_embed, commands_embed],
+        embeds: [commands_embed],
       });
     } else {
-      const buffer = Buffer.from(table.toString())
-      const attachment = new MessageAttachment(buffer, "commands.txt")
+      const command_buffer = Buffer.from(command_table.toString());
+      const command_attachment = new MessageAttachment(
+        command_buffer,
+        "commands.txt"
+      );
       await channel.send({
-        embeds: [ready_embed],
-        files: [attachment]
+        files: [command_attachment],
       });
     }
-    console.log(`${client.user.username} has logged on!`);
+    if (client.events.size < 15) {
+      const events_embed = new MessageEmbed()
+        .setColor(colors.blue)
+        .setTitle("Events")
+        .setDescription(`\`\`\`\n${event_table.toString()}\n\`\`\``);
+      await channel.send({
+        embeds: [events_embed],
+      });
+    } else {
+      const event_buffer = Buffer.from(event_table.toString());
+      const event_attachment = new MessageAttachment(
+        event_buffer,
+        "events.txt"
+      );
+      await channel.send({
+        files: [event_attachment],
+      });
+    }
+    console.log(`${b} has logged on!`);
     setInterval(() => {
       var status = statuses[Math.floor(Math.random() * statuses.length)];
       status += " | /help";

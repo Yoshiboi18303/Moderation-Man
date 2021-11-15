@@ -15,7 +15,7 @@ module.exports = {
     });
     await wait(5000);
     await interaction.editReply({
-      content: `${emojis.yes} | Pong! **${client.ws.ping}ms**`,
+      content: `${emojis.yes} **|** Pong! **${client.ws.ping}ms**`,
       ephemeral: true,
     });
   },

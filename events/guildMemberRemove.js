@@ -18,9 +18,6 @@ module.exports = {
             `**${user.username}** left **${guild.name}**, see you later old buddy... 😦`
           );
         client.channels.cache.get(log_id).send({ embeds: [user_left_embed] });
-        user.send({
-          content: `Sad to see you leave **${guild.name}**... hope you come back soon!`,
-        });
       } else {
         const bot_left_embed = new MessageEmbed()
           .setColor(colors.blue)

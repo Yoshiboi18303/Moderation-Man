@@ -42,8 +42,16 @@ global.admins = [
   "697414293712273408",
   "738988218002964581",
 ];
+global.c = require("colors");
+global.BotError = require("./items/classes/BotError");
+global.CommandError = require("./items/classes/CommandError");
+global.AsciiTable = require("ascii-table");
+global.fs = require("fs");
+global.cp = require("child_process");
 
 client.commands = new Collection();
+client.events = new Collection();
+client.classes = new Collection();
 client.stats = statcord;
 client.autoposter = ap;
 client.boat = Boats;

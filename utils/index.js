@@ -56,9 +56,57 @@ function returnUserStatusText(user) {
   } else if (user.presence.status == "dnd") {
     status_text = `${emojis.dnd} **-** Do Not Disturb`;
   } else {
-    status_text = `${emojis.offline} **-** Offline/Invisible`;
+    status_text = `${emojis.offline} **-** Invisible`;
   }
   return status_text;
+}
+
+function emojifyText(text) {
+  var result = ""
+  text = text.split("")
+  var object = {
+    "a": "🇦",
+    "b": "🇧",
+    "c": "🇨",
+    "d": "🇩",
+    "e": "🇪",
+    "f": "🇫",
+    "g": "🇬",
+    "h": "🇭",
+    "i": "🇮",
+    "j": "🇯",
+    "k": "🇰",
+    "l": "🇱",
+    "m": "🇲",
+    "n": "🇳",
+    "o": "🇴",
+    "p": "🇵",
+    "q": "🇶",
+    "r": "🇷",
+    "s": "🇸",
+    "t": "🇹",
+    "u": "🇺",
+    "v": "🇻",
+    "w": "🇼",
+    "x": "🇽",
+    "y": "🇾",
+    "z": "🇿",
+    " ": "🟦"
+  }
+  let char = ''
+  text.forEach(function(c) {
+    c = c.toLowerCase()
+    var chars = object[c]
+    var rand = Math.floor(Math.random() * chars.length);
+    if (typeof object[c] !== 'undefined') {
+      char = object[c][rand];
+      result += char
+    } else {
+      char = c;
+      result += char
+    }
+  })
+  return result
 }
 
 module.exports = {
@@ -67,4 +115,5 @@ module.exports = {
   convertToUpperCase,
   reverseString,
   returnUserStatusText,
+  emojifyText,
 };

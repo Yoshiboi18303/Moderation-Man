@@ -7,3 +7,6 @@ replit.nix
 .gitignore
 LICENSE
 .config/
+package-lock.json
+package.json
+.prettierrc.json

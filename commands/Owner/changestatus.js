@@ -5,7 +5,7 @@ const hold = require("util").promisify(setTimeout);
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("changestatus")
-    .setDescription("Change the status of the client")
+    .setDescription("Change the status of the client (admins only)")
     .addStringOption((option) =>
       option
         .setName("status")

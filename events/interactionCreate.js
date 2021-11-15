@@ -61,7 +61,7 @@ module.exports = {
         .setColor(colors.yellow)
         .setTitle("Command Attempt")
         .setDescription(
-          `Trying to execute command "**${interaction.commandName}**" in **${interaction.guild.name}**\n\nUser: **${interaction.user.username}**`
+          `Trying to execute command "**${interaction.commandName}**" in **${interaction.guild.name}**\n\nInteraction User: **${interaction.user.username}**`
         );
       await channel.send({
         embeds: [trying_embed],
@@ -70,7 +70,10 @@ module.exports = {
       try {
         await command.execute(interaction);
       } catch (e) {
-        new CommandError(`An error occured trying to execute **${command.data.name}**...\n\n`, e);
+        new CommandError(
+          `Whoopies! An error occured while trying to execute ${command.data.name}!\n\n`,
+          e
+        );
         const error_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("Error")
