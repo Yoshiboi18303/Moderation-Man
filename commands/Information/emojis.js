@@ -4,17 +4,25 @@ const { MessageEmbed, Permissions } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("emojis")
-    .setDescription("Shows the emojis in your guild (you'll need the MANAGE_EMOJIS_AND_STICKERS permission to run this)"),
+    .setDescription(
+      "Shows the emojis in your guild (you'll need the MANAGE_EMOJIS_AND_STICKERS permission to run this)"
+    ),
   async execute(interaction) {
-    if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_EMOJIS_AND_STICKERS)) {
+    if (
+      !interaction.member.permissions.has(
+        Permissions.FLAGS.MANAGE_EMOJIS_AND_STICKERS
+      )
+    ) {
       const bad_permissions_embed = new MessageEmbed()
         .setColor(colors.red)
         .setTitle("Error")
-        .setDescription(`${emojis.nope} **-** You don't have the \`MANAGE_EMOJIS_AND_STICKERS\` permission!`)
+        .setDescription(
+          `${emojis.nope} **-** You don't have the \`MANAGE_EMOJIS_AND_STICKERS\` permission!`
+        );
       return await interaction.reply({
         embeds: [bad_permissions_embed],
-        ephemeral: true
-      })
+        ephemeral: true,
+      });
     }
     await interaction.deferReply();
     var guild = interaction.guild;

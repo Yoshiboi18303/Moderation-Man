@@ -62,51 +62,51 @@ function returnUserStatusText(user) {
 }
 
 function emojifyText(text) {
-  var result = ""
-  text = text.split("")
+  var result = "";
+  text = text.split("");
   var object = {
-    "a": "🇦",
-    "b": "🇧",
-    "c": "🇨",
-    "d": "🇩",
-    "e": "🇪",
-    "f": "🇫",
-    "g": "🇬",
-    "h": "🇭",
-    "i": "🇮",
-    "j": "🇯",
-    "k": "🇰",
-    "l": "🇱",
-    "m": "🇲",
-    "n": "🇳",
-    "o": "🇴",
-    "p": "🇵",
-    "q": "🇶",
-    "r": "🇷",
-    "s": "🇸",
-    "t": "🇹",
-    "u": "🇺",
-    "v": "🇻",
-    "w": "🇼",
-    "x": "🇽",
-    "y": "🇾",
-    "z": "🇿",
-    " ": "🟦"
-  }
-  let char = ''
-  text.forEach(function(c) {
-    c = c.toLowerCase()
-    var chars = object[c]
+    a: "🇦",
+    b: "🇧",
+    c: "🇨",
+    d: "🇩",
+    e: "🇪",
+    f: "🇫",
+    g: "🇬",
+    h: "🇭",
+    i: "🇮",
+    j: "🇯",
+    k: "🇰",
+    l: "🇱",
+    m: "🇲",
+    n: "🇳",
+    o: "🇴",
+    p: "🇵",
+    q: "🇶",
+    r: "🇷",
+    s: "🇸",
+    t: "🇹",
+    u: "🇺",
+    v: "🇻",
+    w: "🇼",
+    x: "🇽",
+    y: "🇾",
+    z: "🇿",
+    " ": "🟦",
+  };
+  let char = "";
+  text.forEach(function (c) {
+    c = c.toLowerCase();
+    var chars = object[c];
     var rand = Math.floor(Math.random() * chars.length);
-    if (typeof object[c] !== 'undefined') {
+    if (typeof object[c] !== "undefined") {
       char = object[c][rand];
-      result += char
+      result += char;
     } else {
       char = c;
-      result += char
+      result += char;
     }
-  })
-  return result
+  });
+  return result;
 }
 
 module.exports = {

@@ -236,7 +236,7 @@ module.exports = {
     ];
     const status_types = ["LISTENING", "PLAYING", "WATCHING"];
     client.autoposter.on("posted", () => {
-      var bot_list_link = "Top.gg".random
+      var bot_list_link = "Top.gg".random;
       console.log(`Successful sent bot data to ${bot_list_link}!`);
     });
     const channel = client.channels.cache.get("904421522205204531");

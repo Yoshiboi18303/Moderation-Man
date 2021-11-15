@@ -9,7 +9,7 @@ module.exports = {
       var guild_channel = guild.channels.cache.find(
         (channel) => channel.type == "GUILD_TEXT" && channel.name == "bot-hell"
       );
-      rhberberhjbehj
+      rhberberhjbehj;
       // console.log(guild_channel)
       const new_guild_embed = new MessageEmbed()
         .setColor(colors.green)
@@ -61,7 +61,11 @@ module.exports = {
         embeds: [added_embed],
       });
     } catch (err) {
-      return new BotError("An error occurred while executing guildCreate...", err, true);
+      return new BotError(
+        "An error occurred while executing guildCreate...",
+        err,
+        true
+      );
     }
   },
 };

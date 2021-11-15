@@ -8,8 +8,7 @@ module.exports = class CommandError extends Error {
 
     if (!this.error_text || this.error_text.length <= 0)
       throw new Error(`Error text cannot be an empty string or undefined.`);
-    if (!this.error)
-      throw new Error(`This class needs an error to return.`);
+    if (!this.error) throw new Error(`This class needs an error to return.`);
     if (typeof this.error_text != "string")
       throw new Error(
         `Expected error text type to be a type of string, got ${typeof this
