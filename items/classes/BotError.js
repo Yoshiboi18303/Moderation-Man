@@ -19,8 +19,8 @@ module.exports = class BotError extends Error {
       );
     if (typeof this.critical != "boolean")
       throw new Error(
-        `Expected critical type to be a type of boolean, got ${typeof this
-          .error_text} instead.`
+        `Expected critical error type to be a type of boolean, got ${typeof this
+          .critical} instead.`
       );
 
     const starting_text = "MM-BOT-ERROR:".red;

@@ -67,7 +67,7 @@ module.exports = {
               }
             }
             pa.push(
-              `\nI currently have ${permission_count}/ permissions allowed for myself.`
+              `\nI currently have ${permission_count}/41 permissions allowed for myself.`
             );
             return pa.join("\n");
           }

@@ -39,9 +39,9 @@ module.exports = {
 
     if (code == "shell.exec" || code.includes("shell.exec"))
       return await interaction.editReply({
-        content: "You should use the `exec` command for this shell command.",
+        content: "You should use the `exec` command for this shell command/code.",
         ephemeral: true,
-      });
+      });  
 
     var secrets = [
       process.env.TOKEN,
