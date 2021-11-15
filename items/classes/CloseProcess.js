@@ -12,10 +12,10 @@ module.exports = class CloseProcess {
         `Expected reason type to be a type of string, got ${typeof this
           .reason} instead.`
       );
-    if (typeof this.reason != "integer")
+    if (typeof this.status_code != "integer")
       throw new Error(
-        `Expected reason type to be a type of integer, got ${typeof this
-          .reason} instead.`
+        `Expected status code to be a type of integer, got ${typeof this
+          .status_code} instead.`
       );
 
     console.log("Closing process...");
