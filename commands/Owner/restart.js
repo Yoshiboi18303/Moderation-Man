@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const mongoose = require("mongoose");
 const { wait, yes, nope } = require("../../emojis.json");
+const CP = require("../../items/classes/CloseProcess");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,7 +27,10 @@ module.exports = {
           "Okay, not restarting the client, just gonna close the process, see you soon then!",
         ephemeral: true,
       });
-      setTimeout(async () => await process.exit(), 10000);
+      setTimeout(
+        () => new CP("Restart Command said to close the process"),
+        10000
+      );
     } else {
       await interaction.reply({
         content: `Restarting... ${wait}`,
