@@ -1,30 +1,25 @@
 module.exports = class CloseProcess {
-  constructor(reason, status_code) {
+  constructor(reason) {
     this.reason = reason;
-    this.status_code = status_code;
     this.mongoose = mongoose;
     this.client = client;
     this.channel = this.client.channels.cache.get("904421522205204531");
     this.MessageEmbed = MessageEmbed;
     this.emojis = emojis;
+    this.colors = colors;
 
     if (!this.reason)
       throw new Error("This class needs a reason for the closed process!");
-    if (!this.status_code)
-      throw new Error("This class needs a status code for the closed process!");
     if (typeof this.reason != "string")
       throw new Error(
         `Expected reason type to be a type of string, got ${typeof this
           .reason} instead.`
       );
-    if (typeof this.status_code != "number")
-      throw new Error(
-        `Expected status code to be a type of number, got ${typeof this
-          .status_code} instead.`
-      );
+    if (this.reason == " ")
+      throw new Error("The closing reason can't be an empty string!");
 
     this.ClosingEmbed = new this.MessageEmbed()
-      .setColor(colors.orange)
+      .setColor(this.colors.orange)
       .setTitle("Process Exiting")
       .setDescription(
         `${this.emojis.exit} **-** This process is exiting due to "${this.reason}"...`
@@ -40,23 +35,19 @@ module.exports = class CloseProcess {
     setTimeout(() => {
       console.log(`${name_text} Closing process...`);
       setTimeout(async () => {
-        try {
-          this.client.destroy();
+        this.client.destroy();
+        console.log(
+          `${name_text} Discord client destroyed, still trying to close the process...`
+        );
+        await this.mongoose.connection.close(() =>
+          console.log(`${name_text} Mongoose connection closed cleanly.`)
+        );
+        setTimeout(() => {
           console.log(
-            `${name_text} Discord client destroyed, still trying to close the process...`
+            `${name_text} This process has been closed for reason ${this.reason}.`
           );
-        } catch (e) {
-          console.error(e);
-          await this.mongoose.connection.close(() =>
-            console.log(`${name_text} Mongoose connection closed cleanly.`)
-          );
-          setTimeout(() => {
-            console.log(
-              `${name_text} This process has been closed for reason ${this.reason}.`
-            );
-            return process.exit(this.status_code);
-          }, 4500);
-        }
+          return process.exit();
+        }, 4500);
       }, 5000);
     }, 3500);
   }

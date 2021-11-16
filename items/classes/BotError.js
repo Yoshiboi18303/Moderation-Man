@@ -2,7 +2,7 @@ const colors = require("colors");
 
 module.exports = class BotError extends Error {
   constructor(error_text, error, critical, status_code) {
-    super(error_text, error, critical);
+    super(error_text, error, critical, status_code);
     this.error_text = error_text;
     this.error = error;
     this.critical = critical;
@@ -28,7 +28,7 @@ module.exports = class BotError extends Error {
       throw new Error(
         "Error said it was critical, but didn't define a status code to exit with."
       );
-    if (this.critical == false && this.status_code)
+    if (this.critical == false && typeof this.status_code != "undefined")
       throw new Error(
         "Error said it wasn't critical, but defined a status code to exit with."
       );
@@ -42,9 +42,12 @@ module.exports = class BotError extends Error {
     // Assuming everything is good, then check if critical is true, if so, then log the error, and then exit the process. Otherwise, just log the error.
     if (this.critical == true) {
       console.error(`${starting_text} ${this.error_text}`, this.error);
+      console.log(
+        `${starting_text} This error is critical, so I'm exiting the process.`
+      );
       return process.exit(this.status_code);
     } else {
-      return console.error(`${starting_text}: ${this.error_text}`, this.error);
+      return console.error(`${starting_text} ${this.error_text}`, this.error);
     }
   }
 };

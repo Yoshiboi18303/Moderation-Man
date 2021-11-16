@@ -1,10 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageAttachment, MessageEmbed } = require("discord.js");
+const { MessageAttachment, MessageEmbed, Permissions } = require("discord.js");
 const util = require("util");
 const Warnings = require("../../schemas/warningSchema");
 const Channels = require("../../schemas/channelSchema");
 const Profiles = require("../../schemas/profileSchema");
 const Users = require("../../schemas/userSchema");
+const Suggestions = require("../../schemas/suggestionSchema");
 const colors = require("../../colors.json");
 const shell = require("shelljs");
 const voice = require("../../items/voice");

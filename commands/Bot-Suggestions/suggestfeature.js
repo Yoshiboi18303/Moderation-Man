@@ -1,8 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-const colors = require("../../colors.json");
 const hold = require("util").promisify(setTimeout);
 const { yes, wait } = require("../../emojis.json");
+const Suggestion = require("../../schemas/suggestionSchema");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -23,6 +23,8 @@ module.exports = {
 
     var channel = client.channels.cache.get("902031074979360818");
 
+    var id = Math.floor(Math.random() * 1000000001);
+
     const sent_embed = new MessageEmbed()
       .setColor(colors.green)
       .setTitle("Success")
@@ -31,18 +33,18 @@ module.exports = {
           client.guilds.cache.get("892603177248096306").name
         }**!`
       )
+      .setTimestamp();
+    const suggestion_embed = new MessageEmbed()
+      .setColor(colors.cyan)
+      .setTitle("New Suggestion")
       .setFooter(
-        `${interaction.user.username} suggested something!`,
+        `${interaction.user.username} suggested something! - Suggestion ID: ${id}`,
         interaction.user.displayAvatarURL({
           dynamic: false,
           format: "png",
           size: 32,
         })
       )
-      .setTimestamp();
-    const suggestion_embed = new MessageEmbed()
-      .setColor(colors.cyan)
-      .setTitle("New Suggestion")
       .addFields([
         {
           name: "Suggestion",
@@ -60,6 +62,13 @@ module.exports = {
           inline: true,
         },
       ]);
+    data = new Suggestion({
+      id,
+      suggestion,
+      suggestor: interaction.user.id,
+      guild: interaction.guild.id,
+    });
+    data.save();
     await hold(3000);
     await interaction.editReply({
       content: "Suggestion successfully sent!",

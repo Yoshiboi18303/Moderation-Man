@@ -88,8 +88,12 @@ module.exports = {
         body: JSON.stringify(servicesBody),
       }
     );
+
+    /*
     var d = await servicesReq.json();
     console.log(d);
+    */
+
     var servicesCommands = await fetch.default(
       `https://api.discordservices.net/bot/${client.user.id}/commands`,
       {
@@ -98,8 +102,12 @@ module.exports = {
         body: JSON.stringify(commands),
       }
     );
+
+    /*
     d = await servicesCommands.json();
     console.log(d);
+    */
+
     var req = await fetch.default(infinityLink, {
       method: "POST",
       headers: infinityHeaders,
@@ -207,7 +215,7 @@ module.exports = {
     data = await botlistReq.json();
     console.log(data);
 
-    await client.stats.registerCustomFieldHandler(1, async function (client) {
+    await client.stats.registerCustomFieldHandler(1, async function () {
       var documents = await Profiles.countDocuments();
       return `${await documents}`;
     });

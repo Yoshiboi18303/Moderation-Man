@@ -57,6 +57,21 @@ module.exports = {
       cmdCount = d;
       return cmdCount;
     }
+
+    function returnMessageCount() {
+      var messages_sent = 0;
+      for (var channel of interaction.guild.channels.cache.toJSON()) {
+        if (channel.type == "GUILD_TEXT") {
+          for (var message of channel.messages.cache.toJSON()) {
+            if (message.author.id == interaction.user.id) {
+              messages_sent = messages_sent + 1;
+            }
+          }
+        }
+      }
+      return messages_sent;
+    }
+
     const roles = member.roles.cache
       .sort((a, b) => b.position - a.position)
       .map((role) => role.toString())
@@ -84,6 +99,7 @@ module.exports = {
     ];
     const memberArray = [
       `**❯ Nickname:** ${member.nickname != null ? member.nickname : "None"}`,
+      `**❯ Messages Sent (after last restart):** ${returnMessageCount()}`,
       `**❯ Roles (except everyone):** ${
         role_array.length > 1 ? role_array.join(", ") : "None"
       }`,

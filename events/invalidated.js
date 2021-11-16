@@ -4,6 +4,6 @@ module.exports = {
   name: "invalidated",
   once: false,
   execute() {
-    new CP("Client session is invalidated.", 1);
+    new CP("Client session is invalidated.");
   },
 };
