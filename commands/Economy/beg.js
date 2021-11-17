@@ -54,6 +54,9 @@ module.exports = {
           "Get out of my face beggar.",
           "Fuck off peta.",
           "Go away.",
+          "Honestly, why are you begging? Just get a damn job.",
+          "Please stop.",
+          "Jobs exist, get one."
         ];
         if (chance == true) {
           var good_message =

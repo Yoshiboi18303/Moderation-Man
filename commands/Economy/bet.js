@@ -25,9 +25,9 @@ module.exports = {
       });
     */
     var amount = interaction.options.getNumber("betting_amount");
-    if (amount < 400)
+    if (amount < 500)
       return await interaction.reply({
-        content: "You can't bet less than 400 coins, sorry not sorry.",
+        content: `${emojis.nope} **-** You can't bet less than 500 coins, sorry not sorry.`,
         ephemeral: true,
       });
     Profiles.findOne({ id: interaction.user.id }, async (err, data) => {
@@ -37,7 +37,7 @@ module.exports = {
           .setColor(colors.red)
           .setTitle("Error")
           .setDescription(
-            "You don't have any data in the database!\nRun `/start` to get some!"
+            `${emojis.nope} **-** You don't have any data in the database!\nRun \`/start\` to get some!`
           );
         return await interaction.reply({
           embeds: [no_data_embed],
@@ -47,7 +47,7 @@ module.exports = {
         var coins = data.coins;
         if (coins < amount)
           return await interaction.reply({
-            content: "You're betting more than you already have!",
+            content: `${emojis.nope} **-** You're betting more than you already have!`,
             ephemeral: true,
           });
         var chance = Math.random() > 0.7;
@@ -68,7 +68,7 @@ module.exports = {
             .setColor(colors.green)
             .setTitle("Successful Bet")
             .setDescription(
-              `Your bet was a success and you earned 3 times the amount you just betted (${money_earned} coins)!`
+              `${emojis.yes} **-** Your bet was a success and you earned 3 times the amount you just betted (${money_earned} coins)!\n\n-----\n\n**You now have ${coins + money_earned} coins in your balance.**`
             )
             .setFooter(
               `${interaction.user.username} is lucky!`,
@@ -97,7 +97,7 @@ module.exports = {
           const bet_fail_embed = new MessageEmbed()
             .setColor(colors.red)
             .setTitle("Failed Bet")
-            .setDescription("Your bet was a fail and you lost your bet.")
+            .setDescription(`${emojis.nope} **-** Your bet was a fail and you lost your bet.\n\n-----\n\n**You now have ${coins - amount} coins left in your balance.**`)
             .setFooter("Imagine sucking with luck.")
             .setTimestamp();
           await interaction.reply({
