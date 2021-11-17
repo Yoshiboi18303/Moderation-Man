@@ -99,7 +99,7 @@ module.exports = {
     });
 
     collector.on("end", async (collection) => {
-      // await collection.first()?.deferUpdate();
+      await collection.first()?.deferUpdate();
       if (collection.first()?.customId === "first-crime") {
         var disabled_row = new MessageActionRow().addComponents(
           new MessageButton()
@@ -155,7 +155,7 @@ module.exports = {
               `You commited ${first.toLowerCase()} successfully and earned ${money_earned} coins!`
             )
             .setTimestamp();
-          await collection.first()?.update({
+          await collection.first()?.editReply({
             embeds: [crime_commited_embed],
             components: [disabled_row],
           });
@@ -172,7 +172,7 @@ module.exports = {
             )
             .setFooter("Imagine being so bad.")
             .setTimestamp();
-          await collection.first()?.update({
+          await collection.first()?.editReply({
             embeds: [crime_failed_embed],
             components: [disabled_row],
           });
@@ -232,7 +232,7 @@ module.exports = {
               `You commited ${second.toLowerCase()} successfully and earned ${money_earned} coins!`
             )
             .setTimestamp();
-          await collection.first()?.update({
+          await collection.first()?.editReply({
             embeds: [crime_commited_embed],
             components: [disabled_row],
           });
@@ -249,7 +249,7 @@ module.exports = {
             )
             .setFooter(`Imagine being so bad.`)
             .setTimestamp();
-          await collection.first()?.update({
+          await collection.first()?.editReply({
             embeds: [crime_failed_embed],
             components: [disabled_row],
           });
@@ -309,7 +309,7 @@ module.exports = {
               `You commited ${third.toLowerCase()} successfully and earned ${money_earned} coins!`
             )
             .setTimestamp();
-          await collection.first()?.update({
+          await collection.first()?.editReply({
             embeds: [crime_commited_embed],
             components: [disabled_row],
           });
@@ -326,7 +326,7 @@ module.exports = {
             )
             .setFooter("Imagine being so bad.")
             .setTimestamp();
-          await collection.first()?.update({
+          await collection.first()?.editReply({
             embeds: [crime_failed_embed],
             components: [disabled_row],
           });
