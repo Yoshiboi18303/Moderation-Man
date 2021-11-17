@@ -65,9 +65,6 @@ module.exports = {
               inline: true,
             },
           ]);
-        await message.edit({
-          embeds: [new_embed],
-        });
         try {
           await suggestor.send({
             embeds: [accepted_embed],
@@ -88,6 +85,9 @@ module.exports = {
           .setTimestamp();
         await interaction.editReply({
           embeds: [done_embed],
+        });
+        await message.edit({
+          embeds: [new_embed],
         });
         await Suggestions.findOneAndDelete({ id: id });
       }
