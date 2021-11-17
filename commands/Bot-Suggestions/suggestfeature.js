@@ -62,13 +62,6 @@ module.exports = {
           inline: true,
         },
       ]);
-    data = new Suggestion({
-      id,
-      suggestion,
-      suggestor: interaction.user.id,
-      guild: interaction.guild.id,
-    });
-    data.save();
     await hold(3000);
     await interaction.editReply({
       content: "Suggestion successfully sent!",
@@ -76,5 +69,13 @@ module.exports = {
       ephemeral: true,
     });
     await channel.send({ embeds: [suggestion_embed] });
+    data = new Suggestion({
+      id,
+      suggestion,
+      suggestor: interaction.user.id,
+      guild: interaction.guild.id,
+      embed: channel.lastMessageId,
+    });
+    data.save();
   },
 };

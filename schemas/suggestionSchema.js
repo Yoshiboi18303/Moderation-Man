@@ -19,6 +19,10 @@ const suggestionSchema = Schema({
     type: String,
     default: "",
   },
+  embed: {
+    type: String,
+    default: "",
+  },
 });
 
 module.exports = model("suggestions", suggestionSchema);

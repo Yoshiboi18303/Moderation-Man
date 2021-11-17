@@ -29,6 +29,7 @@ module.exports = {
         content: "You aren't an admin, so you can't run this command!",
         ephemeral: true,
       });
+    var channel = client.channels.cache.get("902031074979360818");
     var id = interaction.options.getString("id");
     var reason = interaction.options.getString("reason");
     await interaction.deferReply({ ephemeral: true });
@@ -47,6 +48,7 @@ module.exports = {
           ephemeral: true,
         });
       } else {
+        var message = await channel.messages.cache.get(data.embed);
         var suggestor = client.users.cache.get(data.suggestor);
         var suggestion = data.suggestion;
         const accepted_embed = new MessageEmbed()
@@ -55,6 +57,29 @@ module.exports = {
           .setDescription(
             `${emojis.nope} **-** Your suggestion "${suggestion}" got denied by **${interaction.user.username}**\n\nReason: **"${reason}"**`
           );
+        const new_embed = new MessageEmbed()
+          .setColor(colors.red)
+          .setTitle("New Suggestion (denied)")
+          .addFields([
+            {
+              name: "Suggestion",
+              value: `${suggestion}`,
+              inline: true,
+            },
+            {
+              name: "Denier",
+              value: `${interaction.user.username}`,
+              inline: true,
+            },
+            {
+              name: "Reason",
+              value: `${reason}`,
+              inline: true,
+            },
+          ]);
+        await message.edit({
+          embeds: [new_embed],
+        });
         try {
           await suggestor.send({
             embeds: [accepted_embed],
@@ -76,11 +101,7 @@ module.exports = {
         await interaction.editReply({
           embeds: [done_embed],
         });
-        try {
-          await Suggestions.findOneAndDelete({ id: id });
-        } catch (err) {
-          console.error(err);
-        }
+        await Suggestions.findOneAndDelete({ id: id });
       }
     });
   },

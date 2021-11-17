@@ -86,8 +86,9 @@ module.exports = {
       components: [row],
     });
 
-    const filter = (btnInt) => {
+    const filter = async (btnInt) => {
       return interaction.user.id === btnInt.user.id;
+      // Example: "697414293712273408" === "697414293712273408"
     };
 
     const collector = interaction.channel.createMessageComponentCollector({
@@ -148,7 +149,7 @@ module.exports = {
               `${interaction.user.username} commited ${first.toUpperCase()}`
             )
             .setDescription(
-              `You commited ${first} successfully and earned ${money_earned} coins!`
+              `You commited ${first.toLowerCase()} successfully and earned ${money_earned} coins!`
             )
             .setTimestamp();
           await collection.first()?.update({
@@ -164,7 +165,7 @@ module.exports = {
               } tried to commit ${first.toUpperCase()}`
             )
             .setDescription(
-              `You tried to commit ${first}, but failed in doing so.\nYou earned: **NOTHING.**`
+              `You tried to commit ${first.toLowerCase()}, but failed in doing so.\nYou earned: **NOTHING.**`
             )
             .setFooter("Imagine being so bad.")
             .setTimestamp();
@@ -225,7 +226,7 @@ module.exports = {
               `${interaction.user.username} commited ${second.toUpperCase()}`
             )
             .setDescription(
-              `You commited ${second} successfully and earned ${money_earned} coins!`
+              `You commited ${second.toLowerCase()} successfully and earned ${money_earned} coins!`
             )
             .setTimestamp();
           await collection.first()?.update({
@@ -241,7 +242,7 @@ module.exports = {
               } tried to commit ${second.toUpperCase()}`
             )
             .setDescription(
-              `You tried to commit ${second}, but failed in doing so.\nYou earned: **NOTHING.**`
+              `You tried to commit ${second.toLowerCase()}, but failed in doing so.\nYou earned: **NOTHING.**`
             )
             .setFooter(`Imagine being so bad.`)
             .setTimestamp();
@@ -302,7 +303,7 @@ module.exports = {
               `${interaction.user.username} commited ${third.toUpperCase()}`
             )
             .setDescription(
-              `You commited ${third} successfully and earned ${money_earned} coins!`
+              `You commited ${third.toLowerCase()} successfully and earned ${money_earned} coins!`
             )
             .setTimestamp();
           await collection.first()?.update({
@@ -318,7 +319,7 @@ module.exports = {
               } tried to commit ${third.toUpperCase()}`
             )
             .setDescription(
-              `You tried to commit ${third}, but failed in doing so.\nYou earned: **NOTHING.**`
+              `You tried to commit ${third.toLowerCase()}, but failed in doing so.\nYou earned: **NOTHING.**`
             )
             .setFooter("Imagine being so bad.")
             .setTimestamp();

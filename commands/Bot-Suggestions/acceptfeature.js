@@ -23,6 +23,7 @@ module.exports = {
         content: "You aren't an admin, so you can't run this command!",
         ephemeral: true,
       });
+    var channel = client.channels.cache.get("902031074979360818");
     var id = interaction.options.getString("id");
     await interaction.deferReply({ ephemeral: true });
     Suggestions.findOne({ id: id }, async (err, data) => {
@@ -40,6 +41,7 @@ module.exports = {
           ephemeral: true,
         });
       } else {
+        var message = await channel.messages.cache.get(data.embed);
         var suggestor = client.users.cache.get(data.suggestor);
         var suggestion = data.suggestion;
         const accepted_embed = new MessageEmbed()
@@ -48,6 +50,24 @@ module.exports = {
           .setDescription(
             `${emojis.yay} **-** Your suggestion "${suggestion}" got accepted by **${interaction.user.username}**`
           );
+        const new_embed = new MessageEmbed()
+          .setColor(colors.green)
+          .setTitle("New Suggestion (accepted)")
+          .addFields([
+            {
+              name: "Suggestion",
+              value: `${suggestion}`,
+              inline: true,
+            },
+            {
+              name: "Acceptor",
+              value: `${interaction.user.username}`,
+              inline: true,
+            },
+          ]);
+        await message.edit({
+          embeds: [new_embed],
+        });
         try {
           await suggestor.send({
             embeds: [accepted_embed],
