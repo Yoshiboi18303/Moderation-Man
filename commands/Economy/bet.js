@@ -15,6 +15,7 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
+    /*
     if (interaction.guild.id != config.bot.testServerId)
       return await interaction.reply({
         content: `This command is restricted to **${
@@ -22,6 +23,7 @@ module.exports = {
         }** for the moment!`,
         ephemeral: true,
       });
+    */
     var amount = interaction.options.getNumber("betting_amount");
     if (amount < 400)
       return await interaction.reply({
