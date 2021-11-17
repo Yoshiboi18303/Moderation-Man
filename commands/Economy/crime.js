@@ -31,29 +31,28 @@ module.exports = {
       "Robbery",
     ];
 
+    var first = await getFirstCrime();
+    await crimes.pop(await first);
+    var second = await getSecondCrime();
+    await crimes.pop(await second);
+    var third = await getThirdCrime();
+
     async function getFirstCrime() {
       var first_crime = crimes[Math.floor(Math.random() * crimes.length)];
-      await crimes.pop(first_crime);
       return first_crime;
     }
 
     async function getSecondCrime() {
       var second_crime = crimes[Math.floor(Math.random() * crimes.length)];
-      await crimes.pop(second_crime);
       return second_crime;
     }
 
     async function getThirdCrime() {
       var third_crime = crimes[Math.floor(Math.random() * crimes.length)];
-      await crimes.pop(third_crime);
       return third_crime;
     }
 
     await interaction.deferReply();
-
-    var first = await getFirstCrime();
-    var second = await getSecondCrime();
-    var third = await getThirdCrime();
 
     var row = new MessageActionRow().addComponents(
       new MessageButton()

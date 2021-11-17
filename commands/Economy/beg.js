@@ -4,15 +4,13 @@ const Profiles = require("../../schemas/profileSchema");
 const colors = require("../../colors.json");
 
 const people = [
+  "Sans",
+  "Default Jonesy",
+  "Yoshiboi18303",
+  "Carole Baskin",
   "Grandmother",
-  "Construction Worker",
-  "Music Artist",
-  "Bot Developer",
-  "Teacher",
-  "Bank Teller",
-  "YouTuber",
-  "Twitch Streamer",
-  "YouTuber",
+  "Mario",
+  "Hannah Montana",
 ];
 
 module.exports = {
@@ -20,7 +18,7 @@ module.exports = {
     .setName("beg")
     .setDescription("Beg someone for money!"),
   async execute(interaction) {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply();
     Profiles.findOne({ id: interaction.user.id }, async (err, data) => {
       if (err) throw err;
       if (!data) {
@@ -40,33 +38,60 @@ module.exports = {
           ephemeral: true,
         });
       } else {
+        var chance = Math.random() > 0.61;
         var coins = data.coins;
         var person = people[Math.floor(Math.random() * people.length)];
         var earned_coins = Math.floor(Math.random() * 150) + 5;
         // var earned_coins = Math.floor(Math.random() * 300) + 5;
-        const success_embed = new MessageEmbed()
-          .setColor(colors.green)
-          .setTitle("Success!")
-          .setDescription(
-            `You begged a ${person} and earned ${earned_coins} coins!`
-          )
-          .setFooter(
-            `${interaction.user.username} begged someone!`,
-            interaction.user.displayAvatarURL({ dynamic: true, size: 32 })
-          )
-          .setTimestamp();
-        data = await Profiles.findOneAndUpdate(
-          {
-            id: interaction.user.id,
-          },
-          {
-            $set: {
-              coins: coins + earned_coins,
+        var good_messages = [
+          `Oh you poor little beggar, take ${earned_coins} coins.`,
+          `Oh sure, I'll give you some money, take ${earned_coins} coins.`,
+          `One second... Okay, here you go! ${earned_coins} coins from my wallet!`,
+        ];
+        var bad_messages = [
+          "Lmao, imagine if I ever gave you anything.",
+          "No.",
+          "Get out of my face beggar.",
+          "Fuck off peta.",
+          "Go away.",
+        ];
+        if (chance == true) {
+          var good_message =
+            good_messages[Math.floor(Math.random() * good_messages.length)];
+          const success_embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setAuthor(`${person}`)
+            .setDescription(`"${good_message}"`)
+            .setFooter(
+              `${interaction.user.username} begged someone!`,
+              interaction.user.displayAvatarURL({ dynamic: true, size: 32 })
+            )
+            .setTimestamp();
+          data = await Profiles.findOneAndUpdate(
+            {
+              id: interaction.user.id,
             },
-          }
-        );
-        data.save();
-        await interaction.editReply({ embeds: [success_embed] });
+            {
+              $inc: {
+                coins: earned_coins,
+              },
+            }
+          );
+          data.save();
+          await interaction.editReply({ embeds: [success_embed] });
+        } else {
+          var bad_message =
+            bad_messages[Math.floor(Math.random() * bad_messages.length)];
+          const failed_embed = new MessageEmbed()
+            .setColor(colors.red)
+            .setAuthor(`${person}`)
+            .setDescription(`"${bad_message}"`)
+            .setFooter("Imagine begging LMAO")
+            .setTimestamp();
+          await interaction.editReply({
+            embeds: [failed_embed],
+          });
+        }
       }
     });
   },
