@@ -11,6 +11,7 @@ const people = [
   "Grandmother",
   "Mario",
   "Hannah Montana",
+  "Danny DeVito",
 ];
 
 module.exports = {
@@ -56,7 +57,7 @@ module.exports = {
           "Go away.",
           "Honestly, why are you begging? Just get a damn job.",
           "Please stop.",
-          "Jobs exist, get one."
+          "Jobs exist, get one.",
         ];
         if (chance == true) {
           var good_message =

@@ -68,7 +68,11 @@ module.exports = {
             .setColor(colors.green)
             .setTitle("Successful Bet")
             .setDescription(
-              `${emojis.yes} **-** Your bet was a success and you earned 3 times the amount you just betted (${money_earned} coins)!\n\n-----\n\n**You now have ${coins + money_earned} coins in your balance.**`
+              `${
+                emojis.yes
+              } **-** Your bet was a success and you earned 3 times the amount you just betted (${money_earned} coins)!\n\n-----\n\n**You now have ${
+                coins + money_earned
+              } coins in your balance.**`
             )
             .setFooter(
               `${interaction.user.username} is lucky!`,
@@ -97,7 +101,13 @@ module.exports = {
           const bet_fail_embed = new MessageEmbed()
             .setColor(colors.red)
             .setTitle("Failed Bet")
-            .setDescription(`${emojis.nope} **-** Your bet was a fail and you lost your bet.\n\n-----\n\n**You now have ${coins - amount} coins left in your balance.**`)
+            .setDescription(
+              `${
+                emojis.nope
+              } **-** Your bet was a fail and you lost your bet.\n\n-----\n\n**You now have ${
+                coins - amount
+              } coins left in your balance.**`
+            )
             .setFooter("Imagine sucking with luck.")
             .setTimestamp();
           await interaction.reply({
