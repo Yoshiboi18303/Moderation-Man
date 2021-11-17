@@ -6,7 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("highlow")
     .setDescription(
-      "Guess if the number the bot is thinking of this higher or lower"
+      "Guess if the number the bot is thinking of is higher or lower"
     ),
   async execute(interaction) {
     /*
