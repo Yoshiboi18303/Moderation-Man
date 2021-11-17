@@ -77,7 +77,7 @@ module.exports = {
           embeds: [done_embed],
         });
         try {
-          Suggestions.findOneAndDelete({ id: id });
+          await Suggestions.findOneAndDelete({ id: id });
         } catch (err) {
           console.error(err);
         }

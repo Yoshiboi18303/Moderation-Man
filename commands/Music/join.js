@@ -1,12 +1,13 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, Permissions } = require("discord.js");
-const voice = require("../../items/voice");
+const { joinVoiceChannel } = require("@discordjs/voice");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("join")
     .setDescription("Makes the client join your Voice Channel"),
   async execute(interaction) {
+    /*
     if (interaction.guild.id != "908319885736677386")
       return await interaction.reply({
         content: `This command is restricted to **${
@@ -14,6 +15,7 @@ module.exports = {
         }** for the moment!`,
         ephemeral: true,
       });
+    */
     if (!interaction.guild.me.permissions.has(Permissions.FLAGS.CONNECT))
       return await interaction.reply({
         content: "I don't have the `CONNECT` permission in this server!",
@@ -30,7 +32,14 @@ module.exports = {
       await interaction.reply({ embeds: [no_vc_embed] });
       return;
     }
-    const player = voice.players.get(interaction.guild.id);
-    await player.join(vc.id);
+    await joinVoiceChannel({
+      channelId: vc.id,
+      guildId: interaction.guild.id,
+      adapterCreator: interaction.guild.voiceAdapterCreator,
+    });
+    await interaction.reply({
+      content: `Joined **${vc.name}** (<#${vc.id}>)!`,
+      ephemeral: true,
+    });
   },
 };

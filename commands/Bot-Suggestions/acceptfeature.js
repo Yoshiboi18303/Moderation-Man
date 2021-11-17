@@ -69,7 +69,7 @@ module.exports = {
         await interaction.editReply({
           embeds: [done_embed],
         });
-        Suggestions.findOneAndDelete({ id: id });
+        await Suggestions.findOneAndDelete({ id: id });
       }
     });
   },

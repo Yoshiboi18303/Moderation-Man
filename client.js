@@ -53,6 +53,7 @@ global.mongoose = require("mongoose");
 client.commands = new Collection();
 client.events = new Collection();
 client.classes = new Collection();
+client.mongoEvents = new Collection();
 client.stats = statcord;
 client.autoposter = ap;
 client.boat = Boats;
@@ -64,6 +65,9 @@ const eventFiles = fs
   .readdirSync("./events/")
   .filter((file) => file.endsWith(".js"));
 const commandFolder = fs.readdirSync("./commands/");
+const mongoEventFiles = fs
+  .readdirSync("./mongoEvents")
+  .filter((file) => file.endsWith(".js"));
 
 (async () => {
   for (const file of functions) {
@@ -76,7 +80,8 @@ const commandFolder = fs.readdirSync("./commands/");
     );
   });
 
-  client.handleEvents(eventFiles, "./events");
+  client.handleMongoEvents(mongoEventFiles, "./mongoEvents");
+  client.handleClientEvents(eventFiles, "./events");
   client.handleCommands(commandFolder, "./commands");
   client.login(token);
 })();

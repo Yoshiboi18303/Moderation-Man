@@ -8,6 +8,7 @@ const Users = require("../../schemas/userSchema");
 const Suggestions = require("../../schemas/suggestionSchema");
 const colors = require("../../colors.json");
 const shell = require("shelljs");
+const discordjsvoice = require("@discordjs/voice");
 const voice = require("../../items/voice");
 const CommandError = require("../../items/classes/CommandError");
 const BotError = require("../../items/classes/BotError");
@@ -52,7 +53,6 @@ module.exports = {
       process.env.MONGO_CS,
       process.env.FP_KEY,
       client.token,
-      interaction.token,
       process.env.RADAR_KEY,
       process.env.STATCORD_KEY,
       process.env.BACKUP_DLS_API_KEY,
@@ -70,9 +70,6 @@ module.exports = {
       process.env.TOPGG_API_KEY,
       process.env.VOTE_WEBHOOK_TOKEN,
       process.env.WEBHOOK_AUTH,
-      voice.password,
-      process.env.LL_HOST,
-      process.env.LL_PASS,
     ];
 
     result

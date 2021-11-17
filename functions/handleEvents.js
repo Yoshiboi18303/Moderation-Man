@@ -1,6 +1,6 @@
 module.exports = (client) => {
-  console.log("Registering Events...");
-  client.handleEvents = async (eventFiles, path) => {
+  console.log("Registering Client Events...");
+  client.handleClientEvents = async (eventFiles, path) => {
     for (const file of eventFiles) {
       const event = require(`../events/${file}`);
       if (event.once) {

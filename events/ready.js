@@ -17,6 +17,7 @@ const Profiles = require("../schemas/profileSchema");
 const AsciiTable = require("ascii-table");
 let command_index = 1;
 let event_index = 1;
+let mongo_event_index = 1;
 const c = require("colors");
 
 module.exports = {
@@ -29,9 +30,10 @@ module.exports = {
     const command_table = new AsciiTable(
       `${client.user.username} Commands`
     ).setHeading("Command Number", "Name", "Description");
-    const event_table = new AsciiTable(
-      `${client.user.username} Events`
-    ).setHeading("Event Number", "Name");
+    const client_event_table = new AsciiTable("Client Events").setHeading(
+      "Event Number",
+      "Name"
+    );
     for (var [id, cmd] of client.commands) {
       var push = {
         command: cmd.data.name,
@@ -46,8 +48,16 @@ module.exports = {
       commands.push(push);
     }
     for (var [id, event] of client.events) {
-      event_table.addRow(`${event_index}`, `${event.name}`);
+      client_event_table.addRow(`${event_index}`, `${event.name}`);
       event_index = event_index + 1;
+    }
+    const mongo_event_table = new AsciiTable("MongoDB Events").setHeading(
+      "Event Number",
+      "Name"
+    );
+    for (var [id, event] of client.mongoEvents) {
+      mongo_event_table.addRow(`${mongo_event_index}`, `${event.name}`);
+      mongo_event_index = mongo_event_index + 1;
     }
     var returnShardCount = client.ready ? client.shard.count : 1; // This will help when I make the bot with a ShardingManager.
     const fetch = await import("node-fetch");
@@ -278,8 +288,8 @@ module.exports = {
     if (client.events.size < 15) {
       const events_embed = new MessageEmbed()
         .setColor(colors.blue)
-        .setTitle("Events")
-        .setDescription(`\`\`\`\n${event_table.toString()}\n\`\`\``);
+        .setTitle("Client Events")
+        .setDescription(`\`\`\`\n${client_event_table.toString()}\n\`\`\``);
       await channel.send({
         embeds: [events_embed],
       });
@@ -293,6 +303,14 @@ module.exports = {
         files: [event_attachment],
       });
     }
+
+    const mongo_events_embed = new MessageEmbed()
+      .setColor(colors.mint_green)
+      .setTitle("MongoDB Events")
+      .setDescription(`\`\`\`\n${mongo_event_table.toString()}\n\`\`\``);
+    await channel.send({
+      embeds: [mongo_events_embed],
+    });
     console.log(`${b} has logged on!`);
     setInterval(() => {
       var status = statuses[Math.floor(Math.random() * statuses.length)];
