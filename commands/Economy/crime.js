@@ -49,6 +49,8 @@ module.exports = {
       return third_crime;
     }
 
+    await interaction.deferReply();
+
     var first = await getFirstCrime();
     var second = await getSecondCrime();
     var third = await getThirdCrime();
@@ -81,7 +83,7 @@ module.exports = {
     var chance = Math.random() > 0.65;
     var money_earned = Math.floor(Math.random() * 600) + 5;
 
-    await interaction.reply({
+    await interaction.editReply({
       embeds: [what_crime_embed],
       components: [row],
     });
@@ -97,6 +99,7 @@ module.exports = {
     });
 
     collector.on("end", async (collection) => {
+      // await collection.first()?.deferUpdate();
       if (collection.first()?.customId === "first-crime") {
         var disabled_row = new MessageActionRow().addComponents(
           new MessageButton()
