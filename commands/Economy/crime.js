@@ -31,10 +31,14 @@ module.exports = {
       "Robbery",
     ];
 
-    var first = await getFirstCrime();
     await crimes.pop(await first);
-    var second = await getSecondCrime();
+
+    var first = await getFirstCrime();
+
     await crimes.pop(await second);
+
+    var second = await getSecondCrime();
+
     var third = await getThirdCrime();
 
     async function getFirstCrime() {
