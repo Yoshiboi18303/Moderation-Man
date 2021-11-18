@@ -96,13 +96,13 @@ module.exports = {
 
             const confirm_row = new MessageActionRow().addComponents(
               new MessageButton()
-                .setStyle("DANGER")
+                .setStyle("SECONDARY")
                 .setLabel("YES")
                 .setCustomId("steal-confirm")
                 .setEmoji("💰")
                 .setDisabled(false),
               new MessageButton()
-                .setStyle("DANGER")
+                .setStyle("PRIMARY")
                 .setLabel("NO")
                 .setCustomId("steal-cancel")
                 .setEmoji("❌")
