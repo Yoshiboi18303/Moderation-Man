@@ -49,10 +49,11 @@ module.exports = {
           embeds: [no_data_embed],
         });
       } else {
+        await interaction.deferReply();
         var interaction_user_data = data;
         var interaction_user_coins = interaction_user_data.coins;
         if (interaction_user_coins < 750)
-          return await interaction.reply({
+          return await interaction.editReply({
             content:
               "You can't steal from anyone unless you have 750 coins, sorry not sorry.",
           });
@@ -65,22 +66,32 @@ module.exports = {
               .setDescription(
                 `${emojis.nope} **-** ${user.username} doesn't have any data, so you can't steal from them!`
               );
-            return await interaction.reply({
+            return await interaction.editReply({
               embeds: [no_data_embed],
             });
           } else {
             var user_data = data;
             var user_coins = user_data.coins;
             if (user_coins < 750)
-              return await interaction.reply({
+              return await interaction.editReply({
                 content: `You can't steal from ${user.username} until they have 750 coins, sorry not sorry.`,
               });
-            var chance = Math.random() > 0.9;
+            if (interaction.user.id == config.bot.owner) {
+              var chance = Math.random() > 0.5;
+            } else {
+              var chance = Math.random() > 0.9;
+            }
             const confirm_embed = new MessageEmbed()
               .setColor(colors.yellow)
               .setTitle("Confirmation")
               .setDescription(
-                `You are about to steal from **${user.username}**, if you confirm, you will have a 1 in 9 chance to win, if it fails, you'll lose money!\n\n-----\n\n**Are you sure you want to steal from this user?**`
+                `You are about to steal from **${
+                  user.username
+                }**, if you confirm, you will have a 1 in 9 chance ${
+                  interaction.user.id == config.bot.owner
+                    ? "(Since you're the owner, you'll have a 1 in 5 chance instead.)"
+                    : ""
+                } to win, if it fails, you'll lose money!\n\n-----\n\n**Are you sure you want to steal from this user?**`
               );
 
             const confirm_row = new MessageActionRow().addComponents(
@@ -98,7 +109,7 @@ module.exports = {
                 .setDisabled(false)
             );
 
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [confirm_embed],
               components: [confirm_row],
             });
@@ -121,7 +132,7 @@ module.exports = {
                 await collection.first()?.deferUpdate();
                 const disabled_row = new MessageActionRow().addComponents(
                   new MessageButton()
-                    .setStyle("PRIMARY")
+                    .setStyle(`${chance == true ? "SUCCESS" : "DANGER"}`)
                     .setLabel("YES")
                     .setCustomId("disabled-selected-steal-confirm")
                     .setEmoji("💰")
@@ -133,9 +144,9 @@ module.exports = {
                     .setEmoji("❌")
                     .setDisabled(true)
                 );
-                var money_stolen = Math.floor(Math.random() * (user_coins / 2));
+                var money_stolen = Math.floor(Math.random() * (user_coins / 4));
                 var apology_money = Math.floor(
-                  Math.random() * (interaction_user_coins / 3)
+                  Math.random() * ((interaction_user_coins + 2) / 10)
                 );
                 if (chance == true) {
                   user_data = await Profiles.findOneAndUpdate(

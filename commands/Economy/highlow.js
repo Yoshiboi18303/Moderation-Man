@@ -19,6 +19,7 @@ module.exports = {
       });
     */
     var number_thought_of = Math.floor(Math.random() * 101);
+    if (number_thought_of == 0) number_thought_of = 1;
     var hint = Math.floor(Math.random() * 101 - Math.random());
 
     const guess_embed = new MessageEmbed()
@@ -32,7 +33,7 @@ module.exports = {
         })
       )
       .setDescription(
-        `I just thought of a secret number\nIs the secret number I'm thinking of *higher* or *lower* than ${hint}?`
+        `I just thought of a secret number between 1 and 100\nIs the secret number I'm thinking of *higher* or *lower* than ${hint}?`
       )
       .setFooter("Same button if you think it's the same");
 
@@ -81,7 +82,7 @@ module.exports = {
               .setDescription(
                 `${emojis.nope} **-** You don't have any data on the bot!\nRun \`/start\` to get some!`
               );
-            return await collection.first()?.update({
+            return await collection.first()?.editReply({
               embeds: [no_data_embed],
               components: [],
             });
@@ -187,9 +188,9 @@ module.exports = {
                   .setDescription(
                     `${
                       emojis.yes
-                    } **-** You are correct! The secret number I was thinking of was ${number_thought_of}.\nYou won ${winning_money} coins!\n\n-----\n\nYou now have ${
+                    } **-** You are correct! The secret number I was thinking of was ${number_thought_of}.\nYou won ${winning_money} coins!\n\n-----\n\n**You now have ${
                       coins + winning_money
-                    } coins in your balance  !`
+                    } coins in your balance!**`
                   )
                   .setTimestamp();
                 await collection.first()?.editReply({
@@ -249,9 +250,9 @@ module.exports = {
                   .setDescription(
                     `${
                       emojis.yes
-                    } **-** You are correct! The secret number I was thinking of was ${number_thought_of}.\nYou won ${winning_money} coins!\n\n-----\n\nYou now have ${
+                    } **-** You are correct! The secret number I was thinking of was ${number_thought_of}.\nYou won ${winning_money} coins!\n\n-----\n\n**You now have ${
                       coins + winning_money
-                    } coins in your balance  !`
+                    } coins in your balance!**`
                   )
                   .setTimestamp();
                 await collection.first()?.editReply({
