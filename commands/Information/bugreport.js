@@ -12,8 +12,9 @@ module.exports = {
         .setDescription("Type in the bug to report")
         .setRequired(true)
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam the developer with bug reports.",
   },
   async execute(interaction) {
     const owner = client.users.cache.get("697414293712273408");

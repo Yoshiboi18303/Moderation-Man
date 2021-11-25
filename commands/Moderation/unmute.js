@@ -19,6 +19,10 @@ module.exports = {
         .setDescription("Select your muted role")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("20s"),
+    message: "Could you not spam moderate?",
+  },
   async execute(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_ROLES))
       return await interaction.reply({

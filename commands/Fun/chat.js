@@ -11,8 +11,9 @@ module.exports = {
         .setDescription("Type in a message to send to the chatbot!")
         .setRequired(true)
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
   },
   async execute(interaction) {
     // return await interaction.reply({ content: 'This command is broken and will be fixed soon!' })

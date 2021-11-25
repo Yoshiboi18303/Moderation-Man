@@ -6,6 +6,10 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("crime")
     .setDescription("Commit a crime for money"),
+  config: {
+    timeout: ms("1m"),
+    message: "You can't just commit crimes all the time!",
+  },
   async execute(interaction) {
     /*
     if (interaction.guild.id != config.bot.testServerId)

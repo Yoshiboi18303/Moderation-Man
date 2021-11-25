@@ -17,6 +17,10 @@ module.exports = {
         .setDescription("Should the lyrics be cancerous? (default: false)")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam this information in your server.",
+  },
   async execute(interaction) {
     await interaction.deferReply();
     const fetch = await import("node-fetch");

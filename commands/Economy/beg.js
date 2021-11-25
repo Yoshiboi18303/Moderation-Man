@@ -18,6 +18,11 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("beg")
     .setDescription("Beg someone for money!"),
+  config: {
+    timeout: ms("1m"),
+    message:
+      "Your begging makes you look like a little baby, please calm it down.",
+  },
   async execute(interaction) {
     await interaction.deferReply();
     Profiles.findOne({ id: interaction.user.id }, async (err, data) => {

@@ -13,6 +13,10 @@ module.exports = {
         .setDescription("Select a user to view")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("15s"),
+    message: "Don't start spamming profiles now!",
+  },
   async execute(interaction) {
     await interaction.deferReply({ ephemeral: true });
     var user = interaction.options.getUser("user") || interaction.user;

@@ -53,6 +53,11 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("upgrade")
     .setDescription("Upgrade your vault capacity!"),
+  config: {
+    timeout: ms("1m") + ms("30s"),
+    message:
+      "Could you... Maybe... **WAIT ON THE BANK TO UPGRADE YOUR VAULT/CANCEL YOUR TRANSACTION BEFORE USING THIS COMMAND?!**",
+  },
   async execute(interaction) {
     var profile = Profiles.findOne(
       { id: interaction.user.id },

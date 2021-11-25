@@ -8,6 +8,10 @@ module.exports = {
     .setDescription(
       "Guess if the number the bot is thinking of is higher or lower"
     ),
+  config: {
+    timeout: ms("45s"),
+    message: "Highlow? More like timeout!",
+  },
   async execute(interaction) {
     /*
     if (interaction.guild.id != config.bot.testServerId)

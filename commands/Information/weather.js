@@ -12,6 +12,10 @@ module.exports = {
         .setDescription("The location to search for")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam this information in your server.",
+  },
   async execute(interaction) {
     await interaction.deferReply({ ephemeral: true });
     var location = interaction.options.getString("location");

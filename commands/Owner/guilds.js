@@ -5,6 +5,10 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("guilds")
     .setDescription("Shows the guilds the client is in"),
+  config: {
+    timeout: ms("10s"),
+    message: "Viewing guilds can wait for a little.",
+  },
   async execute(interaction) {
     if (!admins.includes(interaction.user.id))
       return await interaction.reply({

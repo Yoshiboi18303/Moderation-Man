@@ -11,6 +11,10 @@ module.exports = {
         .setDescription("Select a user to put into the jail image")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     var user = interaction.options.getUser("user") || interaction.user;
     await interaction.deferReply();

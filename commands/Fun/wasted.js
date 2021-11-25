@@ -11,6 +11,10 @@ module.exports = {
         .setDescription("Select a user to put into the wasted image")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     var user = interaction.options.getUser("user") || interaction.user;
     var link = `https://some-random-api.ml/canvas/wasted?avatar=${user.displayAvatarURL(

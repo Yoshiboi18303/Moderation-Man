@@ -12,6 +12,10 @@ module.exports = {
         .setDescription("Choose a user to show the warning amount of")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Don't start spam checking everyone's warnings, please.",
+  },
   async execute(interaction) {
     const user = interaction.options.getUser("user") || interaction.user;
 

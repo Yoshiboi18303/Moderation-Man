@@ -22,6 +22,10 @@ module.exports = {
         .addChoice("competing", "COMPETING")
         .addChoice("watching", "WATCHING")
     ),
+  config: {
+    timeout: ms("25s"),
+    message: "Stop hurting the Discord API.",
+  },
   async execute(interaction) {
     if (!admins.includes(interaction.user.id))
       return await interaction.reply({

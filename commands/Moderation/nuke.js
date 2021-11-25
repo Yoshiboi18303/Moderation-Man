@@ -7,8 +7,9 @@ module.exports = {
     .setDescription(
       "Nukes the current channel (which deletes it) and rebuilds it fresh!"
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("20s"),
+    message: "Could you not spam moderate?",
   },
   async execute(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS))

@@ -12,6 +12,11 @@ module.exports = {
         .setDescription("The channel to set (needs to be a text channel)")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("1m"),
+    message:
+      "Reaction Roles channel set, **NOT!**\nPlease just take a chill pill.",
+  },
   async execute(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS))
       return await interaction.reply({

@@ -9,6 +9,10 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("develop")
     .setDescription("Develop something (requires a computer)"),
+  config: {
+    timeout: ms("2m"),
+    message: "You can't just run through computers like they're toilet paper!",
+  },
   async execute(interaction) {
     Profiles.findOne({ id: interaction.user.id }, async (err, data) => {
       if (err) throw err;

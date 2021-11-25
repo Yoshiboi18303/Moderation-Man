@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 
 module.exports = {
   name: "guildCreate",
@@ -56,9 +56,15 @@ module.exports = {
         embeds: [new_guild_embed],
       });
       if (!guild_channel || typeof guild_channel == "undefined") return;
-      await guild_channel.send({
-        embeds: [added_embed],
-      });
+      if (
+        guild.me
+          .permissionsIn(guild_channel)
+          .has(Permissions.FLAGS.SEND_MESSAGES)
+      ) {
+        await guild_channel.send({
+          embeds: [added_embed],
+        });
+      }
     } catch (err) {
       return new BotError(
         "An error occurred while executing guildCreate...",

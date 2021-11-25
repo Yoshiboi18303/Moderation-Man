@@ -16,8 +16,9 @@ module.exports = {
         )
         .setRequired(true)
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
   },
   async execute(interaction) {
     const text = interaction.options.getString("text");

@@ -10,6 +10,7 @@ const client = new Client({
   },
   shards: "auto",
 });
+module.exports = client;
 const token = process.env.TOKEN;
 const { Client: C } = require("statcord.js");
 const statcord = new C({
@@ -23,6 +24,7 @@ const { AutoPoster } = require("topgg-autoposter");
 const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
 const BoatsClient = require("boats.js");
 const Boats = new BoatsClient(process.env.BOATS_KEY);
+const giveawaymanager = require("./items/gmanager");
 
 global.Discord = require("discord.js");
 global.client = client;
@@ -33,10 +35,7 @@ global.emojis = require("./emojis.json");
 global.colors = require("./colors.json");
 global.config = require("./config.json");
 global.MessageEmbed = require("discord.js").MessageEmbed;
-global.voteRewards = [
-  "More money from working",
-  "Voice Moderation logs (soon)",
-];
+global.voteRewards = ["Voice Moderation logs (soon)"];
 global.admins = [
   "482326304381730826",
   "697414293712273408",
@@ -49,6 +48,8 @@ global.AsciiTable = require("ascii-table");
 global.fs = require("fs");
 global.cp = require("child_process");
 global.mongoose = require("mongoose");
+global.path = require("path");
+global.commandsUsedRecently = new Set();
 
 client.commands = new Collection();
 client.events = new Collection();
@@ -57,6 +58,7 @@ client.mongoEvents = new Collection();
 client.stats = statcord;
 client.autoposter = ap;
 client.boat = Boats;
+client.giveaways = giveawaymanager;
 
 const functions = fs
   .readdirSync("./functions/")

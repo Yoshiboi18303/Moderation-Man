@@ -10,8 +10,9 @@ module.exports = {
         .setDescription("The ID to use (can be any string)")
         .setRequired(false)
     ),
-  options: {
-    guildOnly: true,
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
   },
   async execute(interaction) {
     await interaction.deferReply({ ephemeral: true });

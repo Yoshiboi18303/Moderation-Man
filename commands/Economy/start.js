@@ -19,6 +19,10 @@ module.exports = {
         .setDescription("Type in a hex code to use as a color")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("25s"),
+    message: "Your spam starting can wait.",
+  },
   async execute(interaction) {
     var user = Profiles.findOne(
       { id: interaction.user.id },

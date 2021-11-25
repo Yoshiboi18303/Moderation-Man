@@ -5,8 +5,9 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("meme")
     .setDescription("Gets a random meme and sends it in an embed!"),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
   },
   async execute(interaction) {
     await interaction.deferReply();

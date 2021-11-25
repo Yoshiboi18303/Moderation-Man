@@ -22,8 +22,9 @@ module.exports = {
         .setDescription("The reason for the kick.")
         .setRequired(false)
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("20s"),
+    message: "Could you not spam moderate?",
   },
   async execute(interaction) {
     var user = interaction.options.getUser("user");

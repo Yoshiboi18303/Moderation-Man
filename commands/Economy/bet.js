@@ -14,6 +14,11 @@ module.exports = {
         .setDescription("The amount to bet")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("30s"),
+    message:
+      "If I let you bet whatever you wanted, you'd be a lot poorer than you already are.",
+  },
   async execute(interaction) {
     /*
     if (interaction.guild.id != config.bot.testServerId)

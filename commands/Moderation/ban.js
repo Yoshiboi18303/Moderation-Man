@@ -28,8 +28,9 @@ module.exports = {
         .setDescription("The reason for the ban.")
         .setRequired(false)
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam ban everyone.",
   },
   async execute(interaction) {
     var user = interaction.options.getUser("user");

@@ -2,14 +2,25 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Profiles = require("../../schemas/profileSchema");
 const colors = require("../../colors.json");
-const Users = require("../../schemas/userSchema");
+// const Users = require("../../schemas/userSchema");
+const wait = require("util").promisify(setTimeout);
 
-var jobs = ["Bot Developer", "Cashier", "Chef", "Moderator"];
+var jobs = [
+  "Bot Developer",
+  "Cashier",
+  "Chef",
+  "Moderator" /*"Game Tester",
+  "Artist"*/,
+];
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("work")
     .setDescription("Work to make money!"),
+  config: {
+    timeout: ms("5m"),
+    message: "You've worked recently, you really should rest.",
+  },
   async execute(interaction) {
     /*
     if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!`, ephemeral: true })
@@ -46,13 +57,24 @@ module.exports = {
             ];
             var intent_item =
               intents_items[Math.floor(Math.random() * intents_items.length)];
+            var command_names = ["play", "execution", "bite", "steal"];
+            var command_descs = [
+              "sdasdsas",
+              "This is a command description",
+              "Use this command now",
+              "Haters keep on drooling",
+            ];
+            var command_name =
+              command_names[Math.floor(Math.random() * command_names.length)];
+            var command_desc =
+              command_descs[Math.floor(Math.random() * command_descs.length)];
             var codes = [
               `const Discord = require(\"discord.js\"); const bot = new Discord.Client({ intents: ${intent_item} }); console.log(bot);`,
-              'module.exports = { help: { name: "grerer", description: "feefwtg" } }',
+              `module.exports = { help: { name: "${command_name}", description: "${command_desc}" } }`,
               'const mongoose = require("mongoose"); (async () => { await mongoose.connect(process.env.MONGO_CS, { useUnifiedTopology: true, useNewUrlParser: true }) })()',
             ];
             var code_to_type = codes[Math.floor(Math.random() * codes.length)];
-            var mini_game_embed = new MessageEmbed()
+            mini_game_embed = new MessageEmbed()
               .setColor(colors.yellow)
               .setTitle("Mini Game Time!")
               .setDescription(
@@ -213,6 +235,9 @@ module.exports = {
               "Taco",
               "Steak",
               "Shortcake",
+              "Salad",
+              "Pie",
+              "Fries",
             ];
             var meal_to_make = meals[Math.floor(Math.random() * meals.length)];
             var meal_to_make_lower = meal_to_make.toLowerCase();
@@ -259,10 +284,24 @@ module.exports = {
                 .setCustomId("shortcake")
                 .setEmoji("🍰")
             );
+            const meal_btn_row_3 = new MessageActionRow().addComponents(
+              new MessageButton()
+                .setStyle("SECONDARY")
+                .setCustomId("salad")
+                .setEmoji("🥗"),
+              new MessageButton()
+                .setStyle("SECONDARY")
+                .setCustomId("pie")
+                .setEmoji("🥧"),
+              new MessageButton()
+                .setStyle("SECONDARY")
+                .setCustomId("fries")
+                .setEmoji("🍟")
+            );
             setTimeout(async () => {
               await interaction.editReply({
                 embeds: [new_mini_game_embed],
-                components: [meal_btn_row_1, meal_btn_row_2],
+                components: [meal_btn_row_1, meal_btn_row_2, meal_btn_row_3],
               });
 
               filter = (btnInt) => {
@@ -306,7 +345,9 @@ module.exports = {
                     .setColor(colors.red)
                     .setTitle("TERRIBLE Work")
                     .setDescription(
-                      `You made the wrong meal and the customer threw up all over the floor.\nYour manager came in and slapped you hard across your face and gave you half your salary ($${money_earned_half}).`
+                      `You made the wrong meal and the customer threw up all over the floor.\nYour manager came in and slapped you hard across your face and gave you half your salary ($${money_earned_half}).\n\n||You clicked the ${
+                        collection.first()?.customId
+                      } button, but you were asked to click the ${meal_to_make_lower} button.||`
                     );
                   await collection.first()?.update({
                     embeds: [incorrect_embed],
@@ -444,6 +485,257 @@ module.exports = {
               });
             }, 3750);
             break;
+          /*
+          case "Game Tester":
+            const words = ["Gameplay", "Fun", "Testing", "Playing", "Starting", "Develop", "Bad", "Good", "Eh"]
+
+            var word_1 = words[Math.floor(Math.random() * words.length)]
+
+            words.splice(words.findIndex((item) => item == word_1), 1)
+
+            var word_2 = words[Math.floor(Math.random() * words.length)]
+
+            words.splice(words.findIndex((item) => item == word_2), 1)
+
+            var word_3 = words[Math.floor(Math.random() * words.length)]
+
+            words.splice(words.findIndex((item) => item == word_3), 1)
+            
+            var word_4 = words[Math.floor(Math.random() * words.length)]
+
+            words.splice(words.findIndex((item) => item == word_4), 1)
+
+            var word_5 = words[Math.floor(Math.random() * words.length)]
+
+            words.splice(words.findIndex((item) => item == word_5), 1)
+
+            console.log(word_1, word_2, word_3, word_4, word_5)
+
+            mini_game_embed = new MessageEmbed()
+              .setColor(colors.yellow)
+              .setTitle("Mini Game Time!")
+              .setDescription(`Remember these words.\n\n\`\`\`\n${word_1}\n${word_2}\n${word_3}\n${word_4}\n${word_5}\n\`\`\`\n\n**You have 3 seconds to remember these 5 words.**`)
+            await interaction.editReply({
+              embeds: [mini_game_embed]
+            })
+            setTimeout(async () => {
+              new_mini_game_embed = new MessageEmbed()
+                .setColor(colors.yellow)
+                .setTitle("Time to play!")
+                .setDescription("Now click the buttons in the same order as shown before!")
+              var rows = [
+                new MessageActionRow().addComponents(
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_2)
+                    .setCustomId("word-2"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_5)
+                    .setCustomId("word-5"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_1)
+                    .setCustomId("word-1"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_4)
+                    .setCustomId("word-4"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_3)
+                    .setCustomId("word-3")
+                ),
+                new MessageActionRow().addComponents(
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_5)
+                    .setCustomId("word-5"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_1)
+                    .setCustomId("word-1"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_4)
+                    .setCustomId("word-4"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_2)
+                    .setCustomId("word-2"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_3)
+                    .setCustomId("word-3")
+                ),
+                new MessageActionRow().addComponents(
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_5)
+                    .setCustomId("word-5"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_2)
+                    .setCustomId("word-2"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_4)
+                    .setCustomId("word-4"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_3)
+                    .setCustomId("word-3"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_1)
+                    .setCustomId("word-1")
+                ),
+                new MessageActionRow().addComponents(
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_4)
+                    .setCustomId("word-4"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_3)
+                    .setCustomId("word-3"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_2)
+                    .setCustomId("word-2"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_1)
+                    .setCustomId("word-1"),
+                  new MessageButton()
+                    .setStyle("SECONDARY")
+                    .setLabel(word_5)
+                    .setCustomId("word-5")
+                ),
+              ]
+
+              const word_row = rows[Math.floor(Math.random() * rows.length)]
+
+              await interaction.editReply({
+                embeds: [new_mini_game_embed],
+                components: [word_row]
+              })
+
+              filter = (btnInt) => {
+                return interaction.user.id === btnInt.user.id
+              }
+
+              collector = interaction.channel.createMessageComponentCollector({
+                filter,
+                max: 5
+              })
+
+              collector.on("collect", async (collected) => {
+                if(collected.first()?.customId == word_1) {
+                  collected.message.components
+                } else if(collected.second()?.customId == word_2) {} else if(collected.third()?.customId == word_3) {} else if(collected.fourth()?.customId == word_4) {} else if(collected.fifth()?.customId == word_5) {} else {}
+              })
+            }, 3000)
+            
+            break;
+          case "Artist":
+            const words = ["Paint", "Canvas", "Paintbrush", "Color", "Dry", "Pictures", "Art"]
+            const chosen_words = []
+
+            const color_emojis = [emojis.default.red, emojis.default.orange, emojis.default.yellow, emojis.default.green, emojis.default.blue, emojis.default.purple]
+
+            var first_word = words[Math.floor(Math.random() * words.length)]
+            var first_emoji = color_emojis[Math.floor(Math.random() * color_emojis.length)]
+            chosen_words.push(first_word)
+
+            words.splice(words.findIndex((item) => item == first_word), 1)
+            color_emojis.splice(color_emojis.findIndex((item) => item == first_emoji), 1)
+
+            var second_word = words[Math.floor(Math.random() * words.length)]
+            var second_emoji = color_emojis[Math.floor(Math.random() * color_emojis.length)]
+            chosen_words.push(second_word)
+
+            words.splice(words.findIndex((item) => item == second_word), 1)
+            color_emojis.splice(color_emojis.findIndex((item) => item == second_emoji))
+
+            var third_word = words[Math.floor(Math.random() * words.length)]
+            var third_emoji = color_emojis[Math.floor(Math.random() * color_emojis.length)]
+            chosen_words.push(third_word)
+
+            color_emojis.splice(color_emojis.findIndex((item) => item == third_emoji))
+
+            await interaction.editReply({
+              content: `Remember these words and colors\n\n${first_emoji} ${first_word}\n${second_emoji} ${second_word}\n${third_emoji} ${third_word}\n\n**You have 3.5 seconds to remember these.**`
+            })
+
+            await wait(3500)
+
+            var random_emoji = color_emojis[Math.floor(Math.random() * color_emojis.length)]
+
+            const button_rows = [
+              new MessageActionRow().addComponents(
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${second_emoji}`)
+                  .setCustomId("second-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${third_emoji}`)
+                  .setCustomId("third-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${first_emoji}`)
+                  .setCustomId("first-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${random_emoji}`)
+                  .setCustomId("fourth-emoji")
+              ),
+              new MessageActionRow().addComponents(
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${random_emoji}`)
+                  .setCustomId("fourth-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${second_emoji}`)
+                  .setCustomId("second-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${third_emoji}`)
+                  .setCustomId("third-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${first_emoji}`)
+                  .setCustomId("first-emoji")
+              ),
+              new MessageActionRow().addComponents(
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${third_emoji}`)
+                  .setCustomId("third-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${random_emoji}`)
+                  .setCustomId("fourth-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${first_emoji}`)
+                  .setCustomId("first-emoji"),
+                new MessageButton()
+                  .setStyle("SECONDARY")
+                  .setLabel(`${second_emoji}`)
+                  .setCustomId("second-emoji")
+              )
+            ]
+            var random_word = chosen_words[Math.floor(Math.random() * chosen_words.length)]
+            const button_row = button_rows[Math.floor(Math.random() * button_rows.length)]
+            await interaction.editReply({
+              content: `What emoji was beside the word \`${random_word}\`?`,
+              components: [button_row]
+            })
+            break;
+          */
         }
       }
     });

@@ -5,6 +5,10 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("vote")
     .setDescription("Returns the link(s) to vote for Moderation Man"),
+  config: {
+    timeout: ms("10s"),
+    message: "Could you not spam requesting embeds, it hurts the API.",
+  },
   async execute(interaction) {
     var topgg_link = "https://top.gg/bot/891070722074611742/vote";
     const embed = new MessageEmbed()

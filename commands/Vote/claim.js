@@ -6,7 +6,11 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("claim")
     .setDescription("Claim your voting rewards"),
-  execute(interaction) {
+  config: {
+    timeout: ms("1m") + ms("50s"),
+    message: "Stop claiming vote rewards in spam.",
+  },
+  async execute(interaction) {
     Users.findOne({ id: interaction.user.id }, async (err, data) => {
       if (err) throw err;
       if (!data) {

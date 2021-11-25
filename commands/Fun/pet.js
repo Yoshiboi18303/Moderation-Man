@@ -11,6 +11,10 @@ module.exports = {
         .setDescription("Select a user to pet")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     const user = interaction.options.getUser("user") || interaction.user;
     var link = `https://some-random-api.ml/premium/petpet?avatar=${user.displayAvatarURL(

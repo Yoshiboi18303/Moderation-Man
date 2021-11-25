@@ -8,6 +8,10 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("botinfo")
     .setDescription("Shows some info on the client!"),
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam this information in your server.",
+  },
   async execute(interaction) {
     const fetch = await import("node-fetch");
     var color_array = [

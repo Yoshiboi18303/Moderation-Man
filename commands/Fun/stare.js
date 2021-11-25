@@ -13,6 +13,10 @@ module.exports = {
         .setDescription("The user to stare at")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     var user = interaction.options.getUser("user");
     const fetch = await import("node-fetch");

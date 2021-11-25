@@ -6,6 +6,10 @@ module.exports = {
     .setDescription(
       "Returns a random joke for you and your friends to laugh at"
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     const fetch = await import("node-fetch");
     await interaction.deferReply();

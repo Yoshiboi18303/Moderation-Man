@@ -7,6 +7,10 @@ module.exports = class Debug {
     if (!this.info) throw new Error("This class needs some debug info!");
 
     const text = "MM-DEBUGGER:".yellow;
-    console.info(text, this.info);
+    console.info(
+      text,
+      this.info +
+        "\n\n-------------------------------------------------------------\n"
+    );
   }
 };

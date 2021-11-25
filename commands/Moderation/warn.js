@@ -29,6 +29,10 @@ module.exports = {
         .addChoice("medium", "MEDIUM")
         .addChoice("high", "HIGH")
     ),
+  config: {
+    timeout: ms("20s"),
+    message: "Could you not spam moderate?",
+  },
   async execute(interaction) {
     await interaction.deferReply({ ephemeral: true });
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))

@@ -12,6 +12,10 @@ module.exports = {
         .setDescription("The command to execute")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("10s"),
+    message: "Stop executing in spam.",
+  },
   async execute(interaction) {
     if (!admins.includes(interaction.user.id))
       return await interaction.reply({

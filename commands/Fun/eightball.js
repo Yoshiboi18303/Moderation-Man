@@ -10,6 +10,10 @@ module.exports = {
         .setDescription("The question to ask")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     var question = interaction.options.getString("question");
     const responses = [

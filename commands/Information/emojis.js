@@ -7,6 +7,10 @@ module.exports = {
     .setDescription(
       "Shows the emojis in your guild (you'll need the MANAGE_EMOJIS_AND_STICKERS permission to run this)"
     ),
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam this information in your server.",
+  },
   async execute(interaction) {
     if (
       !interaction.member.permissions.has(

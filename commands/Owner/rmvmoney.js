@@ -19,6 +19,10 @@ module.exports = {
         .setDescription("The user to remove money from")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("45s"),
+    message: "Don't start removing money from everyone in spam bunches.",
+  },
   async execute(interaction) {
     if (!admins.includes(interaction.user.id))
       return await interaction.reply({

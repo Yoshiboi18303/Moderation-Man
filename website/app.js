@@ -5,9 +5,11 @@ const port = process.env.PORT || 3000;
 const path = require("path");
 const { getCommands } = require("../utils");
 const { Webhook } = require("@top-gg/sdk");
-const webhook = new Webhook(process.env.WEBHOOK_AUTH);
+const webhook = new Webhook(process.env.TOPGG_WEBHOOK_AUTH);
 const { MessageEmbed, WebhookClient } = require("discord.js");
 const ms = require("ms");
+const { Webhook: WH } = require("infinity-bots");
+const iblwh = new WH(process.env.IBL_WEBHOOK_AUTH);
 
 const passport = require("passport");
 const passportDiscord = require("passport-discord");
@@ -234,6 +236,83 @@ app.post(
             );
           if (data.dmable) {
             client.users.cache.get(vote.user).send({
+              embeds: [embed],
+            });
+          } else {
+            return;
+          }
+        }
+      });
+    }
+  })
+);
+
+app.post(
+  "/iblvoteres",
+  iblwh.hookListener(async (vote) => {
+    if (vote.type == "test") {
+      const new_test_vote_embed = new MessageEmbed()
+        .setColor(colors.cyan)
+        .setTitle("__New Test Vote!__")
+        .setDescription(`<@${vote.userID}> voted for **${bot.username}**!`);
+      await test_vote_webhook.send({
+        embeds: [new_test_vote_embed],
+      });
+    } else {
+      const new_vote_embed = new MessageEmbed()
+        .setColor(colors.green)
+        .setTitle("__New Vote!__")
+        .setDescription(`<@${vote.userID}> voted for **${bot.username}**!`);
+      await main_vote_webhook.send({
+        embeds: [new_vote_embed],
+      });
+      Users.findOne({ id: vote.userID }, async (err, data) => {
+        if (err) throw err;
+        if (!data) {
+          data = new Users({
+            id: vote.userID,
+            voted: true,
+            vote_timeout: ms("1d"),
+          });
+          data.save();
+          const embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setTitle("Thanks for voting")
+            .setDescription(
+              `Thank you so much for voting for **${
+                bot.username
+              }**!\nYou have earned: **${voteRewards.join(", ")}**!`
+            );
+          if (data.dmable) {
+            client.users.cache.get(vote.userID).send({
+              embeds: [embed],
+            });
+          } else {
+            return;
+          }
+        } else {
+          data = await Users.findOneAndUpdate(
+            {
+              id: vote.userID,
+            },
+            {
+              $set: {
+                voted: true,
+                vote_timeout: ms("1d"),
+              },
+            }
+          );
+          data.save();
+          const embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setTitle("Thanks for voting")
+            .setDescription(
+              `Thank you so much for voting for **${
+                bot.username
+              }**!\nYou have earned **${voteRewards.join(", ")}**`
+            );
+          if (data.dmable) {
+            client.users.cache.get(vote.userID).send({
               embeds: [embed],
             });
           } else {

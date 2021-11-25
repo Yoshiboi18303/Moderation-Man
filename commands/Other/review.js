@@ -23,6 +23,10 @@ module.exports = {
         .setDescription("The reason you gave this rating")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("10s"),
+    message: "Could you not spam the owner, it hurts him.",
+  },
   async execute(interaction) {
     var rating = interaction.options.getString("rating");
     var reason = interaction.options.getString("reason");

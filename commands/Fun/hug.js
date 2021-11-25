@@ -10,6 +10,10 @@ module.exports = {
     .addUserOption((option) =>
       option.setName("user").setDescription("The user to hug").setRequired(true)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     /* if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment.`, ephemeral: true }); */
     var user = interaction.options.getUser("user");

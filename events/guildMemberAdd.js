@@ -15,9 +15,13 @@ module.exports = {
     var guild = Guilds.findOne({ id: member.guild.id });
 
     const fetch = await import("node-fetch");
-    var f = await fetch.default("https://captcha.dogemod.ml/generate", {
-      method: "GET",
-    });
+    var f = await fetch
+      .default("https://captcha.dogemod.ml/generate", {
+        method: "GET",
+      })
+      .catch((e) => {
+        console.error(e);
+      });
     var data = await f.json();
     /*
     var welcome_icon_fetch = await fetch.default("https://api.fluxpoint.dev/list/icons", {

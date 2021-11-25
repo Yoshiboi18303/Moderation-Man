@@ -18,6 +18,10 @@ module.exports = {
         .setDescription("The user to give the coins to")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("10s"),
+    message: "You just gave someone money, calm it down a little bit!",
+  },
   async execute(interaction) {
     /*
 

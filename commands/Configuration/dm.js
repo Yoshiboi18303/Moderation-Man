@@ -13,6 +13,10 @@ module.exports = {
         .setDescription("Do you want to get dmed?")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("1m"),
+    message: "Don't start changing your dmable state in spam form.",
+  },
   async execute(interaction) {
     var able_to_be_dmed = interaction.options.getBoolean("dmable");
     await interaction.deferReply();

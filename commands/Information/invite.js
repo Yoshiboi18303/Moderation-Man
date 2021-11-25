@@ -13,6 +13,10 @@ module.exports = {
         )
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam this information in your server.",
+  },
   async execute(interaction) {
     var enable_redirect = interaction
       ? interaction.options.getBoolean("enable_redirect")

@@ -14,6 +14,11 @@ module.exports = {
         .setDescription("The feature to suggest")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("2m"),
+    message:
+      "Accepting suggestions can wait, don't you have anything better to do than spam me?",
+  },
   async execute(interaction) {
     await interaction.reply({
       content: `Sending suggestion... ${wait}`,
@@ -68,13 +73,13 @@ module.exports = {
       embeds: [sent_embed],
       ephemeral: true,
     });
-    await channel.send({ embeds: [suggestion_embed] });
+    const sent = await channel.send({ embeds: [suggestion_embed] });
     data = new Suggestion({
       id,
       suggestion,
       suggestor: interaction.user.id,
       guild: interaction.guild.id,
-      embed: channel.lastMessageId,
+      embed: sent.id,
     });
     data.save();
   },

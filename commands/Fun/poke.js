@@ -13,6 +13,10 @@ module.exports = {
         .setDescription("The user to poke")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     /* if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId)}** for the moment!`, ephemeral: true }); */
     await interaction.deferReply();

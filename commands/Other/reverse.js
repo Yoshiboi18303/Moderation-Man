@@ -11,6 +11,10 @@ module.exports = {
         .setDescription("The text to reverse")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("10s"),
+    message: "Could you not spam reverse strings, it hurts the API.",
+  },
   async execute(interaction) {
     // if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment.`, ephemeral: true })
     await interaction.deferReply();

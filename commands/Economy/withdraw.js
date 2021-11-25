@@ -13,6 +13,11 @@ module.exports = {
         .setDescription("Type in the amount of money to withdraw")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("20s"),
+    message:
+      "The bank needs some time to process your transaction, leave them alone for a little bit!",
+  },
   async execute(interaction) {
     var money_to_withdraw = interaction.options.getInteger("money");
     var profile = Profiles.findOne(

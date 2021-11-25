@@ -11,6 +11,10 @@ module.exports = {
         .setDescription("The user to put on the image")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     await interaction.deferReply();
     var link = "https://some-random-api.ml/canvas/passed";

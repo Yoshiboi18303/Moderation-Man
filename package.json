@@ -3,8 +3,8 @@
   "version": "1.5.8",
   "scripts": {
     "main": "node run.js",
-    "script": "npx node run.js",
-    "dev": "npx nodemon run.js"
+    "nodescript": "npx node run.js",
+    "dev": "npx nodemon run.js --ignore '*.json' --ignore '.prettierignore' --ignore '.gitignore' --ignore 'LICENSE' --ignore '*.md' --ignore 'replit.nix' --ignore '.replit'"
   },
   "devDependencies": {
     "node": "^16.6.1",
@@ -13,10 +13,7 @@
   },
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
-    "@discordjs/opus": "^0.5.3",
     "@discordjs/rest": "^0.1.0-canary.0",
-    "@discordjs/voice": "^0.6.0",
-    "@spectacles/types": "^0.2.3",
     "@top-gg/sdk": "^3.1.2",
     "ascii-table": "^0.0.9",
     "boats.js": "^2.5.3",
@@ -25,18 +22,17 @@
     "colors": "^1.4.0",
     "connect-mongo": "^4.6.0",
     "discord-api-types": "^0.24.0",
+    "discord-giveaways": "^5.0.1",
     "discord.js": "^13.4.0-dev.1635552294.761a901",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "ffmpeg-static": "^4.4.0",
     "figlet": "^1.5.2",
     "fs": "^0.0.1-security",
-    "lavalink": "^2.11.0",
-    "libsodium-wrappers": "^0.7.9",
+    "infinity-bots": "^1.1.9",
     "moment": "^2.29.1",
-    "mongoose": "^6.0.12",
+    "mongoose": "^6.0.13",
     "motionbotlist": "^2.0.0",
     "ms": "^2.1.3",
     "nocache": "^3.0.1",
@@ -52,7 +48,6 @@
     "topgg-autoposter": "^2.0.0",
     "utf-8-validate": "^5.0.6",
     "util": "^0.12.4",
-    "weather-js": "^2.0.0",
-    "ytdl-core": "^4.9.1"
+    "weather-js": "^2.0.0"
   }
 }

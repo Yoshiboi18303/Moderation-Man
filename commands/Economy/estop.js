@@ -8,6 +8,10 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("estop")
     .setDescription("Delete your data from the Economy System!"),
+  config: {
+    timeout: ms("15s"),
+    message: "You just stopped your progress already, calm it!",
+  },
   async execute(interaction) {
     Profiles.findOne({ id: interaction.user.id }, async (err, data) => {
       if (err) throw err;

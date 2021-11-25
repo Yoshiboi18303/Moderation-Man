@@ -14,6 +14,10 @@ module.exports = {
         .setDescription("The user to steal from")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("5m"),
+    message: "Your stealing is getting ridiculous.",
+  },
   async execute(interaction) {
     /*
     if (interaction.guild.id != config.bot.testServerId)

@@ -17,6 +17,10 @@ module.exports = {
         .setDescription("Is this user the Impostor?")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     await interaction.deferReply();
     var user = interaction.options.getUser("user") || interaction.user;

@@ -8,6 +8,10 @@ module.exports = {
     .addUserOption((option) =>
       option.setName("user").setDescription("A user to use").setRequired(false)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     await interaction.deferReply();
     var color;

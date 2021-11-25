@@ -29,6 +29,11 @@ module.exports = {
         .setDescription(`New value of given setting`)
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("3m"),
+    message:
+      "Configuration can take time, calm yourself and take a chill pill.",
+  },
   async execute(interaction) {
     /* Don't change this line until it's ready. */ if (
       interaction.guild.id !== config.bot.testServerId

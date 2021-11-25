@@ -8,8 +8,6 @@ const Users = require("../../schemas/userSchema");
 const Suggestions = require("../../schemas/suggestionSchema");
 const colors = require("../../colors.json");
 const shell = require("shelljs");
-const discordjsvoice = require("@discordjs/voice");
-const voice = require("../../items/voice");
 const CommandError = require("../../items/classes/CommandError");
 const BotError = require("../../items/classes/BotError");
 const CloseProcess = require("../../items/classes/CloseProcess");
@@ -25,8 +23,9 @@ module.exports = {
         .setDescription("Type in some code to evaluate")
         .setRequired(false)
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("10s"),
+    message: "Stop evaluating in spam.",
   },
   async execute(interaction) {
     if (!admins.includes(interaction.user.id))
@@ -34,6 +33,7 @@ module.exports = {
         content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
+    const fetch = await import("node-fetch");
     const code = interaction.options.getString("code") || "";
     await interaction.deferReply();
     var result = new Promise((resolve, reject) => {

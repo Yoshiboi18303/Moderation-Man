@@ -13,6 +13,11 @@ module.exports = {
         .setDescription("Type in an amount of money to deposit")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("20s"),
+    message:
+      "The bank needs some time to process your transaction, leave them alone for a little bit!",
+  },
   async execute(interaction) {
     var money_to_deposit = interaction.options.getInteger("money");
     if (money_to_deposit == 0)

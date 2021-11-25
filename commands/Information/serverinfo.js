@@ -6,6 +6,10 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("serverinfo")
     .setDescription("View info on the current guild"),
+  config: {
+    timeout: ms("30s"),
+    message: "You shouldn't just spam this information in your server.",
+  },
   async execute(interaction) {
     // if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!`, ephemeral: true })
     var guild = interaction.guild;

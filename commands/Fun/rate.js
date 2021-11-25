@@ -11,6 +11,10 @@ module.exports = {
         .setDescription("The content to rate")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("5s"),
+    message: "Your fun needs a break.",
+  },
   async execute(interaction) {
     var content = interaction.options.getString("content");
 

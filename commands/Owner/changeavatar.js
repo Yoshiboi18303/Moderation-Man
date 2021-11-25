@@ -11,6 +11,10 @@ module.exports = {
         .setDescription("The link to the avatar")
         .setRequired(true)
     ),
+  config: {
+    timeout: ms("25s"),
+    message: "Stop hurting the Discord API.",
+  },
   async execute(interaction) {
     var link = interaction.options.getString("link");
     if (!link.includes("https"))

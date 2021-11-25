@@ -1,5 +1,12 @@
 const Users = require("../schemas/userSchema");
 const CommandError = require("../items/classes/CommandError");
+const {
+  MessageActionRow,
+  MessageButton,
+  MessageEmbed,
+  Permissions,
+} = require("discord.js");
+const TicketSettings = require("../schemas/ticketSetSchema");
 
 module.exports = {
   name: "interactionCreate",
@@ -12,7 +19,6 @@ module.exports = {
         });
       if (interaction.user.bot) return;
       const command = client.commands.get(interaction.commandName);
-      var timeouts = [];
 
       /*
       if(typeof command.config.guildOnly != "undefined" && command.config.guildOnly) {
@@ -67,6 +73,24 @@ module.exports = {
         embeds: [trying_embed],
       });
       client.stats.postCommand(command.data.name, interaction.user.id);
+      var msg = command.config.message;
+      var timeout = command.config.timeout;
+      /*
+      if(commandsUsedRecently.has(interaction.user.id)) {
+        var titles = ["Too spicy for me, take a breather", "429, Too many requests", "You need to slow down", "Way too fast for me"]
+        const timeout_embed = new MessageEmbed()
+          .setColor(colors.yellow)
+          .setTitle(`${titles[Math.floor(Math.random() * titles.length)]}`)
+          .setDescription(`${msg}`)
+        return await interaction.reply({
+          embeds: [timeout_embed]
+        })
+      } else {
+      */
+      /*
+        commandsUsedRecently.add(interaction.user.id)
+        setTimeout(() => commandsUsedRecently.delete(interaction.user.id), timeout)
+      */
       try {
         await command.execute(interaction);
       } catch (e) {
@@ -98,6 +122,91 @@ module.exports = {
           });
         }
       }
+      // }
+    } else if (interaction.isButton() && !interaction.isCommand()) {
+      if (!interaction.guild) return;
+      TicketSettings.findOne(
+        { guild: interaction.guild.id },
+        async (err, data) => {
+          if (err) throw err;
+          if (data) {
+            if (interaction.customId == "ticket-sys-open") {
+              interaction.guild.channels
+                .create(`ticket-${interaction.user.username.toLowerCase()}`, {
+                  topic: `A ticket opened by ${interaction.user.username} | Powered by ${client.user.username}`,
+                  permissionOverwrites: [
+                    {
+                      id: interaction.guild.roles.everyone,
+                      deny: [
+                        Permissions.FLAGS.VIEW_CHANNEL,
+                        Permissions.FLAGS.SEND_MESSAGES,
+                      ],
+                    },
+                    {
+                      id: interaction.user.id,
+                      allow: [
+                        Permissions.FLAGS.VIEW_CHANNEL,
+                        Permissions.FLAGS.SEND_MESSAGES,
+                      ],
+                    },
+                    {
+                      id: client.user.id,
+                      allow: [
+                        Permissions.FLAGS.VIEW_CHANNEL,
+                        Permissions.FLAGS.SEND_MESSAGES,
+                      ],
+                    },
+                    {
+                      id: data.mod_role,
+                      allow: [
+                        Permissions.FLAGS.VIEW_CHANNEL,
+                        Permissions.FLAGS.SEND_MESSAGES,
+                      ],
+                    },
+                  ],
+                })
+                .then(async (channel) => {
+                  await interaction.reply({
+                    content: `Ticket opened in <#${channel.id}>!`,
+                    ephemeral: true,
+                  });
+                  const opened_embed = new MessageEmbed()
+                    .setColor(colors.green)
+                    .setTitle("Support Ticket")
+                    .setDescription(
+                      `I have opened a ticket for you and the support team to be able to talk. Please wait while they hop over to this channel.`
+                    );
+                  const action_row = new MessageActionRow().addComponents(
+                    new MessageButton()
+                      .setStyle("DANGER")
+                      .setLabel("Close Ticket")
+                      .setCustomId("ticket-close")
+                      .setDisabled(false)
+                  );
+                  await channel.send({
+                    embeds: [opened_embed],
+                    components: [action_row],
+                    content: `<@${interaction.user.id}>`,
+                  });
+                })
+                .catch((e) => console.error(e));
+            } else if (interaction.customId == "ticket-close") {
+              const closed_embed = new MessageEmbed()
+                .setColor(colors.red)
+                .setTitle("Ticket Closed")
+                .setDescription(
+                  `${interaction.user.username}, I have closed this ticket. I will delete this channel in 10 seconds.`
+                );
+              await interaction.reply({
+                embeds: [closed_embed],
+              });
+              setTimeout(() => {
+                interaction.channel.delete("The Ticket was closed.");
+              }, 10000);
+            }
+          }
+        }
+      );
     } else {
       return;
     }

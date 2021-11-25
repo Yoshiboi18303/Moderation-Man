@@ -12,6 +12,7 @@ const guildSchema = Schema({
   captcha: { type: Boolean, default: false },
   voiceMod: { type: Boolean, default: false },
   welcome: { type: String, default: "" },
+  shop: { type: Object, default: {} },
 });
 
 module.exports = model("dashboard-guilds", guildSchema);

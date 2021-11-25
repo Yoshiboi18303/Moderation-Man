@@ -10,6 +10,11 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("id").setDescription("The suggestion id").setRequired(true)
     ),
+  config: {
+    timeout: ms("30s"),
+    message:
+      "Accepting suggestions can wait, don't you have anything better to do than spam me?",
+  },
   async execute(interaction) {
     if (interaction.guild.id != config.bot.testServerId)
       return await interaction.reply({
@@ -75,19 +80,19 @@ module.exports = {
               "I can't send a DM to the suggestor, so I'm just gonna accept the suggestion.",
           });
         }
+        await message.edit({
+          embeds: [new_embed],
+        });
         await wait(5000);
         const done_embed = new MessageEmbed()
           .setColor(colors.green)
           .setTitle("Finished")
           .setDescription(
-            `Successfully accepted suggestion with the ID: **${id}**!`
+            `Successfully accepted suggestion with the ID of **${id}**!`
           )
           .setTimestamp();
         await interaction.editReply({
           embeds: [done_embed],
-        });
-        await message.edit({
-          embeds: [new_embed],
         });
         await Suggestions.findOneAndDelete({ id: id });
       }

@@ -13,6 +13,10 @@ module.exports = {
         .setDescription("Should the process be closed?")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("10s"),
+    message: "Stop restarting in spam.",
+  },
   async execute(interaction) {
     if (!admins.includes(interaction.user.id))
       return await interaction.reply({

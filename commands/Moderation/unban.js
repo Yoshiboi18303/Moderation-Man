@@ -11,8 +11,9 @@ module.exports = {
         .setDescription("Type in the ID of the user to unban")
         .setRequired(true)
     ),
-  options: {
-    guildOnly: false,
+  config: {
+    timeout: ms("20s"),
+    message: "Could you not spam moderate?",
   },
   async execute(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS))

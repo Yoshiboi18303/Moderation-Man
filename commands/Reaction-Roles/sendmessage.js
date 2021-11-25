@@ -24,6 +24,10 @@ module.exports = {
         .setDescription("The message to put")
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("1m") + ms("45s"),
+    message: "Stop sending messages to channels in spam.",
+  },
   async execute(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS))
       return await interaction.reply({
