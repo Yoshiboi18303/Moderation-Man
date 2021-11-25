@@ -1,6 +1,6 @@
 # Moderation Man
 
-A bot suggested by Burn
+A bot made for a safer Discord server
 
 ---
 
