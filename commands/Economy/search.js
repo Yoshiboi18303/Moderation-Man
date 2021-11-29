@@ -11,6 +11,7 @@ module.exports = {
     message: "Your search exhibition can wait.",
   },
   async execute(interaction) {
+    /*
     if (interaction.guild.id != config.bot.testServerId)
       return await interaction.reply({
         content: `This command is restricted to **${
@@ -18,6 +19,7 @@ module.exports = {
         }** for the moment!`,
         ephemeral: true,
       });
+    */
     await interaction.deferReply();
     Profiles.findOne({ id: interaction.user.id }, async (err, data) => {
       if (err) throw err;

@@ -12,6 +12,8 @@ const people = [
   "Mario",
   "Hannah Montana",
   "Danny DeVito",
+  "RealisticDuckii",
+  "Rick Astley",
 ];
 
 module.exports = {
@@ -19,7 +21,7 @@ module.exports = {
     .setName("beg")
     .setDescription("Beg someone for money!"),
   config: {
-    timeout: ms("1m"),
+    timeout: ms("1m") + ms("30s"),
     message:
       "Your begging makes you look like a little baby, please calm it down.",
   },

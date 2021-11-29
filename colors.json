@@ -3,8 +3,10 @@
   "blue": "#192CA6",
   "yellow": "#D4E10F",
   "red": "#D51616",
+  "dred": "#8B0000",
   "orange": "#D5A116",
   "purple": "#8716D5",
   "cyan": "#00FFFB",
-  "mint_green": "#8BFF8D"
+  "mint_green": "#8BFF8D",
+  "navy": "#000080"
 }

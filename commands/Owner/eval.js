@@ -6,6 +6,7 @@ const Channels = require("../../schemas/channelSchema");
 const Profiles = require("../../schemas/profileSchema");
 const Users = require("../../schemas/userSchema");
 const Suggestions = require("../../schemas/suggestionSchema");
+const TicketSettings = require("../../schemas/ticketSetSchema");
 const colors = require("../../colors.json");
 const shell = require("shelljs");
 const CommandError = require("../../items/classes/CommandError");

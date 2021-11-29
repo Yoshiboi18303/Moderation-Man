@@ -11,13 +11,13 @@ module.exports = {
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("Choose a user to warn")
+        .setDescription("The user to warn")
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName("reason")
-        .setDescription("Type in a reason for this warn")
+        .setDescription("The reason for this warn")
         .setRequired(true)
     )
     .addStringOption((option) =>

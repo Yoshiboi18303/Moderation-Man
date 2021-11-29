@@ -54,5 +54,10 @@ module.exports = {
       content: `**${target_member.user.username}** has been softbanned.`,
       ephemeral: true,
     });
+    await Log(client, interaction.guild, Enum.Log.Softban, {
+      member,
+      reason,
+      moderator: interaction.member,
+    });
   },
 };

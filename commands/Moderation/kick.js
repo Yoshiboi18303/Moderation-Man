@@ -112,6 +112,11 @@ module.exports = {
           ephemeral: true,
           components: [],
         });
+        await Log(client, interaction.guild, Enum.Log.Kick, {
+          member,
+          reason,
+          moderator: interaction.member,
+        });
       } else if (collection.first()?.customId == "kick-cancel") {
         return await interaction.editReply({
           content: "The kick has been cancelled and rejected.",

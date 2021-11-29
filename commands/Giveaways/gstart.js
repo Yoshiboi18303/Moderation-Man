@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Permissions } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -36,6 +36,7 @@ module.exports = {
     message: "Could you calm it down on the giveaways?",
   },
   async execute(interaction) {
+    /*
     if (interaction.guild.id != config.bot.testServerId)
       return await interaction.reply({
         content: `This command is restricted to **${
@@ -43,6 +44,7 @@ module.exports = {
         }** for the moment!`,
         ephemeral: true,
       });
+    */
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS))
       return await interaction.reply({
         content: "You don't have the correct permissions for this command!",
@@ -62,10 +64,28 @@ module.exports = {
         content: `Expected the giveaway duration to have at least 1 second long, got 0 seconds instead.`,
         ephemeral: true,
       });
+    const giveaway_winners_embed = new MessageEmbed()
+      .setColor(colors.green)
+      .setTitle("Congratulations!")
+      .setDescription(
+        `${emojis.yay} Congratulations {winners}, you won the giveaway for **${prize}**! ${emojis.yay}`
+      );
     await client.giveaways.start(channel, {
       duration: ms(duration),
       winnerCount: winners,
       prize,
+      messages: {
+        giveaway: `${emojis.yay}${emojis.yay} **GIVEAWAY!** ${emojis.yay}${emojis.yay}`,
+        giveawayEnded: `${emojis.yay}${emojis.yay} **GIVEAWAY ENDED!** ${emojis.yay}${emojis.yay}`,
+        inviteToParticipate: `Want to join this giveaway? **Then click the ${emojis.yay} reaction!**`,
+        drawing: "Drawing winners {timestamp}",
+        noWinners: "The giveaway was cancelled due to no one joining.",
+        winners: "Winner(s) for this giveaway",
+        endedAt: "Giveaway was ended",
+        winMessage: {
+          embed: giveaway_winners_embed,
+        },
+      },
     });
     await interaction.reply({
       content: `Started the giveaway for ${prize} in <#${channel.id}>!`,

@@ -50,6 +50,18 @@ global.cp = require("child_process");
 global.mongoose = require("mongoose");
 global.path = require("path");
 global.commandsUsedRecently = new Set();
+global.Enum = {
+  Log: {
+    Info: 0,
+    Error: 1,
+    Kick: 2,
+    Ban: 3,
+    Mute: 4,
+    Softban: 5,
+    Tempban: 6,
+  },
+};
+global.Log = require("./utils/logger");
 
 client.commands = new Collection();
 client.events = new Collection();

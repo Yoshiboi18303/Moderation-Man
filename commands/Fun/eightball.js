@@ -41,18 +41,15 @@ module.exports = {
     const response = responses[Math.floor(Math.random() * responses.length)];
     await interaction.reply({
       content: `You shake the magic 8 ball asking it: "${question}"... 🎱`,
-      ephemeral: true,
     });
     setTimeout(async () => {
       await interaction.editReply({
         content: "And it says...",
-        ephemeral: true,
       });
       setTimeout(
         async () =>
           await interaction.editReply({
             content: `${response}.`,
-            ephemeral: true,
           }),
         5000
       );

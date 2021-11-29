@@ -66,7 +66,7 @@ passport.deserializeUser(async (user, done) => {
   done(null, {
     id: user.id,
     discord: user,
-    voted: User.voted,
+    // voted: User.voted,
     blacklisted: User.blacklisted,
   });
 });

@@ -4,3 +4,5 @@ replit.nix
 .upm
 .config
 .cache
+giveaways.json
+utils/logger.js

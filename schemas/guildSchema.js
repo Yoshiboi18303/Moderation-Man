@@ -13,6 +13,7 @@ const guildSchema = Schema({
   voiceMod: { type: Boolean, default: false },
   welcome: { type: String, default: "" },
   shop: { type: Object, default: {} },
+  channels: { type: Object, default: { modlog: "" } },
 });
 
 module.exports = model("dashboard-guilds", guildSchema);

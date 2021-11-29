@@ -92,7 +92,7 @@ module.exports = {
       .addFields([
         {
           name: "Star Rating",
-          value: `${returnRatingEmoji(rating)}`,
+          value: `${returnRatingEmoji(rating)} (${rating})`,
           inline: true,
         },
         {

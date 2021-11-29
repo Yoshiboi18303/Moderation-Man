@@ -147,11 +147,11 @@ module.exports = {
           ephemeral: true,
           components: [],
         });
-        // log.send({
-        //   embeds: [
-        //     log_embed
-        //   ]
-        // })
+        await Log(client, interaction.guild, Enum.Log.Ban, {
+          member,
+          reason,
+          moderator: interaction.member,
+        });
       } else if (collection.first()?.customId == "ban-no") {
         return await interaction.editReply({
           content: "The ban hammer swing has been cancelled.",

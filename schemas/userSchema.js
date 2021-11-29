@@ -23,6 +23,8 @@ const userSchema = Schema({
     type: Number,
     default: 0,
   },
+  admin: opBool,
+  owner: opBool,
 });
 
 module.exports = model("users", userSchema);

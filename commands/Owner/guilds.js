@@ -15,17 +15,16 @@ module.exports = {
         content: "This command is restricted to admins only!",
         ephemeral: true,
       });
-    var guilds = [];
-    for (var guild of client.guilds.cache.toJSON()) {
-      guilds.push(guild.name);
-    }
+    var guilds_map = client.guilds.cache.map(
+      (g) => `**${g.name}** => ${g.memberCount} members`
+    );
     const embed = new MessageEmbed()
       .setColor("RANDOM")
       .setTitle(`Guilds for ${client.user.username}`)
       .setDescription(
-        `Here are all the guilds I am in.\n\n__${guilds.join(
+        `Here are all the guilds I am in.\n\n__${guilds_map.join(
           ",\n"
-        )}__\n\nGuild Count: **${guilds.length}**`
+        )}__\n\nGuild Count: **${guilds_map.length}**`
       );
     await interaction.reply({ embeds: [embed], ephemeral: true });
   },

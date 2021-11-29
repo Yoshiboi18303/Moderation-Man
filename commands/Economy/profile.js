@@ -18,7 +18,7 @@ module.exports = {
     message: "Don't start spamming profiles now!",
   },
   async execute(interaction) {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply();
     var user = interaction.options.getUser("user") || interaction.user;
     if (user.bot)
       return await interaction.editReply({

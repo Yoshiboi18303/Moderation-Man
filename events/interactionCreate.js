@@ -49,7 +49,50 @@ module.exports = {
           console.log("Document inserted! Waiting until next command usage!");
         } else {
           cmds_used = data.commandsUsed;
+          var bl = data.blacklisted;
           console.log("Updating a document...");
+          try {
+            if (bl == true) {
+              const blacklisted_embed = new MessageEmbed()
+                .setColor(colors.red)
+                .setTitle("Error")
+                .setDescription(
+                  `You are blacklisted from using **${client.user.username}**!`
+                );
+              return await interaction.reply({
+                embeds: [blacklisted_embed],
+              });
+            }
+            await command.execute(interaction);
+          } catch (e) {
+            new CommandError(
+              `Whoopies! An error occured while trying to execute ${command.data.name}!\n\n`,
+              e
+            );
+            const error_embed = new MessageEmbed()
+              .setColor(colors.red)
+              .setTitle("Error")
+              .setDescription(
+                `An error occured trying to execute **${command.data.name}**...\n\n\`\`\`js\n${e}\n\`\`\``
+              );
+            await channel.send({
+              content: `<@&904429332582240266>`,
+              embeds: [error_embed],
+            });
+            if (interaction.replied || interaction.deferred) {
+              return interaction.editReply({
+                content:
+                  "There was an error executing this command! This has been reported to the developer(s).",
+                ephemeral: true,
+              });
+            } else {
+              return interaction.reply({
+                content:
+                  "There was an error executing this command! This has been reported to the developer(s).",
+                ephemeral: true,
+              });
+            }
+          }
           data = await Users.findOneAndUpdate(
             {
               id: interaction.user.id,
@@ -91,37 +134,6 @@ module.exports = {
         commandsUsedRecently.add(interaction.user.id)
         setTimeout(() => commandsUsedRecently.delete(interaction.user.id), timeout)
       */
-      try {
-        await command.execute(interaction);
-      } catch (e) {
-        new CommandError(
-          `Whoopies! An error occured while trying to execute ${command.data.name}!\n\n`,
-          e
-        );
-        const error_embed = new MessageEmbed()
-          .setColor(colors.red)
-          .setTitle("Error")
-          .setDescription(
-            `An error occured trying to execute **${command.data.name}**...\n\n\`\`\`js\n${e}\n\`\`\``
-          );
-        await channel.send({
-          content: `<@&904429332582240266>`,
-          embeds: [error_embed],
-        });
-        if (interaction.replied || interaction.deferred) {
-          return interaction.editReply({
-            content:
-              "There was an error executing this command! This has been reported to the developer(s).",
-            ephemeral: true,
-          });
-        } else {
-          return interaction.reply({
-            content:
-              "There was an error executing this command! This has been reported to the developer(s).",
-            ephemeral: true,
-          });
-        }
-      }
       // }
     } else if (interaction.isButton() && !interaction.isCommand()) {
       if (!interaction.guild) return;

@@ -48,6 +48,8 @@ module.exports = {
           ephemeral: true,
         });
       } else {
+        var is_admin = data.admin;
+        var is_owner = data.owner;
         function checkBot(u) {
           if (u.bot) return "Yes";
           else return "No";
@@ -66,6 +68,18 @@ module.exports = {
           }
           return messages_sent;
         }
+
+        const returnStaffEmotes = (action) => {
+          if (action == "admin") {
+            if (is_admin == true) {
+              return `${emojis.admin} ||**Admin**||⠀`;
+            } else return "⠀";
+          } else if (action == "owner") {
+            if (is_owner == true) {
+              return `${emojis.owner} ||**Owner**||⠀`;
+            } else return "⠀";
+          }
+        };
 
         const roles = member.roles.cache
           .sort((a, b) => b.position - a.position)
@@ -123,7 +137,16 @@ module.exports = {
           .setTitle(`Info on ${user.username}`)
           .setColor(member.displayHexColor || "BLUE")
           .addField("User", `${userArray.join("\n")}`)
-          .addField("Member", `${memberArray.join("\n")}`);
+          .addField("Member", `${memberArray.join("\n")}`)
+          .addField(
+            "Acknowledgements",
+            `${returnStaffEmotes("admin")}${
+              returnStaffEmotes("admin").includes(`${emojis.admin}`) &&
+              returnStaffEmotes("owner").includes(`${emojis.owner}`)
+                ? "\n"
+                : ""
+            }${returnStaffEmotes("owner")}`
+          );
         await interaction.followUp({
           embeds: [embed],
         });

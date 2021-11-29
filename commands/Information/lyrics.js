@@ -46,8 +46,10 @@ module.exports = {
             data.title
           }** (with cancerous being \`${lyrics_are_cancerous}\`) are too long to be shown on Discord, please go [here](${
             data.links.genius
-          }) to see the full lyrics ${
-            lyrics_are_cancerous == true ? `(without the cancerous lyrics)` : ""
+          }) to see the full lyrics${
+            lyrics_are_cancerous == true
+              ? ` (without the cancerous lyrics)`
+              : ""
           }.`
         );
       return await interaction.editReply({

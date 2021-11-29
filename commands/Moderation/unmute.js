@@ -18,6 +18,12 @@ module.exports = {
         .setName("mute_role")
         .setDescription("Select your muted role")
         .setRequired(true)
+    )
+    .addRoleOption((option) =>
+      option
+        .setName("member_role")
+        .setDescription("Your member role")
+        .setRequired(true)
     ),
   config: {
     timeout: ms("20s"),
@@ -39,6 +45,7 @@ module.exports = {
     var user = interaction.options.getUser("member");
     var member = interaction.options.getMember("member");
     var muted_role = interaction.options.getRole("mute_role");
+    var member_role = interaction.options.getRole("member_role");
 
     if (user.id == interaction.user.id)
       return await interaction.editReply({
@@ -52,6 +59,7 @@ module.exports = {
       });
 
     await member.roles.remove(muted_role);
+    await member.roles.add(member_role);
     await interaction.editReply({
       content: "Unmuted that member!",
       ephemeral: true,

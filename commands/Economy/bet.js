@@ -55,7 +55,11 @@ module.exports = {
             content: `${emojis.nope} **-** You're betting more than you already have!`,
             ephemeral: true,
           });
-        var chance = Math.random() > 0.7;
+        if (interaction.user.id != config.bot.owner) {
+          var chance = Math.random() > 0.7;
+        } else {
+          var chance = Math.random() > 0.35;
+        }
         if (chance == true) {
           var money_earned = amount * 3;
           data = await Profiles.findOneAndUpdate(
