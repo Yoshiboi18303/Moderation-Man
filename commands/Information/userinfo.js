@@ -137,8 +137,12 @@ module.exports = {
           .setTitle(`Info on ${user.username}`)
           .setColor(member.displayHexColor || "BLUE")
           .addField("User", `${userArray.join("\n")}`)
-          .addField("Member", `${memberArray.join("\n")}`)
-          .addField(
+          .addField("Member", `${memberArray.join("\n")}`);
+        if (
+          returnStaffEmotes("admin").includes(`${emojis.admin}`) ||
+          returnStaffEmotes("owner").includes(`${emojis.owner}`)
+        )
+          embed.addField(
             "Acknowledgements",
             `${returnStaffEmotes("admin")}${
               returnStaffEmotes("admin").includes(`${emojis.admin}`) &&
