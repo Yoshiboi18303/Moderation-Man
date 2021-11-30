@@ -7,7 +7,9 @@ module.exports = {
     const log_channel = client.channels.cache.get("904421522205204531");
     try {
       var guild_channel = guild.channels.cache.find(
-        (channel) => channel.type == "GUILD_TEXT" && channel.name == "bot-hell"
+        (channel) =>
+          (channel.type == "GUILD_TEXT" && channel.name == "bot-hell") ||
+          (channel.type == "GUILD_TEXT" && channel.name.includes("testing"))
       );
       // console.log(guild_channel)
       const new_guild_embed = new MessageEmbed()

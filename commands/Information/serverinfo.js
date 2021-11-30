@@ -2,6 +2,38 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 const { utc } = require("moment");
 
+const feature_flags = {
+  ANIMATED_ICON: "Has An Animated Icon",
+  BANNER: "Has a Banner Image",
+  COMMERCE: "Has Commerce",
+  COMMUNITY: "Is A Community Server",
+  DISCOVERABLE: "Is A Discoverable Server",
+  FEATURABLE: "Is Featurable",
+  INVITE_SPLASH: "Has An Invite Splash",
+  MEMBER_VERIFICATION_GATE_ENABLED: "Has Membership Screening",
+  NEWS: "Has News",
+  PARTNERED: "Is Partnered With Discord",
+  PREVIEW_ENABLED: "Has A Preview",
+  VANITY_URL: "Has A Vanity URL",
+  VERIFIED: "Is A Verified Server",
+  VIP_REGIONS: "Has VIP Regions",
+  WELCOME_SCREEN_ENABLED: "Has A Welcome Screen",
+  TICKETED_EVENTS_ENABLED: "Has Ticketed Events",
+  MONETIZATION_ENABLED: "Has Monetization",
+  MORE_STICKERS: "Has Extra Stickers",
+  THREE_DAY_THREAD_ARCHIVE: "Has 3 Day Thread Archive Allowed",
+  SEVEN_DAY_THREAD_ARCHIVE: "Has 3 Day Thread Archive Allowed",
+  PRIVATE_THREADS: "Has Private Threads Allowed",
+  ROLE_ICONS: "Has Role Icons",
+};
+
+const boost_levels = {
+  NONE: "0",
+  TIER_1: "1",
+  TIER_2: "2",
+  TIER_3: "3",
+};
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("serverinfo")
@@ -15,7 +47,7 @@ module.exports = {
     var guild = interaction.guild;
     var member = interaction.member;
 
-    if (!guild.available)
+    if (!guild.available || guild.available == false)
       return await interaction.reply({
         content:
           "The Discord servers are down, so I can't access the info of this guild.",
@@ -29,6 +61,18 @@ module.exports = {
     if (member.displayHexColor == "#000000") color = "RANDOM";
     else color = member.displayHexColor;
 
+    const returnRecent15FeatureFlags = () => {
+      var final = [];
+      for (var feature of guild.features) {
+        var push = feature_flags[feature];
+        final.push(push);
+      }
+      if (final.length > 15) {
+        final.splice(15, final.length - 15);
+      }
+      return final.join(", ");
+    };
+
     const serverinfo_embed = new MessageEmbed()
       .setColor(color)
       .setTitle(`Info on ${guild.name}`)
@@ -41,11 +85,6 @@ module.exports = {
         {
           name: "AFK Timeout",
           value: `${guild.afkTimeout}ms`,
-          inline: true,
-        },
-        {
-          name: "Ban Count",
-          value: `${guild.bans.cache.size}`,
           inline: true,
         },
         {
@@ -72,6 +111,20 @@ module.exports = {
           name: "Owner",
           value: `${client.users.cache.get(guild.ownerId).username}`,
           inline: true,
+        },
+        {
+          name: "Boost Level",
+          value: `${boost_levels[guild.premiumTier]}`,
+          inline: true,
+        },
+        {
+          name: "Boosts",
+          value: `${guild.premiumSubscriptionCount}`,
+          inline: true,
+        },
+        {
+          name: "Features",
+          value: `${returnRecent15FeatureFlags()}`,
         },
       ]);
     await interaction.editReply({

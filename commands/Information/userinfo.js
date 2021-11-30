@@ -81,6 +81,40 @@ module.exports = {
           }
         };
 
+        const returnBughunterState = () => {
+          var final = "";
+          var level = data.bughunterlvl;
+          switch (level) {
+            case 0:
+              final = "0 / None";
+              break;
+            case 1:
+              final = `${emojis.bughunterlvl1} ||**Level 1**||`;
+              break;
+            case 2:
+              final = `${emojis.bughunterlvl2} ||**Level 2**||`;
+              break;
+          }
+          return final;
+        };
+
+        const returnBughunterEmoji = () => {
+          var final = "";
+          var level = data.bughunterlvl
+          switch (level) {
+            case 0:
+              final = final;
+              break;
+            case 1:
+              final = `${emojis.bughunterlvl1}`
+              break;
+            case 2:
+              final = `${emojis.bughunterlvl2}`
+              break;
+          }
+          return final;
+        }
+
         const roles = member.roles.cache
           .sort((a, b) => b.position - a.position)
           .map((role) => role.toString())
@@ -106,6 +140,7 @@ module.exports = {
             user.createdTimestamp
           ).fromNow()}`,
           `**❯ Commands Used:** ${data.commandsUsed}`,
+          `**❯ Bug Hunter Level:** ${returnBughunterState()}`,
           `\u200b`,
         ];
         const memberArray = [
@@ -149,7 +184,12 @@ module.exports = {
               returnStaffEmotes("owner").includes(`${emojis.owner}`)
                 ? "\n"
                 : ""
-            }${returnStaffEmotes("owner")}`
+            }${returnStaffEmotes("owner")}${
+              returnStaffEmotes("admin").includes(`${emojis.admin}`) &&
+              returnStaffEmotes("owner").includes(`${emojis.owner}`)
+                ? "\n"
+                : ""
+            }${data.foundbug == true ? `${returnBughunterEmoji()} ||**Bug Hunter**||` : ""}`
           );
         await interaction.followUp({
           embeds: [embed],

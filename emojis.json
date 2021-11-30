@@ -14,6 +14,8 @@
   "exit": "<a:out:909881421533941820>",
   "admin": "<a:admin:914667493379936286>",
   "owner": "<a:owner:914668033245601812>",
+  "bughunterlvl1": "<:bughunter_l1:915046446506582027>",
+  "bughunterlvl2": "<:bughunter_l2:915049317880954941>",
   "default": {
     "green": "🟢",
     "blue": "🔵",
