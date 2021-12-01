@@ -10,6 +10,7 @@ const { MessageEmbed, WebhookClient } = require("discord.js");
 const ms = require("ms");
 const { Webhook: WH } = require("infinity-bots");
 const iblwh = new WH(process.env.IBL_WEBHOOK_AUTH);
+const cookieParser = require("cookie-parser")
 
 const passport = require("passport");
 const passportDiscord = require("passport-discord");
@@ -51,6 +52,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(cookieParser())
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -98,6 +100,7 @@ app.use("/static", express.static("website/static"));
 
 app.use("/login", require("./routes/login"));
 app.use("/servers", require("./routes/servers"));
+// app.use("/cookies", require("./routes/cookies"));
 
 app.get(["/", "/home"], (req, res) => {
   var link = client.generateInvite({

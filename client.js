@@ -38,8 +38,8 @@ global.MessageEmbed = require("discord.js").MessageEmbed;
 global.voteRewards = ["Voice Moderation logs (soon)"];
 global.admins = [
   "482326304381730826",
-  "697414293712273408",
   "738988218002964581",
+  config.bot.owner,
 ];
 global.c = require("colors");
 global.BotError = require("./items/classes/BotError");

@@ -5,7 +5,7 @@ const {
   MessageActionRow,
   MessageSelectMenu,
 } = require("discord.js");
-const Channels = require("../../schemas/channelSchema");
+// const Channels = require("../../schemas/channelSchema");
 const colors = require("../../colors.json");
 
 module.exports = {
@@ -34,6 +34,9 @@ module.exports = {
         content: "You don't have the `MANAGE_CHANNELS` permission!",
         ephemeral: true,
       });
+    return await interaction.reply({
+      content: "Coming Soon!"
+    })
     var message =
       interaction.options.getString("message") ||
       "Click on an option in the dropdown to add/remove a role!";

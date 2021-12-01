@@ -77,7 +77,7 @@ module.exports = {
       try {
         Profiles.findOne({ id: interaction.user.id }, async (err, data) => {
           await collection.first()?.deferUpdate();
-          var winning_money = Math.floor(Math.random() * 350) + 7;
+          var winning_money = Math.floor(Math.random() * ((number_thought_of / 2) * 3)) + 7;
           if (err) throw err;
           if (!data) {
             const no_data_embed = new MessageEmbed()

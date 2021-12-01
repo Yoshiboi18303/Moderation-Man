@@ -21,7 +21,10 @@ const userSchema = Schema({
   voted: opBool,
   vote_timeout: opNum,
   dmable: opBool,
-  commandsUsed: opNum,
+  commandsUsed: {
+    type: Number,
+    default: 1,
+  },
   admin: opBool,
   owner: opBool,
   foundbug: opBool,

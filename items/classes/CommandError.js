@@ -18,6 +18,6 @@ module.exports = class CommandError extends Error {
     var starting_text = "MM-COMMAND-ERROR:".red;
 
     // Assuming everything is good, send a error in the console.
-    return console.error(`${starting_text} ${this.error_text}`, this.error);
+    return console.error(`${starting_text} ${this.error_text}\n`, this.error);
   }
 };

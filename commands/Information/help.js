@@ -235,7 +235,7 @@ module.exports = {
             },
             {
               name: "Usage",
-              value: `/${data.name} ${returnCommandOptions()}`,
+              value: `${data.options.length <= 0 ? `\`/${data.name}\`` : `/${data.name}`} ${returnCommandOptions()}`,
               inline: true,
             },
           ])

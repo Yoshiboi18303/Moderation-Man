@@ -100,20 +100,20 @@ module.exports = {
 
         const returnBughunterEmoji = () => {
           var final = "";
-          var level = data.bughunterlvl
+          var level = data.bughunterlvl;
           switch (level) {
             case 0:
               final = final;
               break;
             case 1:
-              final = `${emojis.bughunterlvl1}`
+              final = `${emojis.bughunterlvl1}`;
               break;
             case 2:
-              final = `${emojis.bughunterlvl2}`
+              final = `${emojis.bughunterlvl2}`;
               break;
           }
           return final;
-        }
+        };
 
         const roles = member.roles.cache
           .sort((a, b) => b.position - a.position)
@@ -189,7 +189,11 @@ module.exports = {
               returnStaffEmotes("owner").includes(`${emojis.owner}`)
                 ? "\n"
                 : ""
-            }${data.foundbug == true ? `${returnBughunterEmoji()} ||**Bug Hunter**||` : ""}`
+            }${
+              data.foundbug == true
+                ? `${returnBughunterEmoji()} ||**Bug Hunter**||`
+                : ""
+            }`
           );
         await interaction.followUp({
           embeds: [embed],

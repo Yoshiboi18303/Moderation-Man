@@ -108,7 +108,7 @@ module.exports = {
         collector.on("end", async (collection) => {
           await collection.first()?.deferUpdate();
           var chance = Math.random() > 0.5;
-          var random_coins = Math.floor(Math.random() * 400) + 5;
+          var random_coins = Math.floor((Math.random() * 400) / 2.2) + 5;
           if (collection.first()?.customId == "first-place") {
             var disabled_row = new MessageActionRow().addComponents(
               new MessageButton()

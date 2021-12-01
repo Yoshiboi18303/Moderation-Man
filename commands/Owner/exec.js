@@ -48,6 +48,10 @@ module.exports = {
       process.env.WEBHOOK_AUTH,
     ];
     // var secret_included = false;
+    if (cmd == "speedtest")
+      return await interaction.editReply({
+        content: "There's a command for that already! `/speedtest`"
+      });
     let output = shell.exec(cmd);
     if (output == "" && output.stderr != "") {
       output = `${output.stderr}`;

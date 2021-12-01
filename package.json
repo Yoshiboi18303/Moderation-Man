@@ -21,6 +21,7 @@
     "canvacord": "^5.2.3",
     "colors": "^1.4.0",
     "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
     "discord-api-types": "^0.24.0",
     "discord-giveaways": "^5.0.1",
     "discord.js": "^13.4.0-dev.1635552294.761a901",

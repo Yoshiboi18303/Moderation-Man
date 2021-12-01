@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+  <%- include('includes/head', { title: "Bad Authentication" }) %>
+</head>
+<body>
+  <h1>
+    403; Bad Authentication
+  </h1>
+  <p>
+    You are not one of the admins of the bot to see this page!
+  </p>
+  <br>
+  <p>
+    The current admins of the bot are
+  </p>
+  <br>
+  <p>
+    <% for(var admin of admins) { %>
+      <% client.users.cache.get(admin).username %>
+    <% } %>
+  </p>
+</body>
+</html>
