@@ -35,8 +35,8 @@ module.exports = {
         ephemeral: true,
       });
     return await interaction.reply({
-      content: "Coming Soon!"
-    })
+      content: "Coming Soon!",
+    });
     var message =
       interaction.options.getString("message") ||
       "Click on an option in the dropdown to add/remove a role!";

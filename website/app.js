@@ -10,7 +10,7 @@ const { MessageEmbed, WebhookClient } = require("discord.js");
 const ms = require("ms");
 const { Webhook: WH } = require("infinity-bots");
 const iblwh = new WH(process.env.IBL_WEBHOOK_AUTH);
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 
 const passport = require("passport");
 const passportDiscord = require("passport-discord");

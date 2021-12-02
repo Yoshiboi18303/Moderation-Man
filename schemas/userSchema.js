@@ -30,6 +30,8 @@ const userSchema = Schema({
   foundbug: opBool,
   bughunterlvl: opNum,
   reportedbugs: opNum,
+  suggestionssent: opNum,
+  acceptedsuggestion: opBool,
 });
 
 module.exports = model("users", userSchema);

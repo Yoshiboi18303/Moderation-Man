@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Suggestions = require("../../schemas/suggestionSchema");
+const Users = require("../../schemas/userSchema");
 const { MessageEmbed } = require("discord.js");
 const wait = require("util").promisify(setTimeout);
 
@@ -46,55 +47,67 @@ module.exports = {
           ephemeral: true,
         });
       } else {
-        var message = await channel.messages.cache.get(data.embed);
         var suggestor = client.users.cache.get(data.suggestor);
-        var suggestion = data.suggestion;
-        const accepted_embed = new MessageEmbed()
-          .setColor(colors.green)
-          .setTitle("Yay!")
-          .setDescription(
-            `${emojis.yay} **-** Your suggestion "${suggestion}" got accepted by **${interaction.user.username}**`
-          );
-        const new_embed = new MessageEmbed()
-          .setColor(colors.green)
-          .setTitle("New Suggestion (accepted)")
-          .addFields([
-            {
-              name: "Suggestion",
-              value: `${suggestion}`,
-              inline: true,
-            },
-            {
-              name: "Acceptor",
-              value: `${interaction.user.username}`,
-              inline: true,
-            },
-          ]);
-        try {
-          await suggestor.send({
-            embeds: [accepted_embed],
+        Users.findOne({ id: suggestor.id }, async (e, udata) => {
+          if (e) throw e;
+          var message = await channel.messages.cache.get(data.embed);
+          var suggestion = data.suggestion;
+          const accepted_embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setTitle("Yay!")
+            .setDescription(
+              `${emojis.yay} **-** Your suggestion "${suggestion}" got accepted by **${interaction.user.username}**`
+            );
+          const new_embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setTitle("New Suggestion (accepted)")
+            .addFields([
+              {
+                name: "Suggestion",
+                value: `${suggestion}`,
+                inline: true,
+              },
+              {
+                name: "Acceptor",
+                value: `${interaction.user.username}`,
+                inline: true,
+              },
+            ]);
+          try {
+            await suggestor.send({
+              embeds: [accepted_embed],
+            });
+          } catch (err) {
+            await interaction.editReply({
+              content:
+                "I can't send a DM to the suggestor, so I'm just gonna accept the suggestion.",
+            });
+          }
+          await message.edit({
+            embeds: [new_embed],
           });
-        } catch (err) {
+          await wait(5000);
+          const done_embed = new MessageEmbed()
+            .setColor(colors.green)
+            .setTitle("Finished")
+            .setDescription(
+              `Successfully accepted suggestion with the ID of **${id}**!`
+            )
+            .setTimestamp();
           await interaction.editReply({
-            content:
-              "I can't send a DM to the suggestor, so I'm just gonna accept the suggestion.",
+            embeds: [done_embed],
           });
-        }
-        await message.edit({
-          embeds: [new_embed],
+          udata = await Users.findOneAndUpdate(
+            {
+              id: suggestor.id,
+            },
+            {
+              acceptedsuggestion: true,
+            }
+          );
+          udata.save();
+          await Suggestions.findOneAndDelete({ id: id });
         });
-        await wait(5000);
-        const done_embed = new MessageEmbed()
-          .setColor(colors.green)
-          .setTitle("Finished")
-          .setDescription(
-            `Successfully accepted suggestion with the ID of **${id}**!`
-          )
-          .setTimestamp();
-        await interaction.editReply({
-          embeds: [done_embed],
-        });
-        await Suggestions.findOneAndDelete({ id: id });
       }
     });
   },

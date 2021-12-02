@@ -36,11 +36,7 @@ global.colors = require("./colors.json");
 global.config = require("./config.json");
 global.MessageEmbed = require("discord.js").MessageEmbed;
 global.voteRewards = ["Voice Moderation logs (soon)"];
-global.admins = [
-  "482326304381730826",
-  "738988218002964581",
-  config.bot.owner,
-];
+global.admins = ["482326304381730826", "738988218002964581", config.bot.owner];
 global.c = require("colors");
 global.BotError = require("./items/classes/BotError");
 global.CommandError = require("./items/classes/CommandError");

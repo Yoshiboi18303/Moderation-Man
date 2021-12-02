@@ -259,7 +259,7 @@ module.exports = {
     );
     const statuses = [
       `${client.guilds.cache.get("892603177248096306").name}`,
-      `${client.users.cache.size} Users`,
+      `${await client.users.cache.size} Users`,
       `discord.js v13`,
       `Coded by ${client.users.cache.get("697414293712273408").tag}`,
       `${client.guilds.cache.size} Guilds`,
@@ -331,7 +331,7 @@ module.exports = {
       status += " | /help";
       var type = status_types[Math.floor(Math.random() * status_types.length)];
       client.user.setActivity(`${status}`, {
-        type: type,
+        type,
       });
     }, 10000);
     client.stats.on("post", (status) => {

@@ -3,6 +3,7 @@ const { MessageEmbed } = require("discord.js");
 const hold = require("util").promisify(setTimeout);
 const { yes, wait } = require("../../emojis.json");
 const Suggestion = require("../../schemas/suggestionSchema");
+const Users = require("../../schemas/userSchema");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -82,5 +83,19 @@ module.exports = {
       embed: sent.id,
     });
     data.save();
+    Users.findOne({ id: interaction.user.id }, async (err, udata) => {
+      if (err) throw err;
+      udata = await Users.findOneAndUpdate(
+        {
+          id: interaction.user.id,
+        },
+        {
+          $inc: {
+            suggestionssent: 1,
+          },
+        }
+      );
+      udata.save();
+    });
   },
 };

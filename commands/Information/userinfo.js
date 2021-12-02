@@ -115,6 +115,17 @@ module.exports = {
           return final;
         };
 
+        const returnIfSuggestionAccepted = () => {
+          var final = "";
+          var one_sug_accept = data.acceptedsuggestion;
+          if (one_sug_accept || one_sug_accept == true) {
+            final = `${emojis.suggestion} ||**Suggestor**||`;
+          }
+          return final;
+        };
+
+        console.log(returnIfSuggestionAccepted());
+
         const roles = member.roles.cache
           .sort((a, b) => b.position - a.position)
           .map((role) => role.toString())
@@ -192,6 +203,10 @@ module.exports = {
             }${
               data.foundbug == true
                 ? `${returnBughunterEmoji()} ||**Bug Hunter**||`
+                : ""
+            }\n${
+              returnIfSuggestionAccepted().includes(`${emojis.suggestion}`)
+                ? `${returnIfSuggestionAccepted()}`
                 : ""
             }`
           );
