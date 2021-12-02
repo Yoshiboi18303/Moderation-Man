@@ -61,7 +61,7 @@ module.exports = {
       if (
         guild.me
           .permissionsIn(guild_channel)
-          .has(Permissions.FLAGS.SEND_MESSAGES)
+          .has(Permissions.FLAGS.VIEW_CHANNEL && Permissions.FLAGS.SEND_MESSAGES)
       ) {
         await guild_channel.send({
           embeds: [added_embed],
