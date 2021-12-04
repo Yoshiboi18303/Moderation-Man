@@ -184,14 +184,15 @@ module.exports = {
       /*
       if(interaction.guild.id != config.bot.testServerId) return await interaction.editReply({ content: `This part of the help command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!`, ephemeral: true })
       */
-      var cmd = client.commands.get(command);
+      var lower_cmd = command.toLowerCase();
+      var cmd = client.commands.get(lower_cmd);
       if (cmd == undefined || typeof cmd == "undefined") {
         const bad_cmd_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("No Command Found")
           .setDescription(
-            `There was no command found for **${command}**.${
-              command.includes("/")
+            `There was no command found for **${lower_cmd}**.${
+              lower_cmd.includes("/")
                 ? " \n\n**Tip: Don't include the `/` for a slash command.**"
                 : ""
             }`

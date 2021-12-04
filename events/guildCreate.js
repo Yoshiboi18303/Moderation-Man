@@ -19,12 +19,12 @@ module.exports = {
         .addFields([
           {
             name: "Guild Name",
-            value: `${guild.name}`,
+            value: `${guild.available || guild.available == true ? guild.name : "Can't fetch name"}`,
             inline: true,
           },
           {
             name: "Guild Member Count",
-            value: `${guild.memberCount}`,
+            value: `${guild.available || guild.available == true ? guild.memberCount : "Can't fetch member count"}`,
             inline: true,
           },
         ]);

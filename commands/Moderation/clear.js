@@ -36,6 +36,7 @@ module.exports = {
       return await interaction.reply(
         "You can only purge 100 messages at a time!"
       );
+    if(number_to_delete <= 0) return await interaction.reply({ content: "You need to delete at least 1 message!" })
     interaction.channel.bulkDelete(number_to_delete).then(async () => {
       await interaction.reply(
         `Purged ${number_to_delete} messages from <#${interaction.channel.id}>!`

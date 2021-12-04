@@ -73,24 +73,35 @@ module.exports = {
               .setColor(colors.red)
               .setTitle("Error")
               .setDescription(
-                `An error occured trying to execute **${command.data.name}**...\n\n\`\`\`js\n${e}\n\`\`\``
+                `An error occurred trying to execute **${command.data.name}** in **${interaction.guild.name}**...\n\n\`\`\`js\n${e}\n\`\`\``
               );
             await channel.send({
               content: `<@&904429332582240266>`,
               embeds: [error_embed],
             });
+            const sent_err_embed = new MessageEmbed()
+              .setColor(colors.red)
+              .setTitle(`Error Occurred! ${emojis.warn}`)
+              .setDescription(`\`${e}\``)
+              .addFields([
+                {
+                  name: "Command",
+                  value: `${command.data.name}`,
+                },
+                {
+                  name: "Server",
+                  value: `${interaction.guild.name}`
+                }
+              ])
+              .setFooter(`This error was also sent to ${client.guilds.cache.get(config.bot.testServerId).name}!`)
+            var options = {
+              embeds: [sent_err_embed],
+              ephemeral: true
+            }
             if (interaction.replied || interaction.deferred) {
-              return interaction.editReply({
-                content:
-                  "There was an error executing this command! This has been reported to the developer(s).",
-                ephemeral: true,
-              });
+              return interaction.editReply(options);
             } else {
-              return interaction.reply({
-                content:
-                  "There was an error executing this command! This has been reported to the developer(s).",
-                ephemeral: true,
-              });
+              return interaction.reply(options);
             }
           }
           data = await Users.findOneAndUpdate(

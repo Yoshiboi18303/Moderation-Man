@@ -61,7 +61,6 @@ global.Log = require("./utils/logger");
 
 client.commands = new Collection();
 client.events = new Collection();
-client.classes = new Collection();
 client.mongoEvents = new Collection();
 client.stats = statcord;
 client.autoposter = ap;

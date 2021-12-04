@@ -27,7 +27,7 @@ module.exports = {
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("Choose a user to look for")
+        .setDescription("The user to reference")
         .setRequired(false)
     ),
   config: {

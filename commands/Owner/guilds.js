@@ -16,7 +16,7 @@ module.exports = {
         ephemeral: true,
       });
     var guilds_map = client.guilds.cache.map(
-      (g) => `**${g.name}** => ${g.memberCount} members`
+      (g) => `${g.name} => ${g.memberCount} Members, created ${moment.utc(g.createdTimestamp).fromNow()}`
     );
     const embed = new MessageEmbed()
       .setColor("RANDOM")

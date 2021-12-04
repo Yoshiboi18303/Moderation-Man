@@ -6,7 +6,7 @@ A bot made for a safer Discord server
 
 # About
 
-**Moderation Man** is a bot made by Yoshiboi18303#4045 just for Burn's server, but decided to turn into a public bot!
+**Moderation Man** is a bot made by [Yoshiboi18303](https://discord.com/users/697414293712273408) just for Burn's server, but decided to turn into a public bot!
 
 ---
 
