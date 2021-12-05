@@ -51,8 +51,7 @@ module.exports = {
           cmds_used = data.commandsUsed;
           var bl = data.blacklisted;
           console.log("Updating a document...");
-          try {
-            if (bl == true) {
+          if (bl == true) {
               const blacklisted_embed = new MessageEmbed()
                 .setColor(colors.red)
                 .setTitle("Error")
@@ -63,6 +62,7 @@ module.exports = {
                 embeds: [blacklisted_embed],
               });
             }
+          try {
             await command.execute(interaction);
           } catch (e) {
             new CommandError(

@@ -1,7 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const figlet = require("figlet");
-const { promisify } = require("util");
-const figletAsync = promisify(figlet);
+const figletAsync = require("util").promisify(figlet);
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
