@@ -19,12 +19,20 @@ module.exports = {
         .addFields([
           {
             name: "Guild Name",
-            value: `${guild.available || guild.available == true ? guild.name : "Can't fetch name"}`,
+            value: `${
+              guild.available || guild.available == true
+                ? guild.name
+                : "Can't fetch name"
+            }`,
             inline: true,
           },
           {
             name: "Guild Member Count",
-            value: `${guild.available || guild.available == true ? guild.memberCount : "Can't fetch member count"}`,
+            value: `${
+              guild.available || guild.available == true
+                ? guild.memberCount
+                : "Can't fetch member count"
+            }`,
             inline: true,
           },
         ]);
@@ -61,7 +69,9 @@ module.exports = {
       if (
         guild.me
           .permissionsIn(guild_channel)
-          .has(Permissions.FLAGS.VIEW_CHANNEL && Permissions.FLAGS.SEND_MESSAGES)
+          .has(
+            Permissions.FLAGS.VIEW_CHANNEL && Permissions.FLAGS.SEND_MESSAGES
+          )
       ) {
         await guild_channel.send({
           embeds: [added_embed],

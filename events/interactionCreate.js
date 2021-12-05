@@ -52,16 +52,16 @@ module.exports = {
           var bl = data.blacklisted;
           console.log("Updating a document...");
           if (bl == true) {
-              const blacklisted_embed = new MessageEmbed()
-                .setColor(colors.red)
-                .setTitle("Error")
-                .setDescription(
-                  `You are blacklisted from using **${client.user.username}**!`
-                );
-              return await interaction.reply({
-                embeds: [blacklisted_embed],
-              });
-            }
+            const blacklisted_embed = new MessageEmbed()
+              .setColor(colors.red)
+              .setTitle("Error")
+              .setDescription(
+                `You are blacklisted from using **${client.user.username}**!`
+              );
+            return await interaction.reply({
+              embeds: [blacklisted_embed],
+            });
+          }
           try {
             await command.execute(interaction);
           } catch (e) {
@@ -90,14 +90,18 @@ module.exports = {
                 },
                 {
                   name: "Server",
-                  value: `${interaction.guild.name}`
-                }
+                  value: `${interaction.guild.name}`,
+                },
               ])
-              .setFooter(`This error was also sent to ${client.guilds.cache.get(config.bot.testServerId).name}!`)
+              .setFooter(
+                `This error was also sent to ${
+                  client.guilds.cache.get(config.bot.testServerId).name
+                }!`
+              );
             var options = {
               embeds: [sent_err_embed],
-              ephemeral: true
-            }
+              ephemeral: true,
+            };
             if (interaction.replied || interaction.deferred) {
               return interaction.editReply(options);
             } else {

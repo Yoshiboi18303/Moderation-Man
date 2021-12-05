@@ -409,7 +409,7 @@ module.exports = {
                   .setStyle("SECONDARY")
                   .setLabel("Warn")
                   .setCustomId("case-response-warn")
-                  .setEmoji("⚠"),
+                  .setEmoji("⚠")
                 /*
                 new MessageButton()
                   .setStyle("SECONDARY")
@@ -466,21 +466,23 @@ module.exports = {
                     }
                   );
                   data.save();
-                } else if(collection.first()?.customId == "case-hint") {
-                  if(c == cases[0] || c == cases[4]) {
+                } else if (collection.first()?.customId == "case-hint") {
+                  if (c == cases[0] || c == cases[4]) {
                     const hint_embed = new MessageEmbed()
                       .setColor(colors.cyan)
                       .setTitle("Here's a Hint")
-                      .setDescription("The current moderation actions go in this order: `Warn`, `Mute`, `Kick`, then `Ban`\n\n**Hope that helped you!**")
+                      .setDescription(
+                        "The current moderation actions go in this order: `Warn`, `Mute`, `Kick`, then `Ban`\n\n**Hope that helped you!**"
+                      );
                     await interaction.followUp({
                       embeds: [hint_embed],
-                      ephemeral: true
-                    })
+                      ephemeral: true,
+                    });
                   } else {
                     await interaction.followUp({
                       content: "You don't need a hint for this.",
-                      ephemeral: true
-                    })
+                      ephemeral: true,
+                    });
                   }
                 } else {
                   const incorrect_embed = new MessageEmbed()

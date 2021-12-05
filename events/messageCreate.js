@@ -20,55 +20,73 @@ module.exports = {
           `Hello ${message.author.username}, I see you have mentioned me.\nAre you lost? Check all my commands by starting with \`/help\`!`
         );
       await message.reply({ embeds: [embed] });
-    } else if(message.mentions.members.first() && message.mentions.members.first() != message.guild.me) {
+    } else if (
+      message.mentions.members.first() &&
+      message.mentions.members.first() != message.guild.me
+    ) {
       var member = message.mentions.members.first();
-      AFKUsers.findOne({
-        user: member.user.id
-      }, async (err, data) => {
-        if(err) throw err;
-        if(!data) {
-          return;
-        } else {
-          if(data.message != "" && data.user != message.author.id) {
-            const user_is_afk_embed = new MessageEmbed()
-              .setColor(colors.yellow)
-              .setTitle("User Is AFK")
-              .setDescription(`<@${data.user}> is AFK currently for "**${data.message}**"`)
-              .setTimestamp()
-            await message.reply({
-              embeds: [user_is_afk_embed]
-            })
+      AFKUsers.findOne(
+        {
+          user: member.user.id,
+        },
+        async (err, data) => {
+          if (err) throw err;
+          if (!data) {
+            return;
+          } else {
+            if (data.message != "" && data.user != message.author.id) {
+              const user_is_afk_embed = new MessageEmbed()
+                .setColor(colors.yellow)
+                .setTitle("User Is AFK")
+                .setDescription(
+                  `<@${data.user}> is AFK currently for "**${data.message}**"`
+                )
+                .setTimestamp();
+              await message.reply({
+                embeds: [user_is_afk_embed],
+              });
+            }
           }
         }
-      })
-    } else if(!message.mentions.members.first() && message.author.id === message.author.id) {
-      AFKUsers.findOne({
-        user: message.author.id
-      }, async (err, data) => {
-        if(err) throw err;
-        if(!data) {
-          return;
-        } else {
-          if(data.message != "") {
-            const wb_embed = new MessageEmbed()
-              .setColor(colors.blue)
-              .setTitle("Welcome Back!")
-              .setDescription(`Hello and welcome back <@${message.author.id}>, I have removed your AFK.`)
-              .setTimestamp()
-            data = await AFKUsers.findOneAndUpdate({
-              user: message.author.id
-            },
-            {
-              message: ""
-            })
-            data.save()
-            var msg = await message.reply({
-              embeds: [wb_embed]
-            })
-            await wait(15000).then(async () => await msg.delete())
+      );
+    } else if (
+      !message.mentions.members.first() &&
+      message.author.id === message.author.id
+    ) {
+      AFKUsers.findOne(
+        {
+          user: message.author.id,
+        },
+        async (err, data) => {
+          if (err) throw err;
+          if (!data) {
+            return;
+          } else {
+            if (data.message != "") {
+              const wb_embed = new MessageEmbed()
+                .setColor(colors.blue)
+                .setTitle("Welcome Back!")
+                .setDescription(
+                  `Hello and welcome back <@${message.author.id}>, I have removed your AFK.`
+                )
+                .setTimestamp();
+              data = await AFKUsers.findOneAndUpdate(
+                {
+                  user: message.author.id,
+                },
+                {
+                  message: "",
+                }
+              );
+              data.save();
+              var msg = await message.reply({
+                embeds: [wb_embed],
+              });
+              await wait(15000).then(async () => await msg.delete());
+            }
           }
         }
-      })
+      );
     }
     /*
     for(const [id, cmd] of client.commands) {

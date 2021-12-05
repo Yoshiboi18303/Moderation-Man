@@ -2,15 +2,15 @@ const { Schema, model } = require("mongoose");
 
 const reqString = {
   type: String,
-  required: true
-}
+  required: true,
+};
 
 const afkSchema = Schema({
   user: reqString,
   message: {
     type: String,
-    default: ""
-  }
-})
+    default: "",
+  },
+});
 
-module.exports = model("afk-users", afkSchema)
+module.exports = model("afk-users", afkSchema);
