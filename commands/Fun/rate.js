@@ -18,13 +18,13 @@ module.exports = {
   async execute(interaction) {
     var content = interaction.options.getString("content");
 
+    var rating = Math.floor(Math.random() * 11)
+
     const rated_embed = new MessageEmbed()
       .setColor(hexColor)
       .setTitle(`${client.user.username} Rating!`)
       .setDescription(
-        `${client.user.username}: "I rate ${content} a ${Math.floor(
-          Math.random() * 11
-        )}/10."`
+        `${client.user.username}: "I rate ${content} a ${rating}/10."`
       )
       .setFooter(
         `${interaction.user.username} requested this.`,

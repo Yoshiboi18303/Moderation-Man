@@ -122,9 +122,14 @@ module.exports = {
             final = `${emojis.suggestion} ||**Suggestor**||`;
           }
           return final;
-        };
+        }
 
-        console.log(returnIfSuggestionAccepted());
+        function returnIfWellKnownFriend() {
+          var final = ""
+          var wk_friend = data.wellknownfriend;
+          if(wk_friend || wk_friend === true) final = `${emojis.wkfriend} ||**Well Known Friend To Developer**||`
+          return final;
+        }
 
         const roles = member.roles.cache
           .sort((a, b) => b.position - a.position)
@@ -183,12 +188,8 @@ module.exports = {
           .setTitle(`Info on ${user.username}`)
           .setColor(member.displayHexColor || "BLUE")
           .addField("User", `${userArray.join("\n")}`)
-          .addField("Member", `${memberArray.join("\n")}`);
-        if (
-          returnStaffEmotes("admin").includes(`${emojis.admin}`) ||
-          returnStaffEmotes("owner").includes(`${emojis.owner}`)
-        )
-          embed.addField(
+          .addField("Member", `${memberArray.join("\n")}`)
+          .addField(
             "Acknowledgements",
             `${returnStaffEmotes("admin")}${
               returnStaffEmotes("admin").includes(`${emojis.admin}`) &&
@@ -208,7 +209,7 @@ module.exports = {
               returnIfSuggestionAccepted().includes(`${emojis.suggestion}`)
                 ? `${returnIfSuggestionAccepted()}`
                 : ""
-            }`
+            }\n${returnIfWellKnownFriend()}`
           );
         await interaction.followUp({
           embeds: [embed],

@@ -32,6 +32,7 @@ const userSchema = Schema({
   reportedbugs: opNum,
   suggestionssent: opNum,
   acceptedsuggestion: opBool,
+  wellknownfriend: opBool,
 });
 
 module.exports = model("users", userSchema);
