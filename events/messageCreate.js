@@ -21,7 +21,8 @@ module.exports = {
         );
       await message.reply({ embeds: [embed] });
     } else if (
-      message.channel.type != "DM" && message.mentions.members.first() &&
+      message.channel.type != "DM" &&
+      message.mentions.members.first() &&
       message.mentions.members.first() != message.guild.me
     ) {
       var member = message.mentions.members.first();
@@ -50,8 +51,12 @@ module.exports = {
         }
       );
     } else if (
-      message.channel.type != "DM" && !message.mentions.members.first() &&
-      message.author.id === message.author.id || !message.channel.type == "DM" && message.mentions.members.first() && message.author.id === message.author.id
+      (message.channel.type != "DM" &&
+        !message.mentions.members.first() &&
+        message.author.id === message.author.id) ||
+      (!message.channel.type == "DM" &&
+        message.mentions.members.first() &&
+        message.author.id === message.author.id)
     ) {
       AFKUsers.findOne(
         {

@@ -22,6 +22,13 @@ module.exports = {
     */
     var message = interaction.options.getString("message");
     var user = interaction.user;
+    const set_embed = new MessageEmbed()
+      .setColor(colors.green)
+      .setTitle("AFK Set!")
+      .setDescription(`I have set your AFK to "**${message}**"`);
+    await interaction.reply({
+      embeds: [set_embed],
+    });
     AFKUser.findOne({ user: user.id }, async (err, data) => {
       if (err) throw err;
       if (!data) {
@@ -30,26 +37,18 @@ module.exports = {
           message,
         });
         data.save();
-        const set_embed = new MessageEmbed()
-          .setColor(colors.green)
-          .setTitle("AFK Set!")
-          .setDescription(`I have set your AFK to "**${message}**"`);
-        await interaction.reply({
-          embeds: [set_embed],
-        });
       } else {
-        data = await AFKUser.findOneAndUpdate({
-          user: user.id,
-          message,
-        });
+        data = await AFKUser.findOneAndUpdate(
+          {
+            user: user.id,
+          },
+          {
+            $set: {
+              message,
+            },
+          }
+        );
         data.save();
-        const changed_embed = new MessageEmbed()
-          .setColor(colors.green)
-          .setTitle("AFK Changed!")
-          .setDescription(`I have changed your AFK to "**${message}**"`);
-        await interaction.reply({
-          embeds: [changed_embed],
-        });
       }
     });
   },

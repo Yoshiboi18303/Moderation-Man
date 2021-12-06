@@ -122,12 +122,13 @@ module.exports = {
             final = `${emojis.suggestion} ||**Suggestor**||`;
           }
           return final;
-        }
+        };
 
         function returnIfWellKnownFriend() {
-          var final = ""
+          var final = "";
           var wk_friend = data.wellknownfriend;
-          if(wk_friend || wk_friend === true) final = `${emojis.wkfriend} ||**Well Known Friend To Developer**||`
+          if (wk_friend || wk_friend === true)
+            final = `${emojis.wkfriend} ||**Well Known Friend To Developer**||`;
           return final;
         }
 

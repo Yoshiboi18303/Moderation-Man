@@ -45,6 +45,9 @@ module.exports = {
       `**User Count:** ${client.users.cache.size}`,
       `**Command Count:** ${client.commands.size}`,
       `**Channel Count:** ${client.channels.cache.size}`,
+      `**Last Ready On:** ${moment
+        .utc(client.readyAt)
+        .format("LL - LTS")} ||(${moment.utc(client.readyAt).fromNow()})||`,
       "\u200b",
     ];
     const system_info_array = [

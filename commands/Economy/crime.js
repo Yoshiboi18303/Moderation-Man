@@ -90,6 +90,13 @@ module.exports = {
     var chance = Math.random() > 0.65;
     var money_earned = Math.floor((Math.random() * 600) / 3) + 5;
 
+    if (
+      getFirstCrime() === crimes[8] ||
+      getSecondCrime() === crimes[8] ||
+      getThirdCrime() === crimes[8]
+    )
+      chance = Math.random() > 0.38;
+
     await interaction.editReply({
       embeds: [what_crime_embed],
       components: [row],

@@ -18,7 +18,7 @@ module.exports = {
   async execute(interaction) {
     var content = interaction.options.getString("content");
 
-    var rating = Math.floor(Math.random() * 11)
+    var rating = Math.floor(Math.random() * 11);
 
     const rated_embed = new MessageEmbed()
       .setColor(hexColor)
