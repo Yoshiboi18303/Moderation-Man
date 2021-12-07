@@ -25,8 +25,10 @@ module.exports = {
       "#8BFF8D",
       "#7289DA",
     ];
-    var random_color =
-      color_array[Math.floor(Math.random() * color_array.length)];
+    var color = "";
+    if (interaction.guild.me.displayHexColor === "#000000")
+      color = color_array[Math.floor(Math.random() * color_array.length)];
+    else color = interaction.guild.me.displayHexColor;
     var state = config.bot.state.replace("::", "-");
     const cpus = OS.cpus();
     const main_info_array = [
@@ -47,7 +49,7 @@ module.exports = {
       `**Channel Count:** ${client.channels.cache.size}`,
       `**Last Ready On:** ${moment
         .utc(client.readyAt)
-        .format("LL - LTS")} ||(${moment.utc(client.readyAt).fromNow()})||`,
+        .format("LL LTS AT")} ||(${moment.utc(client.readyAt).fromNow()})||`,
       "\u200b",
     ];
     const system_info_array = [
@@ -55,7 +57,7 @@ module.exports = {
       `**CPU Count:** ${cpus.length}`,
     ];
     const embed = new MessageEmbed()
-      .setColor(interaction.guild.me.displayHexColor || random_color)
+      .setColor(color)
       .setTitle(`Info on ${client.user.username}`)
       .setDescription(
         `Hello ${interaction.user.username}, thanks for calling upon this command! Here's some info on me!`

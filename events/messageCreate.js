@@ -1,8 +1,9 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 const commandFolder = fs.readdirSync("commands/");
 const { prefix } = require("../config.json").bot;
 const AFKUsers = require("../schemas/afkSchema");
 const wait = require("util").promisify(setTimeout);
+const CountingSystem = require("../schemas/countSysSchema");
 
 module.exports = {
   name: "messageCreate",
@@ -50,6 +51,72 @@ module.exports = {
           }
         }
       );
+    } else if (
+      !message.author.bot &&
+      message.channel.type != "DM" &&
+      message.content.length >= 1
+    ) {
+      // if(message.guild.id !== config.bot.testServerId) return;
+      CountingSystem.findOne({ guild: message.guild.id }, async (err, data) => {
+        if (err) throw err;
+        if (!data) {
+          return;
+        } else {
+          var number_content = await parseInt(message.content);
+          if (isNaN(number_content)) {
+            if (
+              message.guild.me.permissions.has(
+                Permissions.FLAGS.MANAGE_MESSAGES
+              ) ||
+              message.guild.me
+                .permissionsIn(client.channels.cache.get(data.channel))
+                .has(Permissions.FLAGS.MANAGE_MESSAGES)
+            ) {
+              await message.delete();
+            }
+            return;
+          }
+          if (number_content === data.nextNumber) {
+            await message.react("<a:done:906374464571330688>");
+            data = await CountingSystem.findOneAndUpdate(
+              {
+                guild: message.guild.id,
+              },
+              {
+                $inc: {
+                  currentNumber: 1,
+                  nextNumber: 1,
+                },
+              }
+            );
+            data.save();
+          } else {
+            const ruined_embed = new MessageEmbed()
+              .setColor(colors.red)
+              .setTitle("You ruined it!")
+              .setDescription(
+                `<@${message.author.id}>, you ruined the streak at **${data.currentNumber}**!\n\n**The next number was supposed to be ${data.nextNumber}, but you put ${number_content} instead!**\n\n-----\n\nTake it from the top!`
+              )
+              .setTimestamp();
+            data = await CountingSystem.findOneAndUpdate(
+              {
+                guild: message.guild.id,
+              },
+              {
+                $set: {
+                  currentNumber: 0,
+                  nextNumber: 1,
+                },
+              }
+            );
+            data.save();
+            await message.react("<a:nope:906374698504421457>");
+            return await message.reply({
+              embeds: [ruined_embed],
+            });
+          }
+        }
+      });
     } else if (
       (message.channel.type != "DM" &&
         !message.mentions.members.first() &&

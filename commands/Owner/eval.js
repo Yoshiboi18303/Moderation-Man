@@ -80,7 +80,11 @@ module.exports = {
           result = util.inspect(result, { depth: 0 });
 
         for (const term of secrets) {
-          if (result.includes(term)) result = result.replace(term, "[SECRET]");
+          if (
+            (result.includes(term) && term != undefined) ||
+            (result.includes(term) && term != null)
+          )
+            result = result.replace(term, "[SECRET]");
         }
         if (result.length > 2000) {
           const buffer = Buffer.from(result);
@@ -105,7 +109,11 @@ module.exports = {
           result = util.inspect(result, { depth: 0 });
 
         for (const term of secrets) {
-          if (result.includes(term)) result = result.replace(term, "[SECRET]");
+          if (
+            (result.includes(term) && term != undefined) ||
+            (result.includes(term) && term != null)
+          )
+            result = result.replace(term, "[SECRET]");
         }
 
         const error_embed = new MessageEmbed()

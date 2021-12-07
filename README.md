@@ -59,14 +59,23 @@ You can also join the [Support Server](https://discord.gg/nv4pyCXBnr) if you wan
 
 Frequently Asked Questions
 
-- Q: What should I do when I first invite the bot?
-- A: There are many things you could do when you first invite Moderation Man to your server! I would personally recommend you change the settings for your bot on the dashboard [here](https://moderation-man.ml/servers) (good note: the Dashboard is still in development, so nothing works yet)!
+- **Q:** What should I do when I first invite the bot?
+- **A:** There are many things you could do when you first invite Moderation Man to your server! I would personally recommend you change the settings for your bot on the dashboard [here](https://moderation-man.ml/servers) (good note: the Dashboard is still in development, so nothing works yet)!
 
-- Q: What would show all the commands to me?
-- A: This is a simple answer. You can run `/help` in a server with Application Commands to see all the commands!
+---
 
-- Q: Is any of my Discord data being seen?
-- A: I do use _some_ of your Discord data, you can see what I collect [here](https://moderation-man.ml/privacy)
+- **Q:** What would show all the commands to me?
+- **A:** This is a simple answer. You can run `/help` in a server with Application Commands to see all the commands!
+
+---
+
+- **Q:** Is any of my Discord data being seen?
+- **A:** I do use _some_ of your Discord data, you can see what I collect [here](https://moderation-man.ml/privacy)
+
+---
+
+- **Q:** What's to come to Moderation Man?
+- **A:** You can find out what's to come, what's in testing, etc; [here](https://trello.com/b/5hajv63X/moderation-man-plans)!
 
 ---
 

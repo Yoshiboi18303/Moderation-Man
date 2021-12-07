@@ -12,12 +12,10 @@ module.exports = {
   async execute(interaction) {
     await interaction.reply({
       content: `Pinging... ${emojis.wait}`,
-      ephemeral: true,
     });
     await wait(5000);
     await interaction.editReply({
-      content: `${emojis.yes} **|** Pong! **${client.ws.ping}ms**`,
-      ephemeral: true,
+      content: `Pong! **${client.ws.ping}ms**`,
     });
   },
 };

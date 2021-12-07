@@ -139,6 +139,11 @@ module.exports = {
         var role_array = [];
         member.roles.cache.forEach((r) => role_array.push(`<@&${r.id}>`));
         role_array.splice(member.roles.cache.size - 1, 1);
+        var t = `**❯ Roles${
+          role_array.length > 15 ? " ||First 15||" : ""
+        } (except everyone):**`;
+        if (role_array.length > 15)
+          role_array.splice(15, member.roles.cache.size - 15);
         const userFlags = user.flags.toArray();
         const userArray = [
           `**❯ Username:** ${user.username}`,
@@ -165,9 +170,7 @@ module.exports = {
             member.nickname != null ? member.nickname : "None"
           }`,
           `**❯ Messages Sent (after last restart):** ${returnMessageCount()}`,
-          `**❯ Roles (except everyone):** ${
-            role_array.length > 1 ? role_array.join(", ") : "None"
-          }`,
+          `${t} ${role_array.length > 1 ? role_array.join(", ") : "None"}`,
           `**❯ Highest Role:** ${
             member.roles.highest.id === interaction.guild.id
               ? "None"
