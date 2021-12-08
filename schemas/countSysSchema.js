@@ -5,12 +5,14 @@ const reqString = {
   required: true,
 };
 
+const opString = {
+  type: String,
+  default: ""
+}
+
 const countSysSchema = Schema({
   guild: reqString,
-  channel: {
-    type: String,
-    default: "",
-  },
+  channel: opString,
   currentNumber: {
     type: Number,
     default: 0,
@@ -19,6 +21,7 @@ const countSysSchema = Schema({
     type: Number,
     default: 1,
   },
+  lastNumUser: opString
 });
 
-module.exports = model("guild-count-system", countSysSchema);
+module.exports = model("guild-count-systems", countSysSchema);

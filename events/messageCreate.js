@@ -63,20 +63,12 @@ module.exports = {
           return;
         } else {
           var number_content = await parseInt(message.content);
-          if (isNaN(number_content)) {
-            if (
-              message.guild.me.permissions.has(
-                Permissions.FLAGS.MANAGE_MESSAGES
-              ) ||
-              message.guild.me
-                .permissionsIn(client.channels.cache.get(data.channel))
-                .has(Permissions.FLAGS.MANAGE_MESSAGES)
-            ) {
-              await message.delete();
-            }
-            return;
-          }
-          if (number_content === data.nextNumber) {
+          var string_days_old = moment.utc(message.author.createdTimestamp).fromNow()
+          var number_days_old = await parseInt(string_days_old[0])
+          if(message.channel.id != data.channel) return;
+          if (isNaN(number_content)) return;
+          // if(number_days_old < 7) return await message.reply({ content: "Sorry, your account needs to be at least 7 days old to participate in this system." })
+          if (number_content === data.nextNumber && message.author.id != data.lastNumUser) {
             await message.react("<a:done:906374464571330688>");
             data = await CountingSystem.findOneAndUpdate(
               {
@@ -87,15 +79,24 @@ module.exports = {
                   currentNumber: 1,
                   nextNumber: 1,
                 },
+                $set: {
+                  lastNumUser: message.author.id
+                }
               }
             );
             data.save();
           } else {
+            var failure_reason = ""
+            if(number_content != data.nextNumber) {
+              failure_reason = `The next number was supposed to be ${data.nextNumber}, but you put ${number_content} instead!`
+            } else if(message.author.id == data.lastNumUser) {
+              failure_reason = `One user can't enter in 2 numbers at once!`
+            }
             const ruined_embed = new MessageEmbed()
               .setColor(colors.red)
               .setTitle("You ruined it!")
               .setDescription(
-                `<@${message.author.id}>, you ruined the streak at **${data.currentNumber}**!\n\n**The next number was supposed to be ${data.nextNumber}, but you put ${number_content} instead!**\n\n-----\n\nTake it from the top!`
+                `<@${message.author.id}>, you ruined the streak at **${data.currentNumber}**!\n\nReason for the ruined streak: **${failure_reason}**\n\n-----\n\nTake it from the top!`
               )
               .setTimestamp();
             data = await CountingSystem.findOneAndUpdate(
@@ -106,6 +107,7 @@ module.exports = {
                 $set: {
                   currentNumber: 0,
                   nextNumber: 1,
+                  lastNumUser: ""
                 },
               }
             );

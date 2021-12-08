@@ -62,7 +62,7 @@ module.exports = {
         );
         data.save();
         await interaction.editReply({
-          content: `Counting system channel changed to <#${channel.id}>!`,
+          content: `Counting system channel setup in <#${channel.id}>!`,
         });
       }
     });

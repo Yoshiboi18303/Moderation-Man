@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageAttachment } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Profiles = require("../../schemas/profileSchema");
 const colors = require("../../colors.json");
@@ -18,6 +18,9 @@ module.exports = {
     message: "Don't start spamming profiles now!",
   },
   async execute(interaction) {
+    /*
+    if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!` })
+    */
     await interaction.deferReply();
     var user = interaction.options.getUser("user") || interaction.user;
     if (user.bot)
@@ -113,7 +116,8 @@ module.exports = {
               value: `${cafvc_pc}`,
               inline: true,
             },
-          ]);
+          ])
+          // .setImage(buffer);
         await interaction.editReply({ embeds: [profile_embed] });
       }
     });

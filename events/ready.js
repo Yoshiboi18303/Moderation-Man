@@ -20,6 +20,7 @@ let event_index = 1;
 let mongo_event_index = 1;
 const Users = require("../schemas/userSchema");
 const c = require("colors");
+const CountingSystems = require("../schemas/countSysSchema");
 
 module.exports = {
   name: "ready",
@@ -230,19 +231,10 @@ module.exports = {
       var documents = await Profiles.countDocuments();
       return `${await documents}`;
     });
-    /*
-    await client.stats.registerCustomFieldHandler(2, async function() {
-      var value = 0;
-      Users.find({}, async (err, data) => {
-        var command_count = 0;
-        for(var user of data) {
-          command_count = command_count + user.commandsUsed
-        }
-        value = command_count;
-      })
-      return `${await value}`
-    })
-    */
+    await client.stats.registerCustomFieldHandler(2, async function () {
+      var documents = await CountingSystems.countDocuments();
+      return `${await documents}`;
+    });
 
     var b = `${client.user.username}`.rainbow.underline.bold;
 

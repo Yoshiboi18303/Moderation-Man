@@ -25,6 +25,8 @@ const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
 const BoatsClient = require("boats.js");
 const Boats = new BoatsClient(process.env.BOATS_KEY);
 const giveawaymanager = require("./items/gmanager");
+const WeebyAPI = require("weeby-js");
+const weeby = new WeebyAPI(process.env.WEEBY_KEY)
 
 global.Discord = require("discord.js");
 global.client = client;
@@ -66,6 +68,7 @@ client.stats = statcord;
 client.autoposter = ap;
 client.boat = Boats;
 client.giveaways = giveawaymanager;
+client.weeby = weeby;
 
 const functions = fs
   .readdirSync("./functions/")

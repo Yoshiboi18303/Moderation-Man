@@ -5,7 +5,7 @@ const reqString = {
   required: true,
 };
 
-const ticketSchema = Schema({
+const ticketSettingsSchema = Schema({
   guild: reqString,
   mod_role: {
     type: String,
@@ -17,4 +17,4 @@ const ticketSchema = Schema({
   },
 });
 
-module.exports = model("guild-ticket-settings", ticketSchema);
+module.exports = model("guild-ticket-settings", ticketSettingsSchema);
