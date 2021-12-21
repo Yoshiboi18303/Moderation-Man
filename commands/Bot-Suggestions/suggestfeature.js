@@ -16,7 +16,7 @@ module.exports = {
         .setRequired(true)
     ),
   config: {
-    timeout: ms("2m"),
+    timeout: ms("30s"),
     message:
       "Accepting suggestions can wait, don't you have anything better to do than spam me?",
   },

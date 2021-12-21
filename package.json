@@ -4,7 +4,7 @@
   "scripts": {
     "main": "node run.js",
     "nodescript": "npx node run.js",
-    "dev": "npx nodemon run.js --ignore '*.json' --ignore '.prettierignore' --ignore '.gitignore' --ignore 'LICENSE' --ignore '*.md' --ignore 'replit.nix' --ignore '.replit'"
+    "dev": "npx nodemon run.js --ignore '*.json' --ignore '.prettierignore' --ignore '.gitignore' --ignore 'LICENSE' --ignore '*.md' --ignore 'replit.nix' --ignore '.replit' --ignore '*.png'"
   },
   "devDependencies": {
     "node": "^16.6.1",
@@ -34,7 +34,6 @@
     "infinity-bots": "^1.1.9",
     "moment": "^2.29.1",
     "mongoose": "^6.0.13",
-    "motionbotlist": "^2.0.0",
     "ms": "^2.1.3",
     "nocache": "^3.0.1",
     "node-fetch": "^3.0.0",
@@ -47,7 +46,6 @@
     "topgg-autoposter": "^2.0.0",
     "utf-8-validate": "^5.0.6",
     "util": "^0.12.4",
-    "weather-js": "^2.0.0",
-    "weeby-js": "^1.3.0"
+    "weather-js": "^2.0.0"
   }
 }

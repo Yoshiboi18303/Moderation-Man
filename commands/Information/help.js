@@ -48,7 +48,8 @@ module.exports = {
             size: 512,
           })
         )
-        .setFooter("Want more info? Run /help with a command!");
+        .setFooter("Want more info? Run /help with a command!")
+        .setURL(`https://${config.bot.website.origin}`);
       const sending_embed = new MessageEmbed()
         .setColor(colors.yellow)
         .setDescription(`${emojis.wait} **-** Trying to send you a DM...`);

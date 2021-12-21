@@ -9,6 +9,7 @@ module.exports = {
   name: "messageCreate",
   once: false,
   async execute(message, client) {
+    var number_content = parseInt(message.content);
     if (
       !message.author.bot &&
       !message.channel.type == "DM" &&
@@ -24,37 +25,48 @@ module.exports = {
     } else if (
       message.channel.type != "DM" &&
       message.mentions.members.first() &&
-      message.mentions.members.first() != message.guild.me
+      message.mentions.members
     ) {
-      var member = message.mentions.members.first();
-      AFKUsers.findOne(
-        {
-          user: member.user.id,
-        },
-        async (err, data) => {
-          if (err) throw err;
-          if (!data) {
-            return;
-          } else {
-            if (data.message != "" && data.user != message.author.id) {
-              const user_is_afk_embed = new MessageEmbed()
-                .setColor(colors.yellow)
-                .setTitle("User Is AFK")
-                .setDescription(
-                  `<@${data.user}> is AFK currently for "**${data.message}**"`
-                )
-                .setTimestamp();
-              await message.reply({
-                embeds: [user_is_afk_embed],
-              });
+      var members = message.mentions.members;
+      members.forEach((member) => {
+        AFKUsers.findOne(
+          {
+            user: member.user.id,
+          },
+          async (err, data) => {
+            if (err) throw err;
+            if (!data) {
+              return;
+            } else {
+              if (data.message != "" && data.user != message.author.id) {
+                const user_is_afk_embed = new MessageEmbed()
+                  .setColor(colors.yellow)
+                  .setTitle("User Is AFK")
+                  .setDescription(
+                    `<@${data.user}> is currently AFK for "**${data.message}**"`
+                  )
+                  .setTimestamp();
+                if (
+                  message.guild.me
+                    .permissionsIn(message.channel)
+                    .has([
+                      Permissions.FLAGS.VIEW_CHANNEL,
+                      Permissions.FLAGS.SEND_MESSAGES,
+                    ])
+                ) {
+                  await message.reply({
+                    embeds: [user_is_afk_embed],
+                  });
+                }
+              }
             }
           }
-        }
-      );
+        );
+      });
     } else if (
       !message.author.bot &&
       message.channel.type != "DM" &&
-      message.content.length >= 1
+      !isNaN(number_content)
     ) {
       // if(message.guild.id !== config.bot.testServerId) return;
       CountingSystem.findOne({ guild: message.guild.id }, async (err, data) => {
@@ -62,13 +74,16 @@ module.exports = {
         if (!data) {
           return;
         } else {
-          var number_content = await parseInt(message.content);
-          var string_days_old = moment.utc(message.author.createdTimestamp).fromNow()
-          var number_days_old = await parseInt(string_days_old[0])
-          if(message.channel.id != data.channel) return;
-          if (isNaN(number_content)) return;
+          var string_days_old = moment
+            .utc(message.author.createdTimestamp)
+            .fromNow();
+          var number_days_old = await parseInt(string_days_old[0]);
+          if (message.channel.id != data.channel) return;
           // if(number_days_old < 7) return await message.reply({ content: "Sorry, your account needs to be at least 7 days old to participate in this system." })
-          if (number_content === data.nextNumber && message.author.id != data.lastNumUser) {
+          if (
+            number_content === data.nextNumber &&
+            message.author.id != data.lastNumUser
+          ) {
             await message.react("<a:done:906374464571330688>");
             data = await CountingSystem.findOneAndUpdate(
               {
@@ -80,17 +95,17 @@ module.exports = {
                   nextNumber: 1,
                 },
                 $set: {
-                  lastNumUser: message.author.id
-                }
+                  lastNumUser: message.author.id,
+                },
               }
             );
             data.save();
           } else {
-            var failure_reason = ""
-            if(number_content != data.nextNumber) {
-              failure_reason = `The next number was supposed to be ${data.nextNumber}, but you put ${number_content} instead!`
-            } else if(message.author.id == data.lastNumUser) {
-              failure_reason = `One user can't enter in 2 numbers at once!`
+            var failure_reason = "";
+            if (number_content != data.nextNumber) {
+              failure_reason = `The next number was supposed to be ${data.nextNumber}, but you put ${number_content} instead!`;
+            } else if (message.author.id == data.lastNumUser) {
+              failure_reason = `One user can't enter in 2 numbers at once!`;
             }
             const ruined_embed = new MessageEmbed()
               .setColor(colors.red)
@@ -107,7 +122,7 @@ module.exports = {
                 $set: {
                   currentNumber: 0,
                   nextNumber: 1,
-                  lastNumUser: ""
+                  lastNumUser: "",
                 },
               }
             );
@@ -121,10 +136,10 @@ module.exports = {
       });
     } else if (
       (message.channel.type != "DM" &&
-        !message.mentions.members.first() &&
+        !message.mentions.members &&
         message.author.id === message.author.id) ||
       (!message.channel.type == "DM" &&
-        message.mentions.members.first() &&
+        message.mentions.members &&
         message.author.id === message.author.id)
     ) {
       AFKUsers.findOne(
@@ -136,7 +151,7 @@ module.exports = {
           if (!data) {
             return;
           } else {
-            if (data.message != "") {
+            if (data.message != "" && message.author.id === data.user) {
               const wb_embed = new MessageEmbed()
                 .setColor(colors.blue)
                 .setTitle("Welcome Back!")

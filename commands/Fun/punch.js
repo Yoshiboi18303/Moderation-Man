@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-const key = process.env.FP_KEY;
-const link = "https://gallery.fluxpoint.dev/api/album/29";
+const link = `https://weebyapi.xyz/gif/punch?token=${process.env.WEEBY_KEY}`;
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -24,18 +23,15 @@ module.exports = {
     await interaction.deferReply();
     var img_fetch = await fetch.default(link, {
       method: "GET",
-      headers: {
-        Authorization: key,
-      },
     });
-    const { file } = await img_fetch.json();
+    const data = await img_fetch.json();
     const embed = new MessageEmbed()
       .setColor("RANDOM")
       .setTitle("Punchy Punch")
       .setDescription(
         `**${interaction.user.username}** punched **${user.username}** hard.`
       )
-      .setImage(file)
+      .setImage(data.url)
       .setTimestamp();
     await interaction.editReply({
       embeds: [embed],

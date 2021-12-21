@@ -1,10 +1,10 @@
 console.log(
   "Starting bot...\n\n--------------------------------------------------------------\n"
 );
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, Intents } = require("discord.js");
 const fs = require("fs");
 const client = new Client({
-  intents: 32767,
+  intents: Object.values(Intents.FLAGS),
   allowedMentions: {
     parse: ["users", "roles"],
   },
@@ -25,8 +25,6 @@ const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
 const BoatsClient = require("boats.js");
 const Boats = new BoatsClient(process.env.BOATS_KEY);
 const giveawaymanager = require("./items/gmanager");
-const WeebyAPI = require("weeby-js");
-const weeby = new WeebyAPI(process.env.WEEBY_KEY)
 
 global.Discord = require("discord.js");
 global.client = client;
@@ -38,8 +36,32 @@ global.colors = require("./colors.json");
 global.config = require("./config.json");
 global.MessageEmbed = require("discord.js").MessageEmbed;
 global.voteRewards = ["Voice Moderation logs (soon)"];
-global.admins = ["482326304381730826", "738988218002964581", config.bot.owner];
-global.c = require("colors");
+global.admins = [
+  "482326304381730826",
+  "738988218002964581",
+  config.bot.owner,
+  "705114789374066748",
+];
+// An array of partners
+global.partners = [
+  /*
+    Please remember to give me some info
+
+      1. The name
+      2. The type
+      3. An invite (server or bot)
+      4. The owners' ID on Discord
+
+    Rules:
+      Just have Moderation Man in your (support) server.
+  */
+  {
+    name: "Discord Lists",
+    type: "Discord Server",
+    invite: "https://discord.gg/dmcQjADSyM",
+    owner: "705114789374066748",
+  },
+];
 global.BotError = require("./items/classes/BotError");
 global.CommandError = require("./items/classes/CommandError");
 global.AsciiTable = require("ascii-table");
@@ -60,6 +82,8 @@ global.Enum = {
   },
 };
 global.Log = require("./utils/logger");
+global.dlsBaseURL = "https://api.discordlist.space/v2";
+global.motionBaseURL = "https://www.motiondevelopment.top/api/v1.2";
 
 client.commands = new Collection();
 client.events = new Collection();
@@ -68,7 +92,6 @@ client.stats = statcord;
 client.autoposter = ap;
 client.boat = Boats;
 client.giveaways = giveawaymanager;
-client.weeby = weeby;
 
 const functions = fs
   .readdirSync("./functions/")

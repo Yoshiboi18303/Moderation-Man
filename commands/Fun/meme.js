@@ -10,9 +10,10 @@ module.exports = {
     message: "Your fun needs a break.",
   },
   async execute(interaction) {
+    // if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!` })
     await interaction.deferReply();
     const fetch = await import("node-fetch");
-    var link = "https://some-random-api.ml/meme";
+    var link = `https://weebyapi.xyz/json/meme?token=${process.env.WEEBY_KEY}`;
 
     console.log("Running GET request...");
     const r = await fetch.default(link, {
@@ -20,17 +21,27 @@ module.exports = {
     });
     var data = await r.json();
 
-    var meme_caption = data.caption;
-    var meme_image = data.image;
-    var meme_category = data.category;
+    /*
+    return await interaction.followUp({
+      content: "Check the console!"
+    })
+    */
+
+    var meme_title = data.title;
+    var meme_image = data.url;
 
     const meme_embed = new MessageEmbed()
       .setColor("RANDOM")
-      .setTitle(meme_caption)
+      .setAuthor(
+        `${data.author}`,
+        null,
+        `https://www.reddit.com/user/${data.author}/`
+      )
+      .setDescription(`From __[r/${data.subreddit}](${data.subredditURL})__`)
+      .setTitle(meme_title)
       .setImage(meme_image)
-      .setFooter(
-        `${interaction.user.username} requested this. | Category: ${meme_category}`
-      );
+      .setFooter(`💬 ${data.comments} 🏅 ${data.awards}`)
+      .setURL(`${data.permaURL}`);
     await interaction.followUp({
       embeds: [meme_embed],
     });

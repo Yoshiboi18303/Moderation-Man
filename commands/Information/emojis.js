@@ -15,7 +15,8 @@ module.exports = {
     if (
       !interaction.member.permissions.has(
         Permissions.FLAGS.MANAGE_EMOJIS_AND_STICKERS
-      )
+      ) &&
+      interaction.user.id != config.bot.owner
     ) {
       const bad_permissions_embed = new MessageEmbed()
         .setColor(colors.red)
@@ -28,7 +29,11 @@ module.exports = {
         ephemeral: true,
       });
     }
-    await interaction.deferReply();
+    if (interaction.user.id === config.bot.owner) {
+      await interaction.deferReply({ ephemeral: true });
+    } else {
+      await interaction.deferReply();
+    }
     var guild = interaction.guild;
     const emojis_embed = new MessageEmbed()
       .setColor("RANDOM")
@@ -39,9 +44,7 @@ module.exports = {
         : `<:${emoji.name}:${emoji.id}>`;
       emojis_embed.addField(
         `${emoji.name}`,
-        `${emoji_tag}\n\`${emoji_tag}\`\nAdded by **${
-          emoji.author != null ? emoji.author.username : "No one"
-        }**`,
+        `${emoji_tag}\n\`${emoji_tag}\``,
         true
       );
     }

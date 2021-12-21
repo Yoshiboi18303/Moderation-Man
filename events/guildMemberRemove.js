@@ -13,11 +13,9 @@ module.exports = {
       guild.bans.fetch().then((bans) => {
         var ban = bans.find((ban) => ban.user.id === member.user.id);
         if (ban !== undefined) {
-          return client.channels.cache
-            .get(log_id)
-            .send({
-              content: `The ban hammer was swung on **${member.user.tag}**.`,
-            });
+          return client.channels.cache.get(log_id).send({
+            content: `The ban hammer was swung on **${member.user.tag}**.`,
+          });
         } else {
           if (!member.user.bot) {
             const user_left_embed = new MessageEmbed()

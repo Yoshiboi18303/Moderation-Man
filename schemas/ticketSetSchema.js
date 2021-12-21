@@ -11,6 +11,10 @@ const ticketSettingsSchema = Schema({
     type: String,
     default: "",
   },
+  msg_channel: {
+    type: String,
+    default: "",
+  },
   message: {
     type: String,
     default: "",

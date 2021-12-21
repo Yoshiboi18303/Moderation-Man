@@ -11,8 +11,7 @@ const servicesHeaders = {
   "Content-Type": "application/json",
   Authorization: process.env.SERVICES_API_KEY,
 };
-const mbl = require("motionbotlist");
-const { MessageEmbed, MessageAttachment } = require("discord.js");
+const { MessageEmbed, MessageAttachment, Permissions } = require("discord.js");
 const Profiles = require("../schemas/profileSchema");
 const AsciiTable = require("ascii-table");
 let command_index = 1;
@@ -130,22 +129,6 @@ module.exports = {
 
     var botId = client.ready ? client.user.id : "891070722074611742";
 
-    /*
-    
-    let grabbed = await mbl.servers(
-      botId,
-      process.env.KEY_TO_MOTION,
-      client.guilds.cache.size
-    );
-
-    console.log(grabbed);
-
-    grabbed = await mbl.grabInfo(botId, process.env.KEY_TO_MOTION);
-
-    console.log(grabbed);
-
-    */
-
     let botlistReqLink = `https://api.botlist.me/api/v1/bots/${botId}/stats`;
     var botlistReqHeaders = {
       "Content-Type": "application/json",
@@ -166,6 +149,24 @@ module.exports = {
     data = await botlistReq.json();
     console.log(data);
     */
+
+    botlistReqLink = `${motionBaseURL}/bots/${botId}/stats`;
+    botlistReqHeaders = {
+      "Content-Type": "application/json",
+      key: process.env.KEY_TO_MOTION,
+    };
+    botlistReqBody = {
+      guilds: client.guilds.cache.size,
+    };
+
+    botlistReq = await fetch.default(botlistReqLink, {
+      method: "POST",
+      headers: botlistReqHeaders,
+      body: JSON.stringify(botlistReqBody),
+    });
+
+    data = await botlistReq.json();
+    console.log(data);
 
     botlistReqLink = `https://discordlistology.com/api/v1/bots/${botId}/stats`;
     botlistReqHeaders = {
@@ -216,6 +217,24 @@ module.exports = {
     botlistReqBody = {
       shards: returnShardCount,
       guilds: client.guilds.cache.size,
+    };
+
+    botlistReq = await fetch.default(botlistReqLink, {
+      method: "POST",
+      headers: botlistReqHeaders,
+      body: JSON.stringify(botlistReqBody),
+    });
+
+    data = await botlistReq.json();
+    console.log(data);
+
+    botlistReqLink = `${dlsBaseURL}/bots/${botId}`;
+    botlistReqHeaders = {
+      "Content-Type": "application/json",
+      Authorization: `${process.env.MAIN_DLS_API_KEY}`,
+    };
+    botlistReqBody = {
+      serverCount: client.guilds.cache.size,
     };
 
     botlistReq = await fetch.default(botlistReqLink, {

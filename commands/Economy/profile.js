@@ -10,17 +10,18 @@ module.exports = {
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("Select a user to view")
+        .setDescription("A user to view the profile of")
         .setRequired(false)
     ),
   config: {
-    timeout: ms("15s"),
+    timeout: ms("3s"),
     message: "Don't start spamming profiles now!",
   },
   async execute(interaction) {
     /*
     if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!` })
     */
+    const fetch = await import("node-fetch");
     await interaction.deferReply();
     var user = interaction.options.getUser("user") || interaction.user;
     if (user.bot)
@@ -52,6 +53,15 @@ module.exports = {
           ephemeral: true,
         });
       } else {
+        console.log(data.coins);
+        var f = await fetch.default(
+          `https://weebyapi.xyz/generators/currency?type=dollar&amount=${data.coins}&token=${process.env.WEEBY_KEY}`,
+          {
+            method: "GET",
+          }
+        );
+        var buffer = await f.buffer();
+        var attachment = new MessageAttachment(buffer, "currency.png");
         var cafvc_vc = data.vault_max - data.vault_coins;
         if (cafvc_vc < 0) cafvc_vc = 0;
         var cafvc_pc = data.vault_max - data.coins;
@@ -117,8 +127,11 @@ module.exports = {
               inline: true,
             },
           ])
-          // .setImage(buffer);
-        await interaction.editReply({ embeds: [profile_embed] });
+          .setImage("attachment://currency.png");
+        await interaction.editReply({
+          embeds: [profile_embed],
+          files: [attachment],
+        });
       }
     });
   },

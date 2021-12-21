@@ -59,16 +59,9 @@ module.exports = {
 
         var first_place =
           places_to_search[Math.floor(Math.random() * places_to_search.length)];
-        await places_to_search.splice(
-          places_to_search.findIndex((item) => item == first_place),
-          1
-        );
 
         var second_place =
           places_to_search[Math.floor(Math.random() * places_to_search.length)];
-        await places_to_search.splice(
-          places_to_search.findIndex((item) => item == second_place)
-        );
 
         var third_place =
           places_to_search[Math.floor(Math.random() * places_to_search.length)];
@@ -143,7 +136,11 @@ module.exports = {
                 .setColor(colors.green)
                 .setAuthor(`${interaction.user.username}'s Successful Search`)
                 .setDescription(
-                  `You went along and searched the **${first_place}** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
+                  `You went along and searched the **${
+                    typeof first_place == "string"
+                      ? first_place.toLowerCase()
+                      : first_place
+                  }** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
                     coins + random_coins
                   } coins in your balance.**`
                 );
@@ -156,7 +153,11 @@ module.exports = {
                 .setColor(colors.red)
                 .setAuthor(`${interaction.user.username}'s Failed Search`)
                 .setDescription(
-                  `You went along and searched the **${first_place}** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
+                  `You went along and searched the **${
+                    typeof first_place == "string"
+                      ? first_place.toLowerCase()
+                      : first_place
+                  }** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
                 );
               await collection.first()?.editReply({
                 embeds: [failed_search_embed],
@@ -197,7 +198,11 @@ module.exports = {
                 .setColor(colors.green)
                 .setAuthor(`${interaction.user.username}'s Successful Search`)
                 .setDescription(
-                  `You went along and searched the **${second_place}** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
+                  `You went along and searched the **${
+                    typeof second_place == "string"
+                      ? second_place.toLowerCase()
+                      : second_place
+                  }** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
                     coins + random_coins
                   } coins in your balance.**`
                 );
@@ -210,7 +215,11 @@ module.exports = {
                 .setColor(colors.red)
                 .setAuthor(`${interaction.user.username}'s Failed Search`)
                 .setDescription(
-                  `You went along and searched the **${second_place}** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
+                  `You went along and searched the **${
+                    typeof second_place == "string"
+                      ? second_place.toLowerCase()
+                      : second_place
+                  }** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
                 );
               await collection.first()?.editReply({
                 embeds: [failed_search_embed],
@@ -251,7 +260,11 @@ module.exports = {
                 .setColor(colors.green)
                 .setAuthor(`${interaction.user.username}'s Successful Search`)
                 .setDescription(
-                  `You went along and searched the **${third_place}** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
+                  `You went along and searched the **${
+                    typeof third_place == "string"
+                      ? third_place.toLowerCase()
+                      : third_place
+                  }** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
                     coins + random_coins
                   } coins in your balance.**`
                 );
@@ -264,7 +277,11 @@ module.exports = {
                 .setColor(colors.red)
                 .setAuthor(`${interaction.user.username}'s Failed Search`)
                 .setDescription(
-                  `You went along and searched the **${third_place}** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
+                  `You went along and searched the **${
+                    typeof third_place == "string"
+                      ? third_place.toLowerCase()
+                      : third_place
+                  }** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
                 );
               await collection.first()?.editReply({
                 embeds: [failed_search_embed],

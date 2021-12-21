@@ -1,4 +1,5 @@
-// Clear the Console and require the files
+// Clear the Console and require the files and package(s)
+require("colors");
 console.clear();
 
 require("./client");

@@ -7,8 +7,8 @@ const reqString = {
 
 const opString = {
   type: String,
-  default: ""
-}
+  default: "",
+};
 
 const countSysSchema = Schema({
   guild: reqString,
@@ -21,7 +21,7 @@ const countSysSchema = Schema({
     type: Number,
     default: 1,
   },
-  lastNumUser: opString
+  lastNumUser: opString,
 });
 
 module.exports = model("guild-count-systems", countSysSchema);

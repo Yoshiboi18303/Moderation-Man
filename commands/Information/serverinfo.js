@@ -54,6 +54,9 @@ module.exports = {
         ephemeral: true,
       });
 
+    const human_count = guild.members.cache.filter((m) => !m.user.bot).size;
+    const bot_count = guild.members.cache.filter((m) => m.user.bot).size;
+
     await interaction.deferReply();
 
     var color;
@@ -105,6 +108,16 @@ module.exports = {
         {
           name: "Member Count",
           value: `${guild.members.cache.size}`,
+          inline: true,
+        },
+        {
+          name: "Humans",
+          value: `${human_count}`,
+          inline: true,
+        },
+        {
+          name: "Bots",
+          value: `${bot_count}`,
           inline: true,
         },
         {

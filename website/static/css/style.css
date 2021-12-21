@@ -103,7 +103,7 @@ h1 {
   width: 200px;
   height: 200px;
   -webkit-transform: -webkit-transform 0.8s ease-in-out;
-  transition: transform 0.8s ease-in-out;
+  transition: transform 0.75s ease-in-out;
 }
 
 .avatar:hover {

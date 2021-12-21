@@ -333,5 +333,7 @@ app.post("/voteresolve", async (vote) => {
 
 app.listen(port);
 console.log(
-  `${client.user.username} website is listening on port ${port}!\n\n--------------------------------------------------------------\n`
+  `${
+    client.ready ? client.user.username : "Moderation Man"
+  } website is listening on port ${port}!\n\n--------------------------------------------------------------\n`
 );

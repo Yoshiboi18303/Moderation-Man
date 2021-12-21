@@ -91,6 +91,7 @@ module.exports = {
     var data = new TicketSettings({
       guild: interaction.guild.id,
       mod_role: role.id,
+      msg_channel: channel.id,
       message: msg.id,
     });
     data.save();

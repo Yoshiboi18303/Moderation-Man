@@ -100,15 +100,15 @@ function emojifyText(text) {
     7: ":seven:",
     8: ":eight:",
     9: ":nine:",
-    0: ":zero:"
+    0: ":zero:",
   };
   let final = "";
-  for(var char of text) {
-    char = char.toLowerCase()
-    if(!Object.keys(object).includes(char)) {
-      final += char
+  for (var char of text) {
+    char = char.toLowerCase();
+    if (!Object.keys(object).includes(char)) {
+      final += char;
     } else {
-      final += object[char]
+      final += object[char];
     }
   }
   return final;

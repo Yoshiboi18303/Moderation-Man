@@ -33,6 +33,10 @@ const userSchema = Schema({
   suggestionssent: opNum,
   acceptedsuggestion: opBool,
   wellknownfriend: opBool,
+  birthday: {
+    type: String,
+    default: "",
+  },
 });
 
 module.exports = model("users", userSchema);

@@ -61,7 +61,7 @@ module.exports = {
             if (channel.type == "GUILD_TEXT") {
               for (var message of channel.messages.cache.toJSON()) {
                 if (message.author.id == interaction.user.id) {
-                  messages_sent = messages_sent + 1;
+                  messages_sent++;
                 }
               }
             }
@@ -124,6 +124,13 @@ module.exports = {
           return final;
         };
 
+        const returnIfUserBlacklisted = () => {
+          var final = "";
+          if (data.blacklisted) final = "Yes";
+          else final = "No";
+          return final;
+        };
+
         function returnIfWellKnownFriend() {
           var final = "";
           var wk_friend = data.wellknownfriend;
@@ -151,6 +158,7 @@ module.exports = {
           `**❯ Tag:** ${user.tag}`,
           `**❯ ID:** ${user.id}`,
           `**❯ Is Bot?** ${checkBot(user)}`,
+          `**❯ Is Blacklisted?** ${returnIfUserBlacklisted()}`,
           `**❯ Flags:** ${
             userFlags.length
               ? userFlags.map((flag) => flags[flag]).join(", ")
@@ -163,7 +171,7 @@ module.exports = {
           ).fromNow()}`,
           `**❯ Commands Used:** ${data.commandsUsed}`,
           `**❯ Bug Hunter Level:** ${returnBughunterState()}`,
-          `\u200b`,
+          "\u200b",
         ];
         const memberArray = [
           `**❯ Nickname:** ${
@@ -187,6 +195,7 @@ module.exports = {
               ? returnUserStatusText(member)
               : `${emojis.offline} **-** Offline`
           }`,
+          "\u200b",
         ];
         const embed = new MessageEmbed()
           .setTitle(`Info on ${user.username}`)

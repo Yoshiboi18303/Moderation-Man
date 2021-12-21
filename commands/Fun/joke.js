@@ -13,11 +13,14 @@ module.exports = {
   async execute(interaction) {
     const fetch = await import("node-fetch");
     await interaction.deferReply();
-    var link = "https://some-random-api.ml/joke";
+    var types = ["joke", "dadjoke"];
+    var type = types[Math.floor(Math.random() * types.length)];
+    // console.log(type);
+    var link = `https://weebyapi.xyz/json/${type}?token=${process.env.WEEBY_KEY}`;
     var f = await fetch.default(link, {
       method: "GET",
     });
     var data = await f.json();
-    await interaction.editReply({ content: `${data.joke}` });
+    await interaction.editReply({ content: `${data.response}` });
   },
 };

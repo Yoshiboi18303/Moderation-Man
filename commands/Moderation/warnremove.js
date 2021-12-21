@@ -13,13 +13,13 @@ module.exports = {
         .addUserOption((option) =>
           option
             .setName("user")
-            .setDescription("Select a user to remove one of the warnings from")
+            .setDescription("The user to remove the warning from")
             .setRequired(true)
         )
         .addIntegerOption((option) =>
           option
             .setName("warning_number")
-            .setDescription("Type in a warning number to delete")
+            .setDescription("The warning number to remove")
             .setRequired(true)
         )
     )
@@ -30,7 +30,7 @@ module.exports = {
         .addUserOption((option) =>
           option
             .setName("user")
-            .setDescription("Select a user to remove all of the warnings from")
+            .setDescription("The user to remove the warnings from")
             .setRequired(true)
         )
     ),

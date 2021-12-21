@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
-const key = process.env.FP_KEY;
-const link = "https://gallery.fluxpoint.dev/api/album/30";
+const { MessageEmbed, MessageAttachment } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -22,23 +20,32 @@ module.exports = {
     var user = interaction.options.getUser("user");
     const fetch = await import("node-fetch");
     await interaction.deferReply();
-    var img_fetch = await fetch.default(link, {
-      method: "GET",
-      headers: {
-        Authorization: key,
-      },
-    });
-    const { file } = await img_fetch.json();
+    var buffer_fetch = await fetch.default(
+      `https://weebyapi.xyz/generators/batslap?firstimage=${interaction.user.displayAvatarURL(
+        { dynamic: false, size: 256, format: "png" }
+      )}&secondimage=${user.displayAvatarURL({
+        dynamic: false,
+        size: 256,
+        format: "png",
+      })}&token=${process.env.WEEBY_KEY}`,
+      {
+        method: "GET",
+      }
+    );
+    var buffer = await buffer_fetch.buffer();
+    var image = new MessageAttachment(buffer, "slap.png");
+
     const embed = new MessageEmbed()
       .setColor("RANDOM")
       .setTitle("Slappy Slap")
       .setDescription(
         `**${interaction.user.username}** slapped **${user.username}** hard. Ouch.`
       )
-      .setImage(file)
+      .setImage("attachment://slap.png")
       .setTimestamp();
     await interaction.editReply({
       embeds: [embed],
+      files: [image],
     });
   },
 };
