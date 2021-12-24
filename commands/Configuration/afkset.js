@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 const AFKUser = require("../../schemas/afkSchema");
 
 module.exports = {
@@ -51,5 +51,6 @@ module.exports = {
         data.save();
       }
     });
+    // console.log(interaction.guild.me.permissions.toArray())
   },
 };

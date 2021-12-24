@@ -1,6 +1,6 @@
 {
   "name": "moderation-man",
-  "version": "1.7.8",
+  "version": "1.9.0",
   "scripts": {
     "main": "node run.js",
     "nodescript": "npx node run.js",
@@ -24,7 +24,7 @@
     "cookie-parser": "^1.4.6",
     "discord-api-types": "^0.24.0",
     "discord-giveaways": "^5.0.1",
-    "discord.js": "^13.4.0-dev.1635552294.761a901",
+    "discord.js": "^13.5.0-dev.1640347389.ea9e897",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "express": "^4.17.1",

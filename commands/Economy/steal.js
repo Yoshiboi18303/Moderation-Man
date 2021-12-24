@@ -55,6 +55,22 @@ module.exports = {
       } else {
         await interaction.deferReply();
         var interaction_user_data = data;
+        console.log(interaction_user_data.passive);
+        if (
+          interaction_user_data.passive ||
+          interaction_user_data.passive == true
+        ) {
+          const iu_passive_embed = new MessageEmbed()
+            .setColor(colors.red)
+            .setTitle("Error")
+            .setDescription(
+              `${emojis.nope} **-** You're a passive user! You can't steal from anyone until you disable it!`
+            )
+            .setTimestamp();
+          return await interaction.editReply({
+            embeds: [iu_passive_embed],
+          });
+        }
         var interaction_user_coins = interaction_user_data.coins;
         if (interaction_user_coins < 750)
           return await interaction.editReply({
@@ -76,6 +92,18 @@ module.exports = {
           } else {
             var user_data = data;
             var user_coins = user_data.coins;
+            if (user_data.passive || user_data.passive == true) {
+              const u_passive_embed = new MessageEmbed()
+                .setColor(colors.red)
+                .setTitle("Error")
+                .setDescription(
+                  `${emojis.nope} **-** ${data.nickname} is a passive user! Maybe try steal from someone who isn't a peace loving hippie!`
+                )
+                .setTimestamp();
+              return await interaction.editReply({
+                embeds: [u_passive_embed],
+              });
+            }
             if (user_coins < 750)
               return await interaction.editReply({
                 content: `You can't steal from ${user.username} until they have 750 coins, sorry not sorry.`,

@@ -73,6 +73,7 @@ module.exports = {
       process.env.TOPGG_API_KEY,
       process.env.VOTE_WEBHOOK_TOKEN,
       process.env.WEBHOOK_AUTH,
+      process.env.PAT,
     ];
 
     result

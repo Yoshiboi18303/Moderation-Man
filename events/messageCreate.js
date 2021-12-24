@@ -9,6 +9,42 @@ module.exports = {
   name: "messageCreate",
   once: false,
   async execute(message, client) {
+    if (!message.author.bot) {
+      AFKUsers.findOne(
+        {
+          user: message.author.id,
+        },
+        async (err, data) => {
+          if (err) throw err;
+          if (!data) {
+            return;
+          } else {
+            if (data.message != "" && message.author.id === data.user) {
+              const wb_embed = new MessageEmbed()
+                .setColor(colors.blue)
+                .setTitle("Welcome Back!")
+                .setDescription(
+                  `Hello and welcome back <@${message.author.id}>, I have removed your AFK.`
+                )
+                .setTimestamp();
+              data = await AFKUsers.findOneAndUpdate(
+                {
+                  user: message.author.id,
+                },
+                {
+                  message: "",
+                }
+              );
+              data.save();
+              var msg = await message.reply({
+                embeds: [wb_embed],
+              });
+              await wait(15000).then(async () => await msg.delete());
+            }
+          }
+        }
+      );
+    }
     var number_content = parseInt(message.content);
     if (
       !message.author.bot &&
@@ -134,48 +170,6 @@ module.exports = {
           }
         }
       });
-    } else if (
-      (message.channel.type != "DM" &&
-        !message.mentions.members &&
-        message.author.id === message.author.id) ||
-      (!message.channel.type == "DM" &&
-        message.mentions.members &&
-        message.author.id === message.author.id)
-    ) {
-      AFKUsers.findOne(
-        {
-          user: message.author.id,
-        },
-        async (err, data) => {
-          if (err) throw err;
-          if (!data) {
-            return;
-          } else {
-            if (data.message != "" && message.author.id === data.user) {
-              const wb_embed = new MessageEmbed()
-                .setColor(colors.blue)
-                .setTitle("Welcome Back!")
-                .setDescription(
-                  `Hello and welcome back <@${message.author.id}>, I have removed your AFK.`
-                )
-                .setTimestamp();
-              data = await AFKUsers.findOneAndUpdate(
-                {
-                  user: message.author.id,
-                },
-                {
-                  message: "",
-                }
-              );
-              data.save();
-              var msg = await message.reply({
-                embeds: [wb_embed],
-              });
-              await wait(15000).then(async () => await msg.delete());
-            }
-          }
-        }
-      );
     }
     /*
     for(const [id, cmd] of client.commands) {

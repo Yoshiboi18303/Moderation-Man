@@ -49,6 +49,10 @@ const profileSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  passive: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("user-profiles", profileSchema);
