@@ -69,7 +69,6 @@ global.fs = require("fs");
 global.cp = require("child_process");
 global.mongoose = require("mongoose");
 global.path = require("path");
-global.commandsUsedRecently = new Set();
 global.Enum = {
   Log: {
     Info: 0,

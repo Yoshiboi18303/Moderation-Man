@@ -78,7 +78,11 @@ module.exports = {
           new MessageButton()
             .setStyle("SECONDARY")
             .setLabel(`${third_place}`)
-            .setCustomId("third-place")
+            .setCustomId("third-place"),
+          new MessageButton()
+            .setStyle("DANGER")
+            .setLabel("Cancel")
+            .setCustomId("search-cancel")
         );
 
         await interaction.editReply({
@@ -118,6 +122,11 @@ module.exports = {
                 .setStyle("SECONDARY")
                 .setLabel(`${third_place}`)
                 .setCustomId("disabled-third-place")
+                .setDisabled(true),
+              new MessageButton()
+                .setStyle("DANGER")
+                .setLabel("Cancel")
+                .setCustomId("disabled-search-cancel")
                 .setDisabled(true)
             );
             if (chance == true) {
@@ -180,6 +189,11 @@ module.exports = {
                 .setStyle("SECONDARY")
                 .setLabel(`${third_place}`)
                 .setCustomId("disabled-third-place")
+                .setDisabled(true),
+              new MessageButton()
+                .setStyle("DANGER")
+                .setLabel("Cancel")
+                .setCustomId("disabled-search-cancel")
                 .setDisabled(true)
             );
             if (chance == true) {
@@ -219,6 +233,73 @@ module.exports = {
                     typeof second_place == "string"
                       ? second_place.toLowerCase()
                       : second_place
+                  }** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
+                );
+              await collection.first()?.editReply({
+                embeds: [failed_search_embed],
+                components: [disabled_row],
+              });
+            }
+          } else if (collection.first()?.customId == "third-place") {
+            var disabled_row = new MessageActionRow().addComponents(
+              new MessageButton()
+                .setStyle("SECONDARY")
+                .setLabel(`${first_place}`)
+                .setCustomId("disabled-first-place")
+                .setDisabled(true),
+              new MessageButton()
+                .setStyle("SECONDARY")
+                .setLabel(`${second_place}`)
+                .setCustomId("disabled-second-place")
+                .setDisabled(true),
+              new MessageButton()
+                .setStyle("PRIMARY")
+                .setLabel(`${third_place}`)
+                .setCustomId("disabled-selected-third-place")
+                .setDisabled(true),
+              new MessageButton()
+                .setStyle("DANGER")
+                .setLabel("Cancel")
+                .setCustomId("disabled-search-cancel")
+                .setDisabled(true)
+            );
+            if (chance == true) {
+              data = await Profiles.findOneAndUpdate(
+                {
+                  id: interaction.user.id,
+                },
+                {
+                  $inc: {
+                    coins: random_coins,
+                  },
+                }
+              );
+              data.save();
+              const successful_search_embed = new MessageEmbed()
+                .setColor(colors.green)
+                .setAuthor(`${interaction.user.username}'s Successful Search`)
+                .setDescription(
+                  `You went along and searched the **${
+                    typeof third_place == "string"
+                      ? third_place.toLowerCase()
+                      : third_place
+                  }** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
+                    coins + random_coins
+                  } coins in your balance.**`
+                );
+              await collection.first()?.editReply({
+                embeds: [successful_search_embed],
+                components: [disabled_row],
+              });
+            } else {
+              const failed_search_embed = new MessageEmbed()
+                .setColor(colors.red)
+                .setAuthor(`${interaction.user.username}'s Failed Search`)
+                .setDescription(
+                  `You went along and searched the **${
+                    typeof third_place == "string"
+                      ? third_place.toLowerCase()
+                      : third_place
                   }** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
                 );
               await collection.first()?.editReply({
@@ -239,55 +320,21 @@ module.exports = {
                 .setCustomId("disabled-second-place")
                 .setDisabled(true),
               new MessageButton()
-                .setStyle("PRIMARY")
+                .setStyle("SECONDARY")
                 .setLabel(`${third_place}`)
-                .setCustomId("disabled-selected-third-place")
+                .setCustomId("disabled-third-place")
+                .setDisabled(true),
+              new MessageButton()
+                .setStyle("SUCCESS")
+                .setLabel("Cancel")
+                .setCustomId("disabled-selected-search-cancel")
                 .setDisabled(true)
             );
-            if (chance == true) {
-              data = await Profiles.findOneAndUpdate(
-                {
-                  id: interaction.user.id,
-                },
-                {
-                  $inc: {
-                    coins: random_coins,
-                  },
-                }
-              );
-              data.save();
-              const successful_search_embed = new MessageEmbed()
-                .setColor(colors.green)
-                .setAuthor(`${interaction.user.username}'s Successful Search`)
-                .setDescription(
-                  `You went along and searched the **${
-                    typeof third_place == "string"
-                      ? third_place.toLowerCase()
-                      : third_place
-                  }** and found **${random_coins}** coins along your search.\n\n-----\n\n**You now have ${
-                    coins + random_coins
-                  } coins in your balance.**`
-                );
-              await collection.first()?.editReply({
-                embeds: [successful_search_embed],
-                components: [disabled_row],
-              });
-            } else {
-              const failed_search_embed = new MessageEmbed()
-                .setColor(colors.red)
-                .setAuthor(`${interaction.user.username}'s Failed Search`)
-                .setDescription(
-                  `You went along and searched the **${
-                    typeof third_place == "string"
-                      ? third_place.toLowerCase()
-                      : third_place
-                  }** but found nothing while searching every nook and cranny.\n\n-----\n\n**You still have ${coins} coins in your balance.**`
-                );
-              await collection.first()?.editReply({
-                embeds: [failed_search_embed],
-                components: [disabled_row],
-              });
-            }
+            await collection.first()?.editReply({
+              content: "Okay, don't choose, fine by me.",
+              embeds: [],
+              components: [disabled_row],
+            });
           }
         });
       }

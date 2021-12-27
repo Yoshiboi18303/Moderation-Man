@@ -35,13 +35,17 @@ module.exports = class CloseProcess {
     setTimeout(() => {
       console.log(`${name_text} Closing process...`);
       setTimeout(async () => {
-        this.client.destroy();
-        console.log(
-          `${name_text} Discord client destroyed, still trying to close the process...`
-        );
-        await this.mongoose.connection.close(() =>
-          console.log(`${name_text} Mongoose connection closed cleanly.`)
-        );
+        if (this.client && this.client.ready) {
+          this.client.destroy();
+          console.log(
+            `${name_text} Discord client destroyed, still trying to close the process...`
+          );
+        }
+        if (this.mongoose.connection) {
+          await this.mongoose.connection.close(() =>
+            console.log(`${name_text} Mongoose connection closed cleanly.`)
+          );
+        }
         setTimeout(() => {
           console.log(
             `${name_text} This process has been closed for reason ${this.reason}.`

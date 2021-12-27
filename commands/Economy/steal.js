@@ -97,7 +97,7 @@ module.exports = {
                 .setColor(colors.red)
                 .setTitle("Error")
                 .setDescription(
-                  `${emojis.nope} **-** ${data.nickname} is a passive user! Maybe try steal from someone who isn't a peace loving hippie!`
+                  `${emojis.nope} **-** ${data.nickname} is a passive user! Maybe try stealing from someone who isn't a peace loving hippie!`
                 )
                 .setTimestamp();
               return await interaction.editReply({

@@ -17,7 +17,7 @@ module.exports = class BotError extends Error {
         `Expected error text type to be a type of string, got ${typeof this
           .error_text} instead.`
       );
-    if (this.error_text.length <= 0)
+    if (this.error_text.length <= 0 || this.error_text == " ")
       throw new Error("Error text cannot be an empty string!");
     if (typeof this.critical != "boolean")
       throw new Error(

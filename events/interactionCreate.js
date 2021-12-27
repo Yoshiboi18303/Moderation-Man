@@ -51,7 +51,7 @@ module.exports = {
           cmds_used = data.commandsUsed;
           var bl = data.blacklisted;
           console.log("Updating a document...");
-          if (bl == true) {
+          if (bl || bl === true) {
             const blacklisted_embed = new MessageEmbed()
               .setColor(colors.red)
               .setTitle("Error")
@@ -160,7 +160,7 @@ module.exports = {
             if (interaction.customId == "ticket-sys-open") {
               interaction.guild.channels
                 .create(`ticket-${interaction.user.username.toLowerCase()}`, {
-                  topic: `A ticket opened by ${interaction.user.username} | Powered by ${client.user.username}`,
+                  topic: `A ticket opened by **${interaction.user.username}** | Powered by **${client.user.username}**`,
                   permissionOverwrites: [
                     {
                       id: interaction.guild.roles.everyone,
