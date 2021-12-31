@@ -1,3 +1,7 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/Yoshiboi18303/Moderation-Man?color=%2300AEFA&style=for-the-badge) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Yoshiboi18303/Moderation-Man?color=%23F30A79&style=for-the-badge) ![GitHub repo size](https://img.shields.io/github/repo-size/Yoshiboi18303/Moderation-Man?color=%230A39F1&style=for-the-badge)
+
+---
+
 # Moderation Man
 
 A bot made for a safer Discord server
