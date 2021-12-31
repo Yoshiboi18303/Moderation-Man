@@ -44,10 +44,29 @@ module.exports = {
         ephemeral: true,
       });
     */
-    if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS))
+    if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_THREADS))
       return await interaction.reply({
         content: "You aren't able to use this command due to poor permissions!",
         ephemeral: true,
+      });
+    if (
+      !interaction.guild.me.permissions.has([
+        Permissions.FLAGS.MANAGE_THREADS,
+        Permissions.FLAGS.CREATE_PUBLIC_THREADS,
+        Permissions.FLAGS.CREATE_PRIVATE_THREADS,
+        Permissions.FLAGS.SEND_MESSAGES_IN_THREADS,
+      ])
+    )
+      return await interaction.reply({
+        content: `Please make sure I have the correct permissions to execute this command!\n\n\`\`\`\nMANAGE_THREADS: ${interaction.guild.me.permissions.has(
+          Permissions.FLAGS.MANAGE_THREADS
+        )}\nCREATE_PUBLIC_THREADS: ${interaction.guild.me.permissions.has(
+          Permissions.FLAGS.CREATE_PUBLIC_THREADS
+        )}\nCREATE_PRIVATE_THREADS: ${interaction.guild.me.permissions.has(
+          Permissions.FLAGS.CREATE_PRIVATE_THREADS
+        )}\nSEND_MESSAGES_IN_THREADS: ${interaction.guild.me.permissions.has(
+          Permissions.FLAGS.SEND_MESSAGES_IN_THREADS
+        )}\n\`\`\``,
       });
     var channel = interaction.options.getChannel("channel");
     var role = interaction.options.getRole("mod_role");

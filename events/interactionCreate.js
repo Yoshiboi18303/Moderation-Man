@@ -152,88 +152,90 @@ module.exports = {
       // }
     } else if (interaction.isButton() && !interaction.isCommand()) {
       if (!interaction.guild) return;
-      TicketSettings.findOne(
-        { guild: interaction.guild.id },
-        async (err, data) => {
-          if (err) throw err;
-          if (data) {
-            if (interaction.customId == "ticket-sys-open") {
-              interaction.guild.channels
-                .create(`ticket-${interaction.user.username.toLowerCase()}`, {
-                  topic: `A ticket opened by **${interaction.user.username}** | Powered by **${client.user.username}**`,
-                  permissionOverwrites: [
-                    {
-                      id: interaction.guild.roles.everyone,
-                      deny: [
-                        Permissions.FLAGS.VIEW_CHANNEL,
-                        Permissions.FLAGS.SEND_MESSAGES,
-                      ],
-                    },
-                    {
-                      id: interaction.user.id,
-                      allow: [
-                        Permissions.FLAGS.VIEW_CHANNEL,
-                        Permissions.FLAGS.SEND_MESSAGES,
-                      ],
-                    },
-                    {
-                      id: client.user.id,
-                      allow: [
-                        Permissions.FLAGS.VIEW_CHANNEL,
-                        Permissions.FLAGS.SEND_MESSAGES,
-                      ],
-                    },
-                    {
-                      id: data.mod_role,
-                      allow: [
-                        Permissions.FLAGS.VIEW_CHANNEL,
-                        Permissions.FLAGS.SEND_MESSAGES,
-                      ],
-                    },
-                  ],
-                })
-                .then(async (channel) => {
-                  await interaction.reply({
-                    content: `Ticket opened in <#${channel.id}>!`,
+      if (interaction.customId.includes("ticket")) {
+        TicketSettings.findOne(
+          { guild: interaction.guild.id },
+          async (err, data) => {
+            if (err) throw err;
+            if (data) {
+              if (interaction.customId == "ticket-sys-open") {
+                interaction.channel.threads
+                  .create({
+                    name: `Ticket from ${interaction.user.username}`,
+                    autoArchiveDuration: 60,
+                    reason: "New ticket opened",
+                    type:
+                      interaction.guild.premiumSubscriptionCount >= 7
+                        ? "GUILD_PRIVATE_THREAD"
+                        : "GUILD_PUBLIC_THREAD",
+                  })
+                  .then(async (thread) => {
+                    await thread.members.add(interaction.user.id);
+                    interaction.guild.roles.cache
+                      .get(data.mod_role)
+                      .members.forEach((member) =>
+                        thread.members.add(member.user.id)
+                      );
+                    await interaction.reply({
+                      content: `Ticket opened in ${thread}!`,
+                      ephemeral: true,
+                    });
+                    const opened_embed = new MessageEmbed()
+                      .setColor(colors.green)
+                      .setTitle("Support Ticket")
+                      .setDescription(
+                        `I have opened a ticket for you and the support team to be able to talk. Please wait while they hop over to this channel.`
+                      );
+                    const action_row = new MessageActionRow().addComponents(
+                      new MessageButton()
+                        .setStyle("DANGER")
+                        .setLabel("Close Ticket")
+                        .setCustomId("ticket-close")
+                        .setDisabled(false)
+                    );
+                    await thread.send({
+                      embeds: [opened_embed],
+                      components: [action_row],
+                      content: `<@${interaction.user.id}>`,
+                    });
+                  })
+                  .catch((e) => console.error(e));
+              } else if (interaction.customId == "ticket-close") {
+                const closed_embed = new MessageEmbed()
+                  .setColor(colors.red)
+                  .setTitle("Ticket Closed")
+                  .setDescription(
+                    `${interaction.user.username}, I have closed this ticket. This thread will be archived in 10 seconds (coming soon!).`
+                  );
+                if (
+                  !interaction.member.permissions.has(
+                    Permissions.FLAGS.MANAGE_THREADS
+                  )
+                )
+                  return await interaction.reply({
+                    content:
+                      "Someone that can manage threads needs to close this ticket!",
                     ephemeral: true,
                   });
-                  const opened_embed = new MessageEmbed()
-                    .setColor(colors.green)
-                    .setTitle("Support Ticket")
-                    .setDescription(
-                      `I have opened a ticket for you and the support team to be able to talk. Please wait while they hop over to this channel.`
-                    );
-                  const action_row = new MessageActionRow().addComponents(
-                    new MessageButton()
-                      .setStyle("DANGER")
-                      .setLabel("Close Ticket")
-                      .setCustomId("ticket-close")
-                      .setDisabled(false)
-                  );
-                  await channel.send({
-                    embeds: [opened_embed],
-                    components: [action_row],
-                    content: `<@${interaction.user.id}>`,
+                return await interaction.reply({
+                  embeds: [closed_embed],
+                });
+                setTimeout(async () => {
+                  interaction.channel.threads.fetch().then(async (threads) => {
+                    await threads
+                      .find(
+                        (thread) =>
+                          thread.name ==
+                          `Ticket from ${interaction.user.username}`
+                      )
+                      .setArchived(true);
                   });
-                })
-                .catch((e) => console.error(e));
-            } else if (interaction.customId == "ticket-close") {
-              const closed_embed = new MessageEmbed()
-                .setColor(colors.red)
-                .setTitle("Ticket Closed")
-                .setDescription(
-                  `${interaction.user.username}, I have closed this ticket. I will delete this channel in 10 seconds.`
-                );
-              await interaction.reply({
-                embeds: [closed_embed],
-              });
-              setTimeout(() => {
-                interaction.channel.delete("The Ticket was closed.");
-              }, 10000);
+                }, 10000);
+              }
             }
           }
-        }
-      );
+        );
+      }
     } else {
       return;
     }

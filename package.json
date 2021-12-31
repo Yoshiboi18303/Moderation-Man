@@ -1,6 +1,6 @@
 {
   "name": "moderation-man",
-  "version": "1.9.1",
+  "version": "1.10.2",
   "scripts": {
     "main": "node run.js",
     "nodescript": "npx node run.js",
@@ -32,6 +32,7 @@
     "figlet": "^1.5.2",
     "fs": "^0.0.1-security",
     "infinity-bots": "^1.1.9",
+    "ishex": "^2.1.0",
     "moment": "^2.29.1",
     "mongoose": "^6.0.13",
     "ms": "^2.1.3",

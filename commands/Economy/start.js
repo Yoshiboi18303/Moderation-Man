@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Profiles = require("../../schemas/profileSchema");
 const colors = require("../../colors.json");
+const { isHex, isHexColor } = require("ishex");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -49,16 +50,15 @@ module.exports = {
             interaction.options.getString("nickname") ||
             interaction.user.username;
           var color = interaction.options.getString("color") || "#000000";
-          if (!color.includes("#"))
-            return await interaction.reply({
-              content:
-                "Invalid Hex Code\nA actual Hexadecimal Code would be `#00FF48` for example.",
-              ephemeral: true,
-            });
-          data = new Profiles({
+          console.log(isHex(color), isHexColor(color))
+          if (isHex(color) || isHexColor(color)) {
+            if(isHex(color)) {
+              color = `#${color}`
+            }
+            data = new Profiles({
             id: interaction.user.id,
-            nickname: nickname,
-            color: color,
+            nickname,
+            color,
             startedAt: Date.now(),
           });
           data.save();
@@ -74,6 +74,17 @@ module.exports = {
             )
             .setTimestamp();
           await interaction.reply({ embeds: [started_embed], ephemeral: true });
+          } else {
+            const invalid_color_embed = new MessageEmbed()
+              .setColor(colors.red)
+              .setTitle("Error")
+              .setDescription(`${emojis.nope} **-** You have entered an invalid hexadecimal code.`)
+              .setTimestamp();
+            return await interaction.reply({
+              embeds: [invalid_color_embed],
+              ephemeral: true
+            })
+          }
         }
       }
     );

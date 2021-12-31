@@ -102,6 +102,11 @@ module.exports = {
               inline: true,
             },
             {
+              name: "Is Passive?",
+              value: `${data.passive ? "Yes" : "No"}`,
+              inline: true,
+            },
+            {
               name: "Computers",
               value: `${computer_count}`,
               inline: true,
@@ -113,7 +118,7 @@ module.exports = {
             },
             {
               name: "Started On",
-              value: `${moment.utc(data.startedAt).format("LL - LTS")}`,
+              value: `<t:${data.startedAt}:F>`,
               inline: true,
             },
             {

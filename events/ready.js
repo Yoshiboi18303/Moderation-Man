@@ -268,15 +268,6 @@ module.exports = {
         type: "PLAYING",
       }
     );
-    const statuses = [
-      `${client.guilds.cache.get("892603177248096306").name}`,
-      `${await client.users.cache.size} Users`,
-      `discord.js v13`,
-      `Coded by ${client.users.cache.get("697414293712273408").tag}`,
-      `${client.guilds.cache.size} Guilds`,
-      `${config.bot.website.origin}`,
-      `Make money with my Economy system!`,
-    ];
     const status_types = ["LISTENING", "PLAYING", "WATCHING"];
     client.autoposter.on("posted", () => {
       var bot_list_link = "Top.gg".random;
@@ -338,6 +329,15 @@ module.exports = {
     });
     console.log(`${b} has logged on!`);
     setInterval(() => {
+      const statuses = [
+        `${client.guilds.cache.get("892603177248096306").name}`,
+        `${client.users.cache.size} Users`,
+        `discord.js v13`,
+        `Coded by ${client.users.cache.get("697414293712273408").tag}`,
+        `${client.guilds.cache.size} Guilds`,
+        `${config.bot.website.origin}`,
+        `Make money with my Economy system!`,
+      ];
       var status = statuses[Math.floor(Math.random() * statuses.length)];
       status += " | /help";
       var type = status_types[Math.floor(Math.random() * status_types.length)];

@@ -63,7 +63,7 @@ module.exports = {
           inline: true,
         },
         {
-          name: "Suggester",
+          name: "Suggestor",
           value: `${interaction.user.username}`,
           inline: true,
         },

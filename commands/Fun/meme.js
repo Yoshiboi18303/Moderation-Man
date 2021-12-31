@@ -21,6 +21,9 @@ module.exports = {
     });
     var data = await r.json();
 
+    var date = new Date(data.date);
+    console.log(date);
+
     /*
     return await interaction.followUp({
       content: "Check the console!"
@@ -40,7 +43,11 @@ module.exports = {
       .setDescription(`From __[r/${data.subreddit}](${data.subredditURL})__`)
       .setTitle(meme_title)
       .setImage(meme_image)
-      .setFooter(`💬 ${data.comments} 🏅 ${data.awards}`)
+      .setFooter(
+        `📅 ${date.getMonth()}/${date.getDay()}/${date.getFullYear()} 💬 ${
+          data.comments
+        } 🏅 ${data.awards}`
+      )
       .setURL(`${data.permaURL}`);
     await interaction.followUp({
       embeds: [meme_embed],

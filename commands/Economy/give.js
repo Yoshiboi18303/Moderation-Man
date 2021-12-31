@@ -36,6 +36,10 @@ module.exports = {
         content: "You need to give this specific user at least 1 coin!",
         ephemeral: true,
       });
+    if (user.id == interaction.user.id)
+      return await interaction.reply({
+        content: "You can't give money to yourself!",
+      });
     Profiles.findOne({ id: interaction.user.id }, async (err, data) => {
       if (err) throw err;
       if (!data) {
@@ -50,6 +54,18 @@ module.exports = {
           embeds: [no_interaction_user_data_embed],
         });
       } else {
+        if (data.passive) {
+          const passive_embed = new MessageEmbed()
+            .setColor(colors.yellow)
+            .setTitle("Warning")
+            .setDescription(
+              "You are a passive user, if you want to donate coins to someone, turn that shit off!"
+            )
+            .setTimestamp();
+          return await interaction.reply({
+            embeds: [passive_embed],
+          });
+        }
         var interaction_user_coins = data.coins;
         if (interaction_user_coins < amount)
           return await interaction.reply({
@@ -63,7 +79,7 @@ module.exports = {
               .setColor(colors.red)
               .setTitle("Error")
               .setDescription(
-                `${emojis.nope} **-** You doesn't have any data on the Economy system!\n**Beg them to run \`/start\` to be able to give them some of your coins!**`
+                `${emojis.nope} **-** \`${udata.nickname}\` doesn't have any data on the Economy system!\n**Beg them to run \`/start\` to be able to give them some of your coins!**`
               )
               .setTimestamp();
             return await interaction.reply({
