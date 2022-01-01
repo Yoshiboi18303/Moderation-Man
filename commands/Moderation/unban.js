@@ -37,9 +37,18 @@ module.exports = {
         });
       })
       .catch(async () => {
+        var banned_users = await interaction.guild.bans.fetch();
+        if (banned_users.size >= 0) {
+          var ids = banned_users.map((m) => `${m.user.id}`);
+        }
         return await interaction.reply({
-          content:
-            "This member is **NOT** on the ban list, look at the ban list to see who's banned!",
+          content: `This member is **NOT** on the ban list, ${
+            banned_users.size <= 0
+              ? "and there are no other users banned currently!"
+              : `these are the currently banned users (mapped by ID)\n\`\`\`\n${ids.join(
+                  ", "
+                )}\n\`\`\``
+          }`,
           ephemeral: true,
         });
       });

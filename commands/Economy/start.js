@@ -50,40 +50,45 @@ module.exports = {
             interaction.options.getString("nickname") ||
             interaction.user.username;
           var color = interaction.options.getString("color") || "#000000";
-          console.log(isHex(color), isHexColor(color))
+          console.log(isHex(color), isHexColor(color));
           if (isHex(color) || isHexColor(color)) {
-            if(isHex(color)) {
-              color = `#${color}`
+            if (isHex(color)) {
+              color = `#${color}`;
             }
             data = new Profiles({
-            id: interaction.user.id,
-            nickname,
-            color,
-            startedAt: Date.now(),
-          });
-          data.save();
-          const started_embed = new MessageEmbed()
-            .setColor(colors.green)
-            .setTitle("Success")
-            .setDescription(
-              "You have successfully started your money making adventure! Run `/work` to start making money!"
-            )
-            .setFooter(
-              `${interaction.user.username} has successfully started!`,
-              interaction.user.displayAvatarURL({ dynamic: true, size: 32 })
-            )
-            .setTimestamp();
-          await interaction.reply({ embeds: [started_embed], ephemeral: true });
+              id: interaction.user.id,
+              nickname,
+              color,
+              startedAt: Date.now(),
+            });
+            data.save();
+            const started_embed = new MessageEmbed()
+              .setColor(colors.green)
+              .setTitle("Success")
+              .setDescription(
+                "You have successfully started your money making adventure! Run `/work` to start making money!"
+              )
+              .setFooter(
+                `${interaction.user.username} has successfully started!`,
+                interaction.user.displayAvatarURL({ dynamic: true, size: 32 })
+              )
+              .setTimestamp();
+            await interaction.reply({
+              embeds: [started_embed],
+              ephemeral: true,
+            });
           } else {
             const invalid_color_embed = new MessageEmbed()
               .setColor(colors.red)
               .setTitle("Error")
-              .setDescription(`${emojis.nope} **-** You have entered an invalid hexadecimal code.`)
+              .setDescription(
+                `${emojis.nope} **-** You have entered an invalid hexadecimal code.`
+              )
               .setTimestamp();
             return await interaction.reply({
               embeds: [invalid_color_embed],
-              ephemeral: true
-            })
+              ephemeral: true,
+            });
           }
         }
       }

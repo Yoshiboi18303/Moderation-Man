@@ -10,47 +10,38 @@ module.exports = {
         .setName("song")
         .setDescription("The song to search for")
         .setRequired(true)
-    )
-    .addBooleanOption((option) =>
-      option
-        .setName("enable_cancer")
-        .setDescription("Should the lyrics be cancerous? (default: false)")
-        .setRequired(false)
     ),
   config: {
     timeout: ms("30s"),
     message: "You shouldn't just spam this information in your server.",
   },
   async execute(interaction) {
+    /* if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: "This command is being testing, please wait until it's back up." }) */
     await interaction.deferReply();
     const fetch = await import("node-fetch");
     var song = interaction.options.getString("song");
-    var lyrics_are_cancerous =
-      interaction.options.getBoolean("enable_cancer") || false;
-    var link = `https://some-random-api.ml/lyrics?title=${song}&cancer=${lyrics_are_cancerous}`;
+    var link = `https://weebyapi.xyz/json/lyrics?query=${song}&token=${process.env.WEEBY_KEY}`;
     var f = await fetch.default(link, {
       method: "GET",
     });
     var data = await f.json();
-    if (data.error)
+    // console.log(data)
+    if (data.status != 200) {
+      const error_embed = new MessageEmbed()
+        .setColor(colors.red)
+        .setTitle("Error")
+        .setDescription(`\`${data.status}\` **-** "${data.message}"`)
+        .setTimestamp();
       return await interaction.editReply({
-        content: `There were no lyrics found for **${song}**!`,
-        ephemeral: true,
+        embeds: [error_embed],
       });
-    if (data.lyrics.length > 2000) {
+    }
+    if (data.lyrics.length > 4096) {
       const too_long_embed = new MessageEmbed()
         .setColor(colors.orange)
         .setTitle("Lyrics too long")
         .setDescription(
-          `The lyrics for **${
-            data.title
-          }** (with cancerous being \`${lyrics_are_cancerous}\`) are too long to be shown on Discord, please go [here](${
-            data.links.genius
-          }) to see the full lyrics${
-            lyrics_are_cancerous == true
-              ? ` (without the cancerous lyrics)`
-              : ""
-          }.`
+          `The lyrics for **${data.track.name}** are too long to be shown on Discord, please go [here](${data.url}) to see the full lyrics.`
         );
       return await interaction.editReply({
         embeds: [too_long_embed],
@@ -59,10 +50,13 @@ module.exports = {
     }
     const lyrics_embed = new MessageEmbed()
       .setColor("RANDOM")
-      .setAuthor(`${data.author}`)
-      .setTitle(`Lyrics of ${data.title}`)
+      .setAuthor({
+        name: `${data.artist.name}`,
+        iconURL: `${data.artist.thumbnail}`,
+      })
+      .setTitle(`Lyrics of __${data.track.name}__`)
       .setDescription(`${data.lyrics}`)
-      .setThumbnail(data.thumbnail.genius)
+      .setThumbnail(data.track.thumbnail)
       .setFooter(
         `${interaction.user.username} requested this`,
         interaction.user.displayAvatarURL({

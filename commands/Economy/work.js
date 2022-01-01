@@ -54,6 +54,7 @@ module.exports = {
               "[Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES]",
               "32727",
               "[Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS]",
+              "Object.values(Discord.Intents.FLAGS)",
             ];
             var intent_item =
               intents_items[Math.floor(Math.random() * intents_items.length)];

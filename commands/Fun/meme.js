@@ -35,11 +35,10 @@ module.exports = {
 
     const meme_embed = new MessageEmbed()
       .setColor("RANDOM")
-      .setAuthor(
-        `${data.author}`,
-        null,
-        `https://www.reddit.com/user/${data.author}/`
-      )
+      .setAuthor({
+        name: `${data.author}`,
+        url: `https://www.reddit.com/user/${data.author}`,
+      })
       .setDescription(`From __[r/${data.subreddit}](${data.subredditURL})__`)
       .setTitle(meme_title)
       .setImage(meme_image)

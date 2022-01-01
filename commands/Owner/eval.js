@@ -104,7 +104,11 @@ module.exports = {
             `Successful Evaluation.\n\nOutput:\n\`\`\`js\n${result}\n\`\`\``
           )
           .setTimestamp();
-        await interaction.editReply({ embeds: [evaluated_embed] });
+        try {
+          await interaction.editReply({ embeds: [evaluated_embed] });
+        } catch (e) {
+          return;
+        }
       })
       .catch(async (result) => {
         if (typeof result !== "string")
@@ -125,7 +129,11 @@ module.exports = {
             `An error occurred.\n\nError:\n\`\`\`js\n${result}\n\`\`\``
           )
           .setTimestamp();
-        await interaction.editReply({ embeds: [error_embed] });
+        try {
+          await interaction.editReply({ embeds: [error_embed] });
+        } catch (e) {
+          return;
+        }
       });
   },
 };
