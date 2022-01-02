@@ -4,6 +4,7 @@ const { prefix } = require("../config.json").bot;
 const AFKUsers = require("../schemas/afkSchema");
 const wait = require("util").promisify(setTimeout);
 const CountingSystem = require("../schemas/countSysSchema");
+const Guilds = require("../schemas/guildSchema");
 
 module.exports = {
   name: "messageCreate",
@@ -44,6 +45,20 @@ module.exports = {
           }
         }
       );
+      Guilds.findOne({ id: message.guild.id }, async (err, data) => {
+        if (err) throw err;
+        if (!data) {
+          data = new Guilds({
+            id: message.guild.id,
+          });
+          data.save();
+        } else {
+          if (message.channel.id === data.suggestionChannel) {
+            await message.react("✅");
+            await message.react("❌");
+          }
+        }
+      });
     }
     var number_content = parseInt(message.content);
     if (

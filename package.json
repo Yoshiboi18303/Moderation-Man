@@ -1,6 +1,6 @@
 {
   "name": "moderation-man",
-  "version": "1.11.3",
+  "version": "1.12.4",
   "scripts": {
     "main": "node run.js",
     "nodescript": "npx node run.js",

@@ -1,12 +1,10 @@
 const { Schema, model } = require("mongoose");
 
-const reqString = {
-  type: String,
-  required: true,
-};
-
 const suggestionSchema = Schema({
-  id: reqString,
+  id: {
+    type: String,
+    default: "",
+  },
   suggestion: {
     type: String,
     default: "",

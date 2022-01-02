@@ -18,6 +18,8 @@ const passportDiscord = require("passport-discord");
 const session = require("express-session");
 const mongo = require("connect-mongo");
 
+var cYear = new Date(Date.now()).getFullYear();
+
 const main_vote_webhook = new WebhookClient({
   id: "902375507499298847",
   token: process.env.VOTE_WEBHOOK_TOKEN,
@@ -126,7 +128,12 @@ app.get(["/", "/home"], (req, res) => {
   });
   res
     .status(200)
-    .render("index", { link, auth: req.isAuthenticated(), user: req.user });
+    .render("index", {
+      link,
+      auth: req.isAuthenticated(),
+      user: req.user,
+      cYear,
+    });
 });
 
 app.get(["/cmds", "/commands"], (req, res) => {

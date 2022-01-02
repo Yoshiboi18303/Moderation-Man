@@ -33,7 +33,7 @@ module.exports = {
     const path = interaction.options.getString("path");
     try {
       var dirfile = fs.readFileSync(path);
-      console.log(dirfile);
+      // console.log(dirfile);
       var code = dirfile.toString();
       if (code.length > 4096) {
         var buffer = Buffer.from(code);
@@ -45,7 +45,7 @@ module.exports = {
         });
       }
       const code_embed = new MessageEmbed()
-        .setColor("RANDOM")
+        .setColor(colors.cyan)
         .setTitle("File code")
         .setDescription(`\`\`\`\n${code}\n\`\`\``)
         .setTimestamp();

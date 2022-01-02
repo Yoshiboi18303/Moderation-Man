@@ -14,6 +14,10 @@ const guildSchema = Schema({
   welcome: { type: String, default: "" },
   shop: { type: Object, default: {} },
   channels: { type: Object, default: { modlog: "", starboard: "" } },
+  suggestionChannel: {
+    type: String,
+    default: "",
+  },
 });
 
-module.exports = model("dashboard-guilds", guildSchema);
+module.exports = model("guilds", guildSchema);
