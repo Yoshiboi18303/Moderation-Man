@@ -11,13 +11,13 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("nickname")
-        .setDescription("Type in a nickname for you on the Economy system")
+        .setDescription("The nickname for you on the Economy system")
         .setRequired(false)
     )
     .addStringOption((option) =>
       option
         .setName("color")
-        .setDescription("Type in a hex code to use as a color")
+        .setDescription("The hex code to use as a color")
         .setRequired(false)
     ),
   config: {

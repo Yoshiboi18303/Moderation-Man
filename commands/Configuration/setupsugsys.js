@@ -12,7 +12,7 @@ var types = {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("setupsugsys")
-    .setDescription("Sets up the suggestion channel and options")
+    .setDescription("Sets up the suggestion system")
     .addChannelOption((option) =>
       option
         .setName("channel")

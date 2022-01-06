@@ -6,3 +6,4 @@ replit.nix
 .cache
 giveaways.json
 utils/logger.js
+commands/Economy/shop.js

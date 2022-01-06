@@ -33,14 +33,14 @@ module.exports = {
           ephemeral: true,
         });
       } else if (
-        data.inventory.items.computers == 0 ||
-        typeof data.inventory.items.computers == "undefined"
+        data.items.computers == 0 ||
+        typeof data.items.computers == "undefined"
       ) {
         const bad_item_count_embed = new MessageEmbed()
           .setColor(colors.red)
           .setTitle("Error")
           .setDescription(
-            "You don't have any computers!\nPlease ask `Yoshiboi18303#4045` for one!"
+            "You don't have any computers!\nPlease ask `Yoshiboi18303#4045` for one (shop coming soon)!"
           )
           .setFooter(
             `${interaction.user.username} needs a computer lmao.`,
@@ -52,7 +52,7 @@ module.exports = {
           ephemeral: true,
         });
       } else {
-        var cpus = data.inventory.items.computers;
+        var cpus = data.items.computers;
         var earnings = Math.floor(Math.random() * 750) + 8;
         var thing = things[Math.floor(Math.random() * things.length)];
         data = await Profiles.findOneAndUpdate(
@@ -64,10 +64,8 @@ module.exports = {
               coins: earnings,
             },
             $set: {
-              inventory: {
-                items: {
-                  computers: cpus - 1,
-                },
+              items: {
+                computers: cpus - 1,
               },
             },
           }

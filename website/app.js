@@ -126,19 +126,17 @@ app.get(["/", "/home"], (req, res) => {
       "USE_APPLICATION_COMMANDS",
     ],
   });
-  res
-    .status(200)
-    .render("index", {
-      link,
-      auth: req.isAuthenticated(),
-      user: req.user,
-      cYear,
-    });
+  res.status(200).render("index", {
+    link,
+    auth: req.isAuthenticated(),
+    user: req.user,
+    cYear,
+  });
 });
 
 app.get(["/cmds", "/commands"], (req, res) => {
   const commands = getCommands();
-  res.status(200).render("commands", { commands });
+  res.status(200).render("commands", { commands, cYear });
 });
 
 app.get("/info", (req, res) => {
@@ -152,7 +150,7 @@ app.get("/info", (req, res) => {
 app.get(["/developer", "/dev"], async (req, res) => {
   var user = await client.users.fetch("697414293712273408");
   var fhg = await client.users.fetch("482326304381730826");
-  res.status(200).render("developers", { users: [user, fhg] });
+  res.status(200).render("developers", { users: [user, fhg], cYear });
 });
 
 app.get(["/features", "/feats"], (req, res) => {
@@ -169,7 +167,7 @@ app.get("/vote", (req, res) => {
     `https://top.gg/bot/${bot.id}/vote`,
     `https://infinitybotlist.com/bots/${bot.id}/vote`,
   ];
-  res.status(200).render("vote", { bot, links, voteRewards });
+  res.status(200).render("vote", { bot, links, voteRewards, cYear });
 });
 
 app.get("/privacy", (req, res) => {
@@ -177,7 +175,7 @@ app.get("/privacy", (req, res) => {
 });
 
 app.get("/rules", (req, res) => {
-  res.status(200).render("rules");
+  res.status(200).render("rules", { cYear });
 });
 
 app.post(

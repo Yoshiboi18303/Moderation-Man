@@ -12,7 +12,6 @@ const guildSchema = Schema({
   captcha: { type: Boolean, default: false },
   voiceMod: { type: Boolean, default: false },
   welcome: { type: String, default: "" },
-  shop: { type: Object, default: {} },
   channels: { type: Object, default: { modlog: "", starboard: "" } },
   suggestionChannel: {
     type: String,

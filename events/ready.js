@@ -24,9 +24,6 @@ const CountingSystems = require("../schemas/countSysSchema");
 module.exports = {
   name: "ready",
   async execute() {
-    await client.user.setActivity("Loading bot data...", {
-      type: "PLAYING",
-    });
     const commands = [];
     const command_table = new AsciiTable(
       `${client.user.username} Commands`
@@ -168,7 +165,8 @@ module.exports = {
     data = await botlistReq.json();
     console.log(data);
 
-    botlistReqLink = `https://discordlistology.com/api/v1/bots/${botId}/stats`;
+    /* 
+      botlistReqLink = `https://discordlistology.com/api/v1/bots/${botId}/stats`;
     botlistReqHeaders = {
       "Content-Type": "application/json",
       Authorization: process.env.DISCORDLISTOLOGY,
@@ -177,6 +175,30 @@ module.exports = {
       servers: client.guilds.cache.size,
       shards: returnShardCount,
     };
+    */
+
+    const status_types = ["LISTENING", "PLAYING", "WATCHING"];
+    setInterval(() => {
+      const statuses = [
+        `${client.guilds.cache.get("892603177248096306").name}`,
+        `${client.users.cache.size} Users`,
+        `discord.js v13`,
+        `Coded by ${client.users.cache.get("697414293712273408").tag}`,
+        `${client.guilds.cache.size} Guilds`,
+        `${config.bot.website.origin}`,
+        `Make money with my Economy system!`,
+      ];
+      var status = statuses[Math.floor(Math.random() * statuses.length)];
+      status += " | /help";
+      var type = status_types[Math.floor(Math.random() * status_types.length)];
+      client.user.setActivity(`${status}`, {
+        type,
+      });
+    }, 10000);
+    client.stats.on("post", (status) => {
+      if (!status) console.log("Last post was successful!");
+      else console.error(status);
+    });
 
     botlistReq = await fetch.default(botlistReqLink, {
       method: "POST",
@@ -262,13 +284,6 @@ module.exports = {
       .then(() => console.log("Successfully sent bot data to Discord Boats!"))
       .catch((err) => console.error(err));
     await client.stats.autopost();
-    await client.user.setActivity(
-      "Bot data ready! Waiting on first status...",
-      {
-        type: "PLAYING",
-      }
-    );
-    const status_types = ["LISTENING", "PLAYING", "WATCHING"];
     client.autoposter.on("posted", () => {
       var bot_list_link = "Top.gg".random;
       console.log(`Successful sent bot data to ${bot_list_link}!`);
@@ -328,27 +343,6 @@ module.exports = {
       embeds: [mongo_events_embed],
     });
     console.log(`${b} has logged on!`);
-    setInterval(() => {
-      const statuses = [
-        `${client.guilds.cache.get("892603177248096306").name}`,
-        `${client.users.cache.size} Users`,
-        `discord.js v13`,
-        `Coded by ${client.users.cache.get("697414293712273408").tag}`,
-        `${client.guilds.cache.size} Guilds`,
-        `${config.bot.website.origin}`,
-        `Make money with my Economy system!`,
-      ];
-      var status = statuses[Math.floor(Math.random() * statuses.length)];
-      status += " | /help";
-      var type = status_types[Math.floor(Math.random() * status_types.length)];
-      client.user.setActivity(`${status}`, {
-        type,
-      });
-    }, 10000);
-    client.stats.on("post", (status) => {
-      if (!status) console.log("Last post was successful!");
-      else console.error(status);
-    });
     // webhook.send("BurnLimited is awesome, this webhook message is a test.")
   },
 };

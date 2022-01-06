@@ -50,7 +50,7 @@ global.partners = [
       1. The name
       2. The type
       3. An invite (server or bot)
-      4. The owners' ID on Discord
+      4. The owner(s)' ID on Discord
 
     Rules:
       Just have Moderation Man in your (support) server.

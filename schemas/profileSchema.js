@@ -33,16 +33,11 @@ const profileSchema = mongoose.Schema({
     type: Number,
     default: 2500,
   },
-  inventory: {
+  items: {
     type: Object,
     default: {
-      items: {
-        work_boosters: 0,
-        nukes: 0,
-        computers: 0,
-        fishing_rods: 0,
-      },
-      fish: 0,
+      computers: 0,
+      padlocks: 0,
     },
   },
   startedAt: {

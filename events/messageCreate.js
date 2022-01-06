@@ -10,7 +10,7 @@ module.exports = {
   name: "messageCreate",
   once: false,
   async execute(message, client) {
-    if (!message.author.bot) {
+    if (!message.author.bot && message.guild) {
       AFKUsers.findOne(
         {
           user: message.author.id,
@@ -37,10 +37,19 @@ module.exports = {
                 }
               );
               data.save();
-              var msg = await message.reply({
-                embeds: [wb_embed],
-              });
-              await wait(15000).then(async () => await msg.delete());
+              if (
+                message.guild.me
+                  .permissionsIn(message.channel)
+                  .has([
+                    Permissions.FLAGS.VIEW_CHANNEL,
+                    Permissions.FLAGS.SEND_MESSAGES,
+                  ])
+              ) {
+                var msg = await message.reply({
+                  embeds: [wb_embed],
+                });
+                await wait(15000).then(async () => await msg.delete());
+              }
             }
           }
         }
@@ -59,6 +68,16 @@ module.exports = {
           }
         }
       });
+      var someone = message.content.includes("@someone");
+      var date = new Date(Date.now());
+      // console.log(date, date.getMonth(), date.getDate())
+      var is1st = date.getMonth() == 3 && date.getDate() == 1;
+      if (someone && is1st) {
+        var ids = Array.from(message.guild.members.cache.keys());
+        message.channel.send({
+          content: `<@${ids[Math.floor(Math.random() * ids.length)]}>`,
+        });
+      }
     }
     var number_content = parseInt(message.content);
     if (

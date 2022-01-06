@@ -55,7 +55,6 @@ module.exports = {
         .setDescription(`${emojis.wait} **-** Trying to send you a DM...`);
       const sent_embed = new MessageEmbed()
         .setColor(colors.green)
-        .setTitle("DM Successful!")
         .setDescription(
           `${emojis.yes} **-** All of my commands were sent to your DMs!`
         );
@@ -100,7 +99,6 @@ module.exports = {
       } catch (e) {
         const failed_embed = new MessageEmbed()
           .setColor(colors.red)
-          .setTitle("DM Failed")
           .setDescription(
             `${emojis.nope} **-** I can't send you a DM, do you want to get the raw embed instead?\n\n**You have 1 minute to select an option.**`
           );
@@ -136,7 +134,6 @@ module.exports = {
           if (collection.first()?.customId == "raw-embed-yes") {
             const getting_embed = new MessageEmbed()
               .setColor(colors.orange)
-              .setTitle("Fetching Embed...")
               .setDescription(`Okay, fetching the raw embed... ${emojis.wait}`);
             re_row = new MessageActionRow().addComponents(
               new MessageButton()
