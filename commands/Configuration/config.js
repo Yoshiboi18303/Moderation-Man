@@ -30,7 +30,7 @@ module.exports = {
         .setRequired(false)
     ),
   config: {
-    timeout: ms("3m"),
+    timeout: ms("30s"),
     message:
       "Configuration can take time, calm yourself and take a chill pill.",
   },

@@ -2,6 +2,7 @@ const { MessageEmbed, MessageAttachment } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Profiles = require("../../schemas/profileSchema");
 const colors = require("../../colors.json");
+const { isHex, isHexColor } = require("ishex");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -37,6 +38,7 @@ module.exports = {
             .setRequired(true)
             .addChoice("nickname", "nickname")
             .addChoice("passive", "passive")
+            .addChoice("color", "color")
         )
         .addStringOption((option) =>
           option
@@ -233,6 +235,21 @@ module.exports = {
                       });
                     }
                     var old_nickname = data.nickname;
+                    if (
+                      value == "default" ||
+                      value == "reset" ||
+                      "default" == value.toLowerCase() ||
+                      "reset" == value.toLowerCase()
+                    )
+                      value = interaction.user.username;
+                    if (
+                      value == "previous" ||
+                      "previous" == value.toLowerCase()
+                    ) {
+                      if (data.previousNickname == "")
+                        value = interaction.user.username;
+                      else value = data.previousNickname;
+                    }
                     data = await Profiles.findOneAndUpdate(
                       {
                         id: interaction.user.id,
@@ -240,6 +257,7 @@ module.exports = {
                       {
                         $set: {
                           nickname: value,
+                          previousNickname: old_nickname,
                         },
                       }
                     );
@@ -288,15 +306,24 @@ module.exports = {
                         .setColor(colors.red)
                         .setTitle("Error")
                         .setDescription(
-                          "There's no new value specified for passive, please enter a value!"
+                          "There's no new value specified for passive mode, please enter a value!"
                         );
                       return await interaction.editReply({
                         embeds: [no_value_embed],
                       });
+                    } else if (!["true", "false"].includes(value)) {
+                      const invalid_value_embed = new MessageEmbed()
+                        .setColor(colors.red)
+                        .setTitle("Error")
+                        .setDescription(
+                          `That's an invalid value for passive mode, please make sure it's either **\`true\`** or **\`false\`**`
+                        );
+                      return await interaction.editReply({
+                        embeds: [invalid_value_embed],
+                      });
                     }
                     var old_value = data.passive;
-                    value =
-                      value == "true" || value.includes("true") ? true : false;
+                    value = value == "true" ? true : false;
                     data = await Profiles.findOneAndUpdate(
                       {
                         id: interaction.user.id,
@@ -326,6 +353,96 @@ module.exports = {
                     await interaction.editReply({
                       embeds: [new_passive_embed],
                     });
+                    break;
+                }
+                break;
+              case "color":
+                switch (action) {
+                  case "view":
+                    const current_color_embed = new MessageEmbed()
+                      .setColor(data.color)
+                      .setTitle("Current value for `color`")
+                      .addField(
+                        "Current Value",
+                        `\`\`\`\n${data.color}\n\`\`\``,
+                        false
+                      );
+                    await interaction.editReply({
+                      embeds: [current_color_embed],
+                    });
+                    break;
+                  case "set":
+                    var value = interaction.options.getString("value");
+                    var value_is_previous = false;
+                    if (!value) {
+                      const no_value_embed = new MessageEmbed()
+                        .setColor(colors.red)
+                        .setTitle("Error")
+                        .setDescription(
+                          "There's no new value specified for your color, please enter a value!"
+                        );
+                      return await interaction.editReply({
+                        embeds: [no_value_embed],
+                      });
+                    }
+                    console.log(value);
+                    if (
+                      value == "previous" ||
+                      "previous" == value.toLowerCase()
+                    ) {
+                      if (data.previousColor == "") value = data.color;
+                      else {
+                        value = data.previousColor;
+                        value_is_previous = true;
+                      }
+                    }
+                    if (isHex(value) || isHexColor(value)) {
+                      if (isHex(value)) {
+                        value = `#${value}`;
+                        console.log(value);
+                      }
+                      var old_color = data.color;
+                      data = await Profiles.findOneAndUpdate(
+                        {
+                          id: interaction.user.id,
+                        },
+                        {
+                          $set: {
+                            color: value,
+                            previousColor: value_is_previous
+                              ? old_color
+                              : value,
+                          },
+                        }
+                      );
+                      data.save();
+                      const new_color_embed = new MessageEmbed()
+                        .setColor(colors.cyan)
+                        .setTitle("New Value for `color`")
+                        .addFields([
+                          {
+                            name: "Old Value",
+                            value: `\`\`\`\n${old_color}\n\`\`\``,
+                            inline: true,
+                          },
+                          {
+                            name: "New Value",
+                            value: `\`\`\`\n${value}\n\`\`\``,
+                            inline: true,
+                          },
+                        ]);
+                      await interaction.editReply({
+                        embeds: [new_color_embed],
+                      });
+                    } else {
+                      const invalid_value_embed = new MessageEmbed()
+                        .setColor(colors.red)
+                        .setTitle("Error")
+                        .setDescription("That's not a valid hex or hex color!");
+                      return await interaction.editReply({
+                        embeds: [invalid_value_embed],
+                      });
+                    }
                     break;
                 }
                 break;

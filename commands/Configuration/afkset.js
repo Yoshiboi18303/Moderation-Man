@@ -10,7 +10,7 @@ module.exports = {
       option
         .setName("message")
         .setDescription("The message to set as your AFK reason")
-        .setRequired(true)
+        .setRequired(false)
     ),
   config: {
     timeout: ms("5s"),
@@ -20,7 +20,7 @@ module.exports = {
     /*
     if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!`, ephemeral: true })
     */
-    var message = interaction.options.getString("message");
+    var message = interaction.options.getString("message") || "I'm AFK!";
     var user = interaction.user;
     const set_embed = new MessageEmbed()
       .setColor(colors.green)

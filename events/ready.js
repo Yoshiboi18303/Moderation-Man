@@ -194,7 +194,7 @@ module.exports = {
       client.user.setActivity(`${status}`, {
         type,
       });
-    }, 10000);
+    }, 25000);
     client.stats.on("post", (status) => {
       if (!status) console.log("Last post was successful!");
       else console.error(status);

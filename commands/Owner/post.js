@@ -71,10 +71,6 @@ module.exports = {
         headers: posting_headers,
         body: JSON.stringify(posting_body),
       });
-      /*
-      var data = await f.json();
-      console.log(data)
-      */
       await interaction.editReply({
         content: `DEL Post sent.`,
       });

@@ -48,7 +48,7 @@ module.exports = {
                 var msg = await message.reply({
                   embeds: [wb_embed],
                 });
-                await wait(15000).then(async () => await msg.delete());
+                wait(15000).then(async () => await msg.delete());
               }
             }
           }

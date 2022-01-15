@@ -24,6 +24,10 @@ module.exports = {
         )
         .setRequired(false)
     ),
+  config: {
+    timeout: ms("15s"),
+    message: "Calm it down posting news, do you want a ratelimit?!",
+  },
   async execute(interaction) {
     if (!admins.includes(interaction.user.id))
       return await interaction.reply({
@@ -54,8 +58,8 @@ module.exports = {
       }
     );
     const result = await f.json();
-    await interaction.reply({
-      content: `\`\`\`\n${result}\n\`\`\``,
+    await interaction.editReply({
+      content: `\`\`\`json\n${await result}\n\`\`\``,
     });
   },
 };

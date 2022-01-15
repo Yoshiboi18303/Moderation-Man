@@ -1,7 +1,11 @@
 const fs = require("fs");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
+const { Client } = require("discord.js");
 
+/**
+ * @param {Client} client
+ */
 module.exports = (client) => {
   client.commandArray = [];
   client.handleCommands = async (commandFolders, path) => {

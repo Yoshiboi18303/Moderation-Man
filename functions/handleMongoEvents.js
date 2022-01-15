@@ -1,3 +1,8 @@
+const { Client } = require("discord.js");
+
+/**
+ * @param {Client} client
+ */
 module.exports = (client) => {
   client.handleMongoEvents = async (eventFiles, path) => {
     for (const file of eventFiles) {

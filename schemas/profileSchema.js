@@ -40,6 +40,10 @@ const profileSchema = mongoose.Schema({
       padlocks: 0,
     },
   },
+  lastDaily: {
+    type: Number,
+    default: 0,
+  },
   startedAt: {
     type: Number,
     default: 0,
@@ -47,6 +51,14 @@ const profileSchema = mongoose.Schema({
   passive: {
     type: Boolean,
     default: false,
+  },
+  previousNickname: {
+    type: String,
+    default: ""
+  },
+  previousColor: {
+    type: String,
+    default: ""
   },
 });
 
