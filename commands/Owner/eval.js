@@ -36,6 +36,7 @@ module.exports = {
         content: "You are **NOT** an owner of this bot!",
         ephemeral: true,
       });
+    const parser = await import("parse-ms");
     const fetch = await import("node-fetch");
     const code = interaction.options.getString("code") || "";
     await interaction.deferReply();

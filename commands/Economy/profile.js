@@ -373,7 +373,6 @@ module.exports = {
                     break;
                   case "set":
                     var value = interaction.options.getString("value");
-                    var value_is_previous = false;
                     if (!value) {
                       const no_value_embed = new MessageEmbed()
                         .setColor(colors.red)
@@ -409,9 +408,7 @@ module.exports = {
                         {
                           $set: {
                             color: value,
-                            previousColor: value_is_previous
-                              ? old_color
-                              : value,
+                            previousColor: old_color,
                           },
                         }
                       );

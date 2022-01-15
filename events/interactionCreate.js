@@ -5,11 +5,17 @@ const {
   MessageButton,
   MessageEmbed,
   Permissions,
+  Interaction,
+  Client,
 } = require("discord.js");
 const TicketSettings = require("../schemas/ticketSetSchema");
 
 module.exports = {
   name: "interactionCreate",
+  /**
+   * @param {Interaction} interaction
+   * @param {Client} client
+   */
   async execute(interaction, client) {
     if (interaction.isCommand()) {
       if (!interaction.guild)
@@ -131,8 +137,14 @@ module.exports = {
         embeds: [trying_embed],
       });
       client.stats.postCommand(command.data.name, interaction.user.id);
-      var msg = command.config.message;
-      var timeout = command.config.timeout;
+      var msg =
+        command.config != undefined || typeof command.config != "undefined"
+          ? command.config.message
+          : "Calm it down, you're gonna break something!";
+      var timeout =
+        command.config != undefined || typeof command.config != "undefined"
+          ? command.config.timeout
+          : ms("3s");
       /*
       if(commandsUsedRecently.has(interaction.user.id)) {
         var titles = ["Too spicy for me, take a breather", "429, Too many requests", "You need to slow down", "Way too fast for me"]

@@ -54,11 +54,15 @@ const profileSchema = mongoose.Schema({
   },
   previousNickname: {
     type: String,
-    default: ""
+    default: "",
   },
   previousColor: {
     type: String,
-    default: ""
+    default: "",
+  },
+  dailyStreak: {
+    type: Number,
+    default: 1,
   },
 });
 
