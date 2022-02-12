@@ -1,26 +1,29 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageAttachment } = require("discord.js");
+const { CommandInteraction, MessageAttachment } = require("discord.js")
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("pet")
-    .setDescription("*insert ending theme*")
-    .addUserOption((option) =>
-      option
-        .setName("user")
-        .setDescription("Select a user to pet")
-        .setRequired(false)
-    ),
+    .setDescription("*insert ending theme*"),
   config: {
     timeout: ms("5s"),
     message: "Your fun needs a break.",
   },
+  /**
+   * @param {CommandInteraction} interaction
+   */
   async execute(interaction) {
-    const user = interaction.options.getUser("user") || interaction.user;
-    var link = `https://some-random-api.ml/premium/petpet?avatar=${user.displayAvatarURL(
-      { dynamic: false, format: "png", size: 512 }
-    )}&key=${process.env.KEY}`;
-    var attachment = new MessageAttachment(link, "petpet.gif");
+    /*
+    if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: "This command is being tested!" })
+    */
+    const fetch = await import("node-fetch");
+    var link = `https://weebyapi.xyz/gif/pat?token=${process.env.WEEBY_KEY}`;
+    var f = await fetch.default(link, {
+      method: "GET"
+    })
+    var { url } = await f.json();
+    // console.log(url)
+    var attachment = new MessageAttachment(url, "pat.gif")
     await interaction.reply({ files: [attachment] });
   },
 };

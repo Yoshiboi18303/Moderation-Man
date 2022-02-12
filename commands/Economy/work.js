@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Profiles = require("../../schemas/profileSchema");
 const colors = require("../../colors.json");
@@ -21,6 +21,9 @@ module.exports = {
     timeout: ms("5m"),
     message: "You've worked recently, you really should rest.",
   },
+  /**
+   * @param {CommandInteraction} interaction
+   */
   async execute(interaction) {
     /*
     if(interaction.guild.id != config.bot.testServerId) return await interaction.reply({ content: `This command is restricted to **${client.guilds.cache.get(config.bot.testServerId).name}** for the moment!`, ephemeral: true })
@@ -235,7 +238,7 @@ module.exports = {
               "Hotdog",
               "Taco",
               "Steak",
-              "Shortcake",
+              "Shortcake (Cake)",
               "Salad",
               "Pie",
               "Fries",

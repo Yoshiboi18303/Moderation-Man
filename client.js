@@ -24,7 +24,6 @@ const { AutoPoster } = require("topgg-autoposter");
 const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
 const BoatsClient = require("boats.js");
 const Boats = new BoatsClient(process.env.BOATS_KEY);
-const giveawaymanager = require("./items/gmanager");
 
 global.Discord = require("discord.js");
 global.client = client;
@@ -41,6 +40,7 @@ global.admins = [
   "738988218002964581",
   config.bot.owner,
   "705114789374066748",
+  "937402767079792672"
 ];
 // An array of partners
 global.partners = [
@@ -90,7 +90,6 @@ client.mongoEvents = new Collection();
 client.stats = statcord;
 client.autoposter = ap;
 client.boat = Boats;
-client.giveaways = giveawaymanager;
 
 const functions = fs
   .readdirSync("./functions/")

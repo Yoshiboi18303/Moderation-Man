@@ -7,7 +7,7 @@ module.exports = {
     .setName("search")
     .setDescription("Search somewhere!"),
   config: {
-    timeout: ms("50s"),
+    timeout: ms("10s"),
     message: "Your search exhibition can wait.",
   },
   async execute(interaction) {

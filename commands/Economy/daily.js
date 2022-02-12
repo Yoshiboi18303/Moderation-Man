@@ -2,12 +2,13 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, CommandInteraction } = require("discord.js");
 const Profiles = require("../../schemas/profileSchema");
 
-var defaultReward = 500;
-var streakRewards = {
-  1: defaultReward,
-  2: defaultReward * 2,
-  3: defaultReward * 3,
-  4: defaultReward * 4,
+const defaultReward = 500;
+const streakRewards = {
+  0: defaultReward,
+  1: defaultReward * 2,
+  2: defaultReward * 3,
+  3: defaultReward * 4,
+  4: defaultReward * 5,
 };
 
 module.exports = {
@@ -48,7 +49,7 @@ module.exports = {
         // console.log(formula, formula > 0)
         if (formula > 0) {
           var time = parser.default(formula);
-          console.log(time);
+          // console.log(time);
           const on_timeout_embed = new MessageEmbed()
             .setColor(colors.red)
             .setTitle("Failure...")
@@ -62,10 +63,8 @@ module.exports = {
         } else {
           var now = new Date(Date.now());
           var streak = data.dailyStreak;
-          var reward =
-            now.getDay() == 6 || now.getDay() == 7 || now.getDay == 0
-              ? defaultReward * 2
-              : defaultReward;
+          const is_weekend = now.getDay() == 6 || now.getDay() == 0 || now.getDay() == 1
+          var reward = is_weekend ? defaultReward * 2 : defaultReward;
           data = await Profiles.findOneAndUpdate(
             {
               id: interaction.user.id,
@@ -85,7 +84,7 @@ module.exports = {
             .setTitle("Claimed!")
             .setDescription(
               `You have successfully claimed your daily reward of ${reward}${
-                now.getDay() == 6 || now.getDay() == 7 || now.getDay == 0
+                is_weekend
                   ? " (because it's the weekend, you got double the default amount)"
                   : ""
               } coins!`

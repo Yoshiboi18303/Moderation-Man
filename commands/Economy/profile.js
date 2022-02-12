@@ -119,7 +119,7 @@ module.exports = {
               padlocks = 0;
             const profile_embed = new MessageEmbed()
               .setColor(data.color)
-              .setTitle(`${data.nickname}'s Profile!`)
+              .setTitle(`Profile of ${data.nickname}!`)
               .addFields([
                 {
                   name: "Coins",
@@ -249,6 +249,17 @@ module.exports = {
                       if (data.previousNickname == "")
                         value = interaction.user.username;
                       else value = data.previousNickname;
+                    }
+                    console.log(value.length)
+                    if(value.length > 210) {
+                      const too_long_embed = new MessageEmbed()
+                        .setColor(colors.yellow)
+                        .setTitle("Warning")
+                        .setDescription("The nickname you have entered is too long, please type in a nickname that's 210 characters or less!")
+                        .setTimestamp()
+                      return await interaction.editReply({
+                        embeds: [too_long_embed]
+                      })
                     }
                     data = await Profiles.findOneAndUpdate(
                       {

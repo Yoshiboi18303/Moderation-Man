@@ -11,7 +11,7 @@ module.exports = class BotError extends Error {
     if (!this.error_text) throw new Error(`Error text cannot be undefined.`);
     if (!this.error) throw new Error(`This class needs an error to return.`);
     if (!this.critical)
-      throw new Error("Critical error option can't be left out!");
+      this.critical = false
     if (typeof this.error_text != "string")
       throw new Error(
         `Expected error text type to be a type of string, got ${typeof this

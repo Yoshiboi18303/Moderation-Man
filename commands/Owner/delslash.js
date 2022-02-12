@@ -36,7 +36,7 @@ module.exports = {
         if (!cmd) {
           const bad_cmd_embed = new MessageEmbed()
             .setColor(colors.red)
-            .setTitle(`__Error__\u2800${emojis.nope}`)
+            .setTitle(`__Error__ ${emojis.nope}`)
             .setDescription("That command wasn't found!");
           return await interaction.editReply({
             embeds: [bad_cmd_embed],
@@ -46,17 +46,17 @@ module.exports = {
         await cmd.delete();
         const deleted_embed = new MessageEmbed()
           .setColor(colors.green)
-          .setTitle(`__Finished!__\u2800${emojis.yes}`)
+          .setTitle(`__Finished!__ ${emojis.yes}`)
           .setDescription(`Successfully deleted command: \`${cmd_name}\``);
         await interaction.editReply({
           embeds: [deleted_embed],
         });
       })
       .catch(async (err) => {
+        console.error(err);
         return await interaction.editReply({
           content: "An error occurred... Please check the console!",
         });
-        console.error(err);
       });
   },
 };
