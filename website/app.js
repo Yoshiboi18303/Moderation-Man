@@ -105,27 +105,7 @@ app.use("/servers", require("./routes/servers"));
 // app.use("/cookies", require("./routes/cookies"));
 
 app.get(["/", "/home"], (req, res) => {
-  var link = client.generateInvite({
-    scopes: ["applications.commands", "bot"],
-    permissions: [
-      "KICK_MEMBERS",
-      "BAN_MEMBERS",
-      "MANAGE_CHANNELS",
-      "MANAGE_GUILD",
-      "VIEW_CHANNEL",
-      "SEND_MESSAGES",
-      "MANAGE_MESSAGES",
-      "EMBED_LINKS",
-      "ATTACH_FILES",
-      "READ_MESSAGE_HISTORY",
-      "USE_EXTERNAL_EMOJIS",
-      "MENTION_EVERYONE",
-      "CHANGE_NICKNAME",
-      "MANAGE_ROLES",
-      "MANAGE_EMOJIS_AND_STICKERS",
-      "USE_APPLICATION_COMMANDS",
-    ],
-  });
+  var link = "https://discord.com/api/oauth2/authorize?client_id=891070722074611742&permissions=8&scope=bot%20applications.commands"
   res.status(200).render("index", {
     link,
     auth: req.isAuthenticated(),
