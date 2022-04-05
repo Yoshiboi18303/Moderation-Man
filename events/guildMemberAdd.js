@@ -1,4 +1,9 @@
-const { MessageEmbed, Permissions, MessageAttachment, GuildMember } = require("discord.js");
+const {
+  MessageEmbed,
+  Permissions,
+  MessageAttachment,
+  GuildMember,
+} = require("discord.js");
 const colors = require("../colors.json");
 const log_id = "892607019138310205";
 const guild_id = "892603177248096306";
@@ -6,10 +11,8 @@ const user_role_id = "892610872428613673";
 const bot_role_id = "892611367461326859";
 const attempt_max = 10;
 const BotError = require("../items/classes/BotError");
-const Canvas = require("canvas");
 
 const Guilds = require("../schemas/guildSchema");
-const { applyText } = require("../utils/");
 
 module.exports = {
   name: "guildMemberAdd",
@@ -25,26 +28,7 @@ module.exports = {
     });
     var data = await f.json();
     try {
-      const canvas = Canvas.createCanvas(700, 250)
-      var ctx = canvas.getContext("2d")
-      var background = await Canvas.loadImage(process.env.WELCOME_IMAGE_URL)
-      var avatar = await Canvas.loadImage(member.user.displayAvatarURL({ dynamic: true, format: "jpg" }))
-      ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
-      ctx.strokeStyle = "#002e62"
-      ctx.strokeRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(avatar, 25, 25, 200, 200)
-      ctx.beginPath()
-      ctx.arc(125, 125, 100, 0, Math.PI * 2, true)
-      ctx.closePath()
-      ctx.clip()
-      ctx.font = "28px sans-serif"
-      ctx.fillStyle = colors.cyan
-      ctx.fillText("Welcome", canvas.width / 2.5, canvas.height / 3.5)
-      ctx.font = applyText(canvas, `${member.displayName}!`)
-      ctx.fillStyle = "#ffffff"
-      ctx.fillText(`${member.displayName}!`, 700 / 2.5, 250 / 1.8)
       /* Testing Purposes */ if (member.guild.id == guild_id) {
-        var attachment = new MessageAttachment(canvas.toBuffer(), "welcome.png")
         if (!member.user.bot) {
           var user = member.user;
           var guild = member.guild;
@@ -56,7 +40,9 @@ module.exports = {
               `**${user.username}** joined **${guild.name}**, welcome to the server! 👋`
             )
             .setImage("attachment://welcome.png");
-          client.channels.cache.get(log_id).send({ embeds: [new_user_embed], files: [attachment] });
+          client.channels.cache
+            .get(log_id)
+            .send({ embeds: [new_user_embed], files: [attachment] });
           const captcha_embed = new MessageEmbed()
             .setColor(colors.yellow)
             .setTitle("__Verification__")

@@ -1,9 +1,10 @@
 node_modules
 replit.nix
 .replit
-.upm
-.config
-.cache
+.upm/
+.config/
+.cache/
 giveaways.json
 utils/logger.js
 commands/Economy/shop.js
+github/

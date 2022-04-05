@@ -18,7 +18,6 @@ let command_index = 1;
 let event_index = 1;
 let mongo_event_index = 1;
 const Users = require("../schemas/userSchema");
-const c = require("colors");
 const CountingSystems = require("../schemas/countSysSchema");
 
 module.exports = {
@@ -279,10 +278,6 @@ module.exports = {
 
     var b = `${client.user.username}`.rainbow.underline.bold;
 
-    client.boat
-      .postStats(client.guilds.cache.size, botId)
-      .then(() => console.log("Successfully sent bot data to Discord Boats!"))
-      .catch((err) => console.error(err));
     await client.stats.autopost();
     client.autoposter.on("posted", () => {
       var bot_list_link = "Top.gg".random;

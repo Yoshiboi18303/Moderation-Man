@@ -1,5 +1,4 @@
 const { readdirSync } = require("fs");
-const { Canvas } = require("canvas");
 
 function getCommands() {
   let categories = [];
@@ -115,22 +114,6 @@ function emojifyText(text) {
   return final;
 }
 
-/**
- * @param {Canvas} canvas
- * @param {String} text
- */
-function applyText(canvas, text) {
-  const context = canvas.getContext("2d")
-
-  let fontSize = 70;
-
-  do {
-    context.font = `${fontSize - 10}px sans-serif`
-  } while (context.measureText(text).width > canvas.width - 300)
-
-  return context.font
-}
-
 module.exports = {
   getCommands,
   convertToLowerCase,
@@ -138,5 +121,4 @@ module.exports = {
   reverseString,
   returnUserStatusText,
   emojifyText,
-  applyText
 };

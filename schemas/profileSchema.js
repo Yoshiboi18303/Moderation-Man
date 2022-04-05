@@ -44,6 +44,10 @@ const profileSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  lastWeekly: {
+    type: Number,
+    default: 0,
+  },
   startedAt: {
     type: Number,
     default: 0,
