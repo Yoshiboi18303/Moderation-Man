@@ -11,7 +11,7 @@ const client = new Client({
   shards: "auto",
 });
 module.exports = client;
-const token = process.env.TEST_BOT_TOKEN;
+const token = process.env.TOKEN;
 const { Client: C } = require("statcord.js");
 const statcord = new C({
   client,
