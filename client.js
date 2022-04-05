@@ -1,4 +1,4 @@
-console.log(
+git console.log(
   "Starting bot...\n\n--------------------------------------------------------------\n"
 );
 const { Client, Collection, Intents } = require("discord.js");

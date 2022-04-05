@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { CommandInteraction, MessageAttachment } = require("discord.js")
+const { CommandInteraction, MessageAttachment } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,11 +19,11 @@ module.exports = {
     const fetch = await import("node-fetch");
     var link = `https://weebyapi.xyz/gif/pat?token=${process.env.WEEBY_KEY}`;
     var f = await fetch.default(link, {
-      method: "GET"
-    })
+      method: "GET",
+    });
     var { url } = await f.json();
     // console.log(url)
-    var attachment = new MessageAttachment(url, "pat.gif")
+    var attachment = new MessageAttachment(url, "pat.gif");
     await interaction.reply({ files: [attachment] });
   },
 };

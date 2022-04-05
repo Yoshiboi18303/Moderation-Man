@@ -79,7 +79,7 @@ module.exports = {
               .setColor(colors.red)
               .setTitle("Error")
               .setDescription(
-                `${emojis.nope} **-** \`${udata.nickname}\` doesn't have any data on the Economy system!\n**Beg them to run \`/start\` to be able to give them some of your coins!**`
+                `${emojis.nope} **-** \`${user.username}\` doesn't have any data on the Economy system!\n**Beg them to run \`/start\` to be able to give them some of your coins!**`
               )
               .setTimestamp();
             return await interaction.reply({

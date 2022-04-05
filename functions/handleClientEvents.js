@@ -5,6 +5,11 @@ const { Client } = require("discord.js");
  */
 module.exports = (client) => {
   console.log("Registering Client Events...");
+  /**
+   * Handles and starts listening for events related to the Discord.js Client
+   * @param {Array<String>} eventFiles
+   * @param {String} path
+   */
   client.handleClientEvents = async (eventFiles, path) => {
     for (const file of eventFiles) {
       const event = require(`../events/${file}`);

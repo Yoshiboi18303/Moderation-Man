@@ -63,7 +63,8 @@ module.exports = {
         } else {
           var now = new Date(Date.now());
           var streak = data.dailyStreak;
-          const is_weekend = now.getDay() == 6 || now.getDay() == 0 || now.getDay() == 1
+          const is_weekend =
+            now.getDay() == 6 || now.getDay() == 0 || now.getDay() == 1;
           var reward = is_weekend ? defaultReward * 2 : defaultReward;
           data = await Profiles.findOneAndUpdate(
             {

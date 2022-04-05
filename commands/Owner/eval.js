@@ -15,7 +15,6 @@ const CommandError = require("../../items/classes/CommandError");
 const BotError = require("../../items/classes/BotError");
 const CloseProcess = require("../../items/classes/CloseProcess");
 const utils = require("../../utils/");
-const Canvas = require("canvas");
 
 module.exports = {
   data: new SlashCommandBuilder()

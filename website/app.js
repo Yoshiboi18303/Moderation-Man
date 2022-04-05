@@ -140,11 +140,18 @@ app.get(["/cmds", "/commands"], (req, res) => {
 });
 
 app.get("/info", (req, res) => {
-  var info = {
-    guilds: client.guilds.cache.size,
-    users: client.users.cache.size,
-  };
-  res.status(200).send(info);
+  var guilds = client.guilds.cache.size
+  var users = client.users.cache.size
+
+  res.status(200).render("info", {
+    info: {
+      guilds,
+      users,
+      creationDate: new Date(client.user.createdAt)
+    },
+    moment,
+    client,
+  })
 });
 
 app.get(["/developer", "/dev"], async (req, res) => {

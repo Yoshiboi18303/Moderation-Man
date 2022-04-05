@@ -1,4 +1,9 @@
-const { MessageEmbed, MessageActionRow, MessageButton, CommandInteraction } = require("discord.js");
+const {
+  MessageEmbed,
+  MessageActionRow,
+  MessageButton,
+  CommandInteraction,
+} = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Profiles = require("../../schemas/profileSchema");
 const colors = require("../../colors.json");
@@ -238,7 +243,7 @@ module.exports = {
               "Hotdog",
               "Taco",
               "Steak",
-              "Shortcake (Cake)",
+              "Shortcake",
               "Salad",
               "Pie",
               "Fries",

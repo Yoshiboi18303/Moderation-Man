@@ -284,7 +284,7 @@ module.exports = {
         });
       } catch (e) {
         console.error(e);
-        if (collection.first()?.replied || collection.first?.deferred) {
+        if (collection.first()?.replied || collection.first()?.deferred) {
           await collection.first()?.editReply({
             content:
               "There was an error, this has been reported to the developers.",

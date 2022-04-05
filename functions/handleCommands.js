@@ -42,11 +42,11 @@ module.exports = (client) => {
       }
     }
 
-    const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
+    const rest = new REST({ version: "9" }).setToken(process.env.TEST_BOT_TOKEN);
 
     (async () => {
       try {
-        const clientID = client.ready ? client.user.id : "891070722074611742";
+        const clientID = client.ready ? client.user.id : "897538650542321684";
         const guildID = "892603177248096306";
         console.log("Started refreshing application (/) commands.");
 
