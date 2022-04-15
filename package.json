@@ -29,7 +29,7 @@
     "express-session": "^1.17.2",
     "figlet": "^1.5.2",
     "fs": "^0.0.1-security",
-    "infinity-bots": "^1.1.9",
+    "infinity-bots": "^1.2.9",
     "ishex": "^2.1.0",
     "moment": "^2.29.1",
     "mongoose": "^6.0.13",
