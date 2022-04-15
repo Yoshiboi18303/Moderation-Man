@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { Permissions } = require("discord.js");
+const { Permissions, CommandInteraction } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,6 +17,9 @@ module.exports = {
     timeout: ms("20s"),
     message: "Could you not spam moderate?",
   },
+  /**
+    * @param {CommandInteraction} interaction
+  */
   async execute(interaction) {
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
       return await interaction.reply({
@@ -40,10 +43,15 @@ module.exports = {
       return await interaction.reply({
         content: "You need to delete at least 1 message!",
       });
-    interaction.channel.bulkDelete(number_to_delete).then(async () => {
+   try { interaction.channel.bulkDelete(number_to_delete).then(async () => {
       await interaction.reply(
         `Purged ${number_to_delete} messages from <#${interaction.channel.id}>!`
       );
     });
+   } catch(e) {
+     await interaction.reply({
+       content: "An error occurred while trying to purge messages!"
+     })
+   }
   },
 };
