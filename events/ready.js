@@ -155,6 +155,7 @@ module.exports = {
       guilds: client.guilds.cache.size,
     };
 
+    /*
     botlistReq = await fetch.default(botlistReqLink, {
       method: "POST",
       headers: botlistReqHeaders,
@@ -163,6 +164,7 @@ module.exports = {
 
     data = await botlistReq.json();
     console.log(data);
+    */
 
     /* 
       botlistReqLink = `https://discordlistology.com/api/v1/bots/${botId}/stats`;

@@ -5,7 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("nuke")
     .setDescription(
-      "Nukes the current channel (which deletes it) and rebuilds it fresh!"
+      "Nukes the current channel (which deletes it and rebuilds it fresh)!"
     ),
   config: {
     timeout: ms("20s"),
