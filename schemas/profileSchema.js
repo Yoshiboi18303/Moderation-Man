@@ -13,10 +13,6 @@ const profileSchema = mongoose.Schema({
     type: String,
     default: "#000000",
   },
-  job: {
-    type: String,
-    default: "",
-  },
   coins: {
     type: Number,
     default: 100,
