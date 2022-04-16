@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { utc } = require("moment");
-const { MessageEmbed, Permissions } = require("discord.js");
+const { MessageEmbed, Permissions, CommandInteraction } = require("discord.js");
 const Users = require("../../schemas/userSchema");
 const { returnUserStatusText } = require("../../utils/");
 
@@ -34,6 +34,9 @@ module.exports = {
     timeout: ms("30s"),
     message: "You shouldn't just spam this information in your server.",
   },
+  /**
+    * @param {CommandInteraction} interaction
+  */
   async execute(interaction) {
     await interaction.deferReply();
     const user = interaction.options.getUser("user") || interaction.user;
@@ -57,15 +60,15 @@ module.exports = {
 
         function returnMessageCount() {
           var messages_sent = 0;
-          for (var channel of interaction.guild.channels.cache.toJSON()) {
-            if (channel.type == "GUILD_TEXT") {
-              for (var message of channel.messages.cache.toJSON()) {
-                if (message.author.id == interaction.user.id) {
+          interaction.guild.channels.cache.filter((channel) => channel.type === "GUILD_TEXT").forEach((channel) => {
+            channel.messages.fetch().then((messages) => {
+              messages.forEach((message) => {
+                if(message.author.id === user.id) {
                   messages_sent++;
                 }
-              }
-            }
-          }
+              })
+            })
+          })
           return messages_sent;
         }
 
@@ -177,7 +180,7 @@ module.exports = {
           `**❯ Nickname:** ${
             member.nickname != null ? member.nickname : "None"
           }`,
-          `**❯ Messages Sent (after last restart):** ${returnMessageCount()}`,
+          `**❯ Messages Sent (all time in this guild):** ${returnMessageCount()}`,
           `${t} ${role_array.length > 1 ? role_array.join(", ") : "None"}`,
           `**❯ Highest Role:** ${
             member.roles.highest.id === interaction.guild.id
