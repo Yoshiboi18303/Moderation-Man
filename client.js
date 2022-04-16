@@ -83,7 +83,7 @@ global.Log = require("./utils/logger");
 global.dlsBaseURL = "https://api.discordlist.space/v2";
 global.motionBaseURL = "https://www.motiondevelopment.top/api/v1.2";
 global.chatbot = new Chatbot({ name: "Moderation Man", gender: "Male" })
-global.CommandError = require("../items/classes/CommandError");
+global.CommandError = require("./items/classes/CommandError");
 
 client.commands = new Collection();
 client.events = new Collection();
