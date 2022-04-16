@@ -1,5 +1,4 @@
 const Users = require("../schemas/userSchema");
-const CommandError = require("../items/classes/CommandError");
 const {
   MessageActionRow,
   MessageButton,

@@ -1,6 +1,3 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const key = process.env.KEY;
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("chat")
@@ -19,15 +16,9 @@ module.exports = {
     // return await interaction.reply({ content: 'This command is broken and will be fixed soon!' })
     await interaction.deferReply();
     const message = interaction.options.getString("message");
-    const fetch = await import("node-fetch");
-
-    const link = `https://some-random-api.ml/chatbot?message=${message}&key=${key}`;
-
-    const r = await fetch.default(link, {
-      method: "GET",
-    });
-    const data = await r.json();
-
-    await interaction.followUp(`${data.response}`);
+    chatbot.chat(message).then(async (response) => await interaction.followUp(`${response}`)).catch(async (e) => {
+      new CommandError("An error occurred while using the chatbot", e)
+      return await interaction.followUp({ content: "An error occurred while using the chatbot, this has been sent to the developers." })
+    })
   },
 };

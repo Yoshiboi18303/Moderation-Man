@@ -22,6 +22,7 @@ const statcord = new C({
 });
 const { AutoPoster } = require("topgg-autoposter");
 const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
+const Chatbot = require("discord-chatbot");
 
 global.Discord = require("discord.js");
 global.client = client;
@@ -81,6 +82,8 @@ global.Enum = {
 global.Log = require("./utils/logger");
 global.dlsBaseURL = "https://api.discordlist.space/v2";
 global.motionBaseURL = "https://www.motiondevelopment.top/api/v1.2";
+global.chatbot = new Chatbot({ name: "Moderation Man", gender: "Male" })
+global.CommandError = require("../items/classes/CommandError");
 
 client.commands = new Collection();
 client.events = new Collection();

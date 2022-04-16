@@ -11,7 +11,6 @@ const AFKUsers = require("../../schemas/afkSchema");
 const CountingSystems = require("../../schemas/countSysSchema");
 const colors = require("../../colors.json");
 const shell = require("shelljs");
-const CommandError = require("../../items/classes/CommandError");
 const BotError = require("../../items/classes/BotError");
 const CloseProcess = require("../../items/classes/CloseProcess");
 const utils = require("../../utils/");
