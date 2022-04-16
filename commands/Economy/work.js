@@ -393,6 +393,9 @@ module.exports = {
               .setDescription(
                 `Okay, for this mini-game, you need to remember what to do as a moderator. Let's get started.\n\n**Starting in 3.75 seconds...**`
               );
+            await interaction.editReply({
+              embeds: [mini_game_embed]
+            });
             setTimeout(async () => {
               new_mini_game_embed = new MessageEmbed()
                 .setColor(colors.yellow)
