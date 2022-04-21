@@ -21,6 +21,10 @@ label {
   color: #69fb69;
 }
 
+label:hover {
+  color: #1e83ba;
+}
+
 .crd-guild {
   border: 5px solid black;
   border-radius: 25px;
