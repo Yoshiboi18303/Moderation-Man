@@ -105,7 +105,8 @@ app.use("/servers", require("./routes/servers"));
 // app.use("/cookies", require("./routes/cookies"));
 
 app.get(["/", "/home"], (req, res) => {
-  var link = "https://discord.com/api/oauth2/authorize?client_id=891070722074611742&permissions=8&scope=bot%20applications.commands"
+  var link =
+    "https://discord.com/api/oauth2/authorize?client_id=891070722074611742&permissions=8&scope=bot%20applications.commands";
   res.status(200).render("index", {
     link,
     auth: req.isAuthenticated(),
@@ -120,18 +121,19 @@ app.get(["/cmds", "/commands"], (req, res) => {
 });
 
 app.get("/info", (req, res) => {
-  var guilds = client.guilds.cache.size
-  var users = client.users.cache.size
+  var guilds = client.guilds.cache.size;
+  var users = client.users.cache.size;
 
   res.status(200).render("info", {
     info: {
       guilds,
       users,
-      creationDate: new Date(client.user.createdAt)
+      creationDate: new Date(client.user.createdAt),
     },
     moment,
     client,
-  })
+    cYear,
+  });
 });
 
 app.get(["/developer", "/dev"], async (req, res) => {
@@ -146,7 +148,7 @@ app.get(["/features", "/feats"], (req, res) => {
 
 app.get("/invited", (req, res) => {
   if (!req.query.referral) return res.redirect("/");
-  res.status(200).render("invited", { bot, owner });
+  res.status(200).render("invited", { bot, owner, cYear });
 });
 
 app.get("/vote", (req, res) => {
@@ -158,7 +160,7 @@ app.get("/vote", (req, res) => {
 });
 
 app.get("/privacy", (req, res) => {
-  res.status(200).render("privacy");
+  res.status(200).render("privacy", { cYear });
 });
 
 app.get("/rules", (req, res) => {

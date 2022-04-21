@@ -35,8 +35,8 @@ module.exports = {
     message: "You shouldn't just spam this information in your server.",
   },
   /**
-    * @param {CommandInteraction} interaction
-  */
+   * @param {CommandInteraction} interaction
+   */
   async execute(interaction) {
     await interaction.deferReply();
     const user = interaction.options.getUser("user") || interaction.user;
@@ -60,15 +60,17 @@ module.exports = {
 
         function returnMessageCount() {
           var messages_sent = 0;
-          interaction.guild.channels.cache.filter((channel) => channel.type === "GUILD_TEXT").forEach((channel) => {
-            channel.messages.fetch().then((messages) => {
-              messages.forEach((message) => {
-                if(message.author.id === user.id) {
-                  messages_sent++;
-                }
-              })
-            })
-          })
+          interaction.guild.channels.cache
+            .filter((channel) => channel.type === "GUILD_TEXT")
+            .forEach((channel) => {
+              channel.messages.fetch().then((messages) => {
+                messages.forEach((message) => {
+                  if (message.author.id === user.id) {
+                    messages_sent++;
+                  }
+                });
+              });
+            });
           return messages_sent;
         }
 

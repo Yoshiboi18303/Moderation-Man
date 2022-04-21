@@ -18,9 +18,15 @@ module.exports = {
     // return await interaction.reply({ content: 'This command is broken and will be fixed soon!' })
     await interaction.deferReply();
     const message = interaction.options.getString("message");
-    chatbot.chat(message).then(async (response) => await interaction.followUp(`${response}`)).catch(async (e) => {
-      new CommandError("An error occurred while using the chatbot", e)
-      return await interaction.followUp({ content: "An error occurred while using the chatbot, this has been sent to the developers." })
-    })
+    chatbot
+      .chat(message)
+      .then(async (response) => await interaction.followUp(`${response}`))
+      .catch(async (e) => {
+        new CommandError("An error occurred while using the chatbot", e);
+        return await interaction.followUp({
+          content:
+            "An error occurred while using the chatbot, this has been sent to the developers.",
+        });
+      });
   },
 };
