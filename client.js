@@ -23,7 +23,6 @@ const statcord = new C({
 const { AutoPoster } = require("topgg-autoposter");
 const ap = AutoPoster(process.env.TOPGG_API_KEY, client);
 const Chatbot = require("discord-chatbot");
-const { DisTube } = require("distube");
 
 global.Discord = require("discord.js");
 global.client = client;
@@ -91,10 +90,6 @@ client.events = new Collection();
 client.mongoEvents = new Collection();
 client.stats = statcord;
 client.autoposter = ap;
-client.distube = new DisTube(client, {
-  plugins: [require("@distube/soundcloud"), require("@distube/spotify")],
-  searchSongs: 15,
-});
 
 const functions = fs
   .readdirSync("./functions/")

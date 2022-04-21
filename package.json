@@ -15,9 +15,6 @@
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
-    "@distube/soundcloud": "^1.1.0",
-    "@distube/spotify": "^1.2.1",
-    "@distube/yt-dlp": "^1.0.2",
     "@top-gg/sdk": "^3.1.2",
     "ascii-table": "^0.0.9",
     "bufferutil": "^4.0.4",
@@ -27,7 +24,6 @@
     "discord-api-types": "^0.24.0",
     "discord-chatbot": "^2.1.0",
     "discord.js": "^13.6.0",
-    "distube": "^3.3.4",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "express": "^4.17.1",
