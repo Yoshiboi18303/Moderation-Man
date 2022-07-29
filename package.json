@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
-    "@discordjs/rest": "^0.1.0-canary.0",
+    "@discordjs/rest": "^0.4.1",
     "@top-gg/sdk": "^3.1.2",
     "ascii-table": "^0.0.9",
     "bufferutil": "^4.0.4",
